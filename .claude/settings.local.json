@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(while read f)",
+      "Bash(do)",
+      "Bash(if ! head -1 \"$f\")",
+      "Bash(then)",
+      "Bash(fi)",
+      "Bash(done)",
+      "Bash(__NEW_LINE_d8aff03f1f1af5ca__ echo \"\")",
+      "Bash(__NEW_LINE_8c63075eecf05862__ echo \"\")",
+      "Bash(__NEW_LINE_f12bec90ea0d7cc1__ echo \"\")",
+      "Bash(__NEW_LINE_26b022da8fa09631__ echo \"\")",
+      "Bash(__NEW_LINE_02ff266a580b04d5__ echo \"\")",
+      "Bash(__NEW_LINE_c2a73c52e14ff8f6__ echo \"\")",
+      "Bash(__NEW_LINE_ef77be1091f89479__ echo \"\")",
+      "Bash(__NEW_LINE_27b853a319ae1fa1__ echo \"\")",
+      "Bash(__NEW_LINE_e6612fa30919510a__ echo \"\")"
+    ]
+  }
+}
