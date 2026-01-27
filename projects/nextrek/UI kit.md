@@ -4,6 +4,8 @@ YearMonth input
 - report
 Date selection
 
+Number input
+
 Subject menu
 - nested
 - Text filter
@@ -11,6 +13,14 @@ Subject menu
 
 Tags
 Contact
+
+File upload
+
+Report
+- Group - section rows
+- Subtotal
+- Collapse 
+- 
 
 Bulk action
 - apply tags
