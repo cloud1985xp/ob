@@ -186,13 +186,18 @@
   },
   "active": "4533bbee50819cee",
   "lastOpenFiles": [
+    "projects/rosetta/prps/DOCUMENT_SUBJECT_PACKAGE.md",
+    "/projects/rosetta/prps/DOCUMENT_SUBJECT_PACKAGE.md",
+    "/projects/rosetta/prps",
+    "projects/rosetta/prps",
+    "/projects/rosetta",
+    "/projects",
     "projects/nextrek/UI kit.md",
     "personal/venux/Main.md",
     "personal/venux",
     "/projects/nextrek/Main.md",
     "projects/nextrek/Main.md",
     "/projects/nextrek",
-    "/projects",
     "tech/tools/wireless-charging.md",
     "projects/doxrine/Main.md",
     "projects/nextrek/Journal Draft Imports.md",
@@ -216,11 +221,6 @@
     "_archive/2022/2022-01-14 Gihub Action Enterprise.md",
     "projects/polunga/dianose-how-sidekiq-occupied-such-much-memory.md",
     "tech/infra/aws/README.md",
-    "learning/goals/ccff7r.md",
-    "projects/polunga/project-spec.md",
-    "business",
-    "journal/2023",
-    "journal/2024",
-    "journal/2025"
+    "business"
   ]
 }
