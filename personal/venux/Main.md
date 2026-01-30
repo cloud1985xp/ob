@@ -1,16 +1,153 @@
 這是一個整合 comfyui 生成圖片與提示詞的管理系統
 
-主要目標
+技術選擇
+- Elixir + Phoenix + PostgreSQL
+- Liveview + TailwindCSS4 + Lucide Icon + esbuild 
 
-- 管理提示詞組與提示詞
+使用 phoenix auth 實作簡易的 user 登入
+
+## 主要服務
+
+這個系統主要讓使用者管理並使執行「ComfyUI 圖片生成的工作流」
+
+- 管理生成圖片的工作流 workflow，與生成的紀錄 (generation)
+- 管理提示詞
+- 挑選與編輯提示詞後呼叫外部服務(comfyui service) 的進行生成(generation)
 - 管理生成的圖片
-- 挑選與編輯提示詞後呼叫外部服務(comfyui service) 的生成新的圖片
-- 工作流管理
+- 管理專案與主題：每次的生成紀錄(generation)生成可被歸在某個主題下，主題則屬於專案
+- 標籤系統，來方更查找各種資源，包括提示詞、圖片、主題，或之後其他資源也可被套用標籤
+	- 請使用 Elixir/Phoenix 成熟的 tag 系統來實現
+- 檔案上傳至雲端服務，生成的圖片會再上傳到 AWS S3 存放
+	- 請使用與 Ecto 整合良好的 library 來實現
 
-主要目標
+## 資料模型結構
+
+所有 id 都採用 uuid 格式
+
+### User
+使用者，經由 Phoenix auth 產生的 user 的基本資料表
+
+### Project
+專案：user 可以建立多個專案，所有資源是歸屬於專案下
+欄位有：
+- name: 專案名稱
+- description: 專案描述
+- owner_id: belongs to user
+
+Has many
+- 
+
+### PromptCategory
+提示詞類型
+欄位有：
+- name: 類型名稱
+- project_id: belongs to project
+- editor_id: belongs to user
+
+### Prompt 
+會被用在執行 workflow 時輸入的提示詞，每個提示詞：
+- 是由一串文字組成，而且同時會有中、英文版本
+- 會屬於某一個提示詞分類
+- 可以有多個標籤(tags)，方便使用標籤系統
+欄位：
+- project_id: belongs_to project
+- editor_id: belongs_to user，誰編輯的
+- text_en: 提示詞的英文內容
+- text_zh: 提示詞的中文內容
+- category_id: belongs to prompt_category
+- remark: 備註欄文字
+
+Has many
+- workflow_inputs
+- workflows through workflow_inputs
+- prompt_changes
+
+### PromptChange
+另外要建立 prompt_changes 資料表
+- id
+- prompt_id: belongs to prompt
+- project_id
+- editor_id
+- text_en
+- text_zh
+- category_id
+- remark
+- event
+在建立 migration 時，請同時定義 postgresql 的 trigger，當 Prompt 的 text_en 或 text_zh 欄位有變動時
+就會將舊資料紀錄到 prompt_changes 裡，為了儲存變動前的歷史紀錄
+
+### Workflow
+工作流，對應會被傳至 comfyui 服務的工作流/檔案
+每個工作流會定義有多個可被輸入的參數，是讓使用者在每次實際執行時可自訂輸入的的提示詞
+
+- project: belongs to project
+- creator: belongs to user
+- title: 自訂的標題
+- description: workflow 的說明文字
+- content: json 格式，即 comfyui 的 workflow json 檔案內容
+
+Has many:
+- workflow_inputs
+- generations
+
+### Workflow Input
+- workflow: belongs to workflow
+- identifier: 文字，在 workflow json 裡對應的 input 參數名稱
+- prompt_category_id: belongs_to prompt_category，表示這個 input 是哪種類型的 input
+- prompt_id: belongs to prompt，代表預設的 prompt input，是 optional 的
+
+### Generation
+每用工作流執行一次生成，就會建立一筆 Generation 的紀錄
+有點類似： Workflow 是 template, Generation 是產生的 instance
+為了可以重複執行生成，未來可以實作 re-run generation 的功能
+
+欄位有：
+- project_id: belongs_to project
+- workflow_id: belongs_to workflow
+- trigger: string 紀錄觸發的來源，例如 user 的 email，或者某個 event 名稱
+- parameters: json，紀錄實際執行時傳入的各種 input 的參數內容
+
+Has many
+- generated_images
+### Generated Image
+
+
+
+Subject
+WorkflowSubject
+
+功能架構
+
+帳號系統與專案機制
+- 建立基本的 User 登入機制
+- Project based， 每個 user 可以建立多個 project，所有可操作的資源都是歸於 project 下
+	- 每個 user 都會有一個預設專案
+
+
+
+
+基本管理功能
+
+工作流管理：workflow 的 CRUD 管理
+提示詞管理：prompt 的 CRUD 管理
+提示詞類型的管理：prompt_category 的 CRUD 管理
+主題的管理：subject 的 CRUD 管理
+
+進階功能
+
+圖片管理：
+主題：subject
+
+資料架構
+
+管理 workflow
+
+
+
+提示詞組
+
 
 一、產生提示詞作為 comfyui workflow 輸入參數發送給 comfyui service 啟動圖片生成任務，任務完成後將生成的圖片存回系統
-
 
 二、輸入圖片網址或檔案，呼叫外部工具解析圖片的生成提示詞，存入系統
 
