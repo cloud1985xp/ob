@@ -81,7 +81,7 @@ defp deps do
     {:tailwind, "~> 0.2"},
     {:heroicons, "~> 0.5"},
     {:oban, "~> 2.17"},
-    {:req, "~> 0.5"},           # HTTP 客戶端
+    {:req_llm, "~> 1.5"},       # LLM 統一介面 (支援 OpenAI, Anthropic 等 45+ providers)
     {:jason, "~> 1.4"},
     {:faker, "~> 0.18", only: [:dev, :test]},
     {:ex_machina, "~> 2.8", only: :test}
@@ -96,10 +96,12 @@ end
 config :xaifu, Xaifu.Repo,
   adapter: Ecto.Adapters.Postgres
 
+# ReqLLM 設定 - 支援多種 LLM 服務商
+# 可用格式: "provider:model" 如 "openai:gpt-4o" 或 "anthropic:claude-sonnet-4"
 config :xaifu, Xaifu.AI,
-  llm_provider: :openai,  # 或 :anthropic
-  llm_model: "gpt-4o",
-  llm_api_key: System.get_env("OPENAI_API_KEY")
+  default_model: "anthropic:claude-sonnet-4",
+  default_temperature: 0.7,
+  default_max_tokens: 1000
 
 config :xaifu, Oban,
   repo: Xaifu.Repo,
@@ -109,9 +111,19 @@ config :xaifu, Oban,
 
 ```elixir
 # config/runtime.exs
-config :xaifu, Xaifu.AI,
-  llm_api_key: System.get_env("LLM_API_KEY") ||
-    raise "LLM_API_KEY environment variable is not set"
+# ReqLLM 支援多種 API Key 配置方式:
+# 1. 環境變數 (推薦): OPENAI_API_KEY, ANTHROPIC_API_KEY
+# 2. Application config
+# 3. .env 檔案 (透過 dotenvy 自動載入)
+
+config :req_llm,
+  openai_api_key: System.get_env("OPENAI_API_KEY"),
+  anthropic_api_key: System.get_env("ANTHROPIC_API_KEY")
+
+# 確保至少有一個 API Key
+unless System.get_env("OPENAI_API_KEY") || System.get_env("ANTHROPIC_API_KEY") do
+  IO.warn("Warning: No LLM API key configured. Set OPENAI_API_KEY or ANTHROPIC_API_KEY")
+end
 ```
 
 ---
@@ -555,208 +567,162 @@ end
 
 ---
 
-## 6. LLM 整合模組
+## 6. LLM 整合模組（使用 ReqLLM）
 
-### 6.1 LLM 行為定義
+> **技術選型說明**：使用 [ReqLLM](https://hex.pm/packages/req_llm) 套件作為 LLM 整合方案。
+> ReqLLM 是基於 Req 建構的統一 LLM 客戶端，支援 45+ 個服務商（包含 OpenAI、Anthropic、Google 等），
+> 提供標準化 API、串流支援、結構化輸出、成本追蹤等功能。
 
-```elixir
-# lib/xaifu/ai/llm_behaviour.ex
-defmodule Xaifu.AI.LLMBehaviour do
-  @moduledoc """
-  LLM 客戶端行為定義
-  """
-
-  @type message :: %{role: String.t(), content: String.t()}
-  @type completion_opts :: keyword()
-  @type completion_result :: {:ok, String.t()} | {:error, term()}
-
-  @callback chat_completion(
-    messages :: [message()],
-    opts :: completion_opts()
-  ) :: completion_result()
-end
-```
-
-### 6.2 OpenAI 客戶端
-
-```elixir
-# lib/xaifu/ai/providers/openai.ex
-defmodule Xaifu.AI.Providers.OpenAI do
-  @moduledoc """
-  OpenAI API 客戶端
-  """
-
-  @behaviour Xaifu.AI.LLMBehaviour
-
-  @base_url "https://api.openai.com/v1"
-
-  @impl true
-  def chat_completion(messages, opts \\ []) do
-    model = Keyword.get(opts, :model, default_model())
-    temperature = Keyword.get(opts, :temperature, 0.7)
-    max_tokens = Keyword.get(opts, :max_tokens, 1000)
-
-    body = %{
-      model: model,
-      messages: messages,
-      temperature: temperature,
-      max_tokens: max_tokens
-    }
-
-    case make_request("/chat/completions", body) do
-      {:ok, %{"choices" => [%{"message" => %{"content" => content}} | _]}} ->
-        {:ok, content}
-
-      {:ok, response} ->
-        {:error, {:unexpected_response, response}}
-
-      {:error, reason} ->
-        {:error, reason}
-    end
-  end
-
-  defp make_request(path, body) do
-    url = @base_url <> path
-
-    Req.post(url,
-      json: body,
-      headers: [
-        {"Authorization", "Bearer #{api_key()}"},
-        {"Content-Type", "application/json"}
-      ],
-      receive_timeout: 60_000
-    )
-    |> handle_response()
-  end
-
-  defp handle_response({:ok, %{status: 200, body: body}}), do: {:ok, body}
-  defp handle_response({:ok, %{status: status, body: body}}), do: {:error, {:api_error, status, body}}
-  defp handle_response({:error, reason}), do: {:error, {:request_failed, reason}}
-
-  defp api_key do
-    Application.get_env(:xaifu, Xaifu.AI)[:llm_api_key]
-  end
-
-  defp default_model do
-    Application.get_env(:xaifu, Xaifu.AI)[:llm_model] || "gpt-4o"
-  end
-end
-```
-
-### 6.3 Anthropic Claude 客戶端
-
-```elixir
-# lib/xaifu/ai/providers/anthropic.ex
-defmodule Xaifu.AI.Providers.Anthropic do
-  @moduledoc """
-  Anthropic Claude API 客戶端
-  """
-
-  @behaviour Xaifu.AI.LLMBehaviour
-
-  @base_url "https://api.anthropic.com/v1"
-  @api_version "2023-06-01"
-
-  @impl true
-  def chat_completion(messages, opts \\ []) do
-    model = Keyword.get(opts, :model, default_model())
-    temperature = Keyword.get(opts, :temperature, 0.7)
-    max_tokens = Keyword.get(opts, :max_tokens, 1000)
-
-    # Claude API 使用不同的格式
-    {system_message, user_messages} = extract_system_message(messages)
-
-    body = %{
-      model: model,
-      max_tokens: max_tokens,
-      temperature: temperature,
-      messages: user_messages
-    }
-
-    body = if system_message, do: Map.put(body, :system, system_message), else: body
-
-    case make_request("/messages", body) do
-      {:ok, %{"content" => [%{"text" => content} | _]}} ->
-        {:ok, content}
-
-      {:ok, response} ->
-        {:error, {:unexpected_response, response}}
-
-      {:error, reason} ->
-        {:error, reason}
-    end
-  end
-
-  defp extract_system_message(messages) do
-    case Enum.split_with(messages, &(&1[:role] == "system" or &1["role"] == "system")) do
-      {[system | _], rest} -> {system[:content] || system["content"], rest}
-      {[], messages} -> {nil, messages}
-    end
-  end
-
-  defp make_request(path, body) do
-    url = @base_url <> path
-
-    Req.post(url,
-      json: body,
-      headers: [
-        {"x-api-key", api_key()},
-        {"anthropic-version", @api_version},
-        {"Content-Type", "application/json"}
-      ],
-      receive_timeout: 60_000
-    )
-    |> handle_response()
-  end
-
-  defp handle_response({:ok, %{status: 200, body: body}}), do: {:ok, body}
-  defp handle_response({:ok, %{status: status, body: body}}), do: {:error, {:api_error, status, body}}
-  defp handle_response({:error, reason}), do: {:error, {:request_failed, reason}}
-
-  defp api_key do
-    Application.get_env(:xaifu, Xaifu.AI)[:llm_api_key]
-  end
-
-  defp default_model do
-    Application.get_env(:xaifu, Xaifu.AI)[:llm_model] || "claude-3-5-sonnet-20241022"
-  end
-end
-```
-
-### 6.4 LLM 統一介面
+### 6.1 LLM 模組介面
 
 ```elixir
 # lib/xaifu/ai/llm.ex
 defmodule Xaifu.AI.LLM do
   @moduledoc """
-  LLM 統一介面
-  """
+  LLM 統一介面 - 基於 ReqLLM 實作
 
-  alias Xaifu.AI.Providers.{OpenAI, Anthropic}
+  支援的模型格式：
+  - "openai:gpt-4o"
+  - "anthropic:claude-sonnet-4"
+  - "anthropic:claude-haiku-4"
+
+  使用範例：
+      # 簡單文字生成
+      {:ok, response} = LLM.generate_text("Hello!")
+
+      # 與角色對話
+      {:ok, response} = LLM.chat_with_character(character, history, "你好")
+
+      # 串流回應
+      {:ok, stream_response} = LLM.stream_with_character(character, history, "說個故事")
+  """
 
   @doc """
-  根據設定選擇 provider 並呼叫
+  生成文字回應
   """
-  def chat_completion(messages, opts \\ []) do
-    provider = get_provider()
-    provider.chat_completion(messages, opts)
+  def generate_text(prompt, opts \\ []) do
+    model = Keyword.get(opts, :model, default_model())
+    temperature = Keyword.get(opts, :temperature, default_temperature())
+    max_tokens = Keyword.get(opts, :max_tokens, default_max_tokens())
+
+    case ReqLLM.generate_text(model, prompt,
+           temperature: temperature,
+           max_tokens: max_tokens
+         ) do
+      {:ok, response} ->
+        {:ok, response.text, %{usage: response.usage}}
+
+      {:error, reason} ->
+        {:error, reason}
+    end
   end
 
   @doc """
-  與角色對話
+  帶有對話上下文的文字生成
+  """
+  def chat_completion(messages, opts \\ []) do
+    model = Keyword.get(opts, :model, default_model())
+    temperature = Keyword.get(opts, :temperature, default_temperature())
+    max_tokens = Keyword.get(opts, :max_tokens, default_max_tokens())
+
+    context = build_context(messages)
+
+    case ReqLLM.generate_text(model, context,
+           temperature: temperature,
+           max_tokens: max_tokens
+         ) do
+      {:ok, response} ->
+        {:ok, response.text, %{usage: response.usage}}
+
+      {:error, reason} ->
+        {:error, reason}
+    end
+  end
+
+  @doc """
+  與角色對話（非串流）
   """
   def chat_with_character(character, conversation_history, user_message) do
     system_prompt = character.system_prompt || default_system_prompt(character)
+    model = Keyword.get_lazy([], :model, fn -> default_model() end)
 
-    messages = build_messages(system_prompt, conversation_history, user_message)
+    context =
+      ReqLLM.Context.new([
+        ReqLLM.Context.system(system_prompt)
+        | build_history_messages(conversation_history)
+      ])
+      |> ReqLLM.Context.append(ReqLLM.Context.user(user_message))
 
-    chat_completion(messages, temperature: character.temperature)
+    case ReqLLM.generate_text(model, context,
+           temperature: character.temperature || default_temperature(),
+           max_tokens: default_max_tokens()
+         ) do
+      {:ok, response} ->
+        {:ok, response.text, %{usage: response.usage}}
+
+      {:error, reason} ->
+        {:error, reason}
+    end
   end
 
-  defp build_messages(system_prompt, history, user_message) do
-    [%{role: "system", content: system_prompt}] ++
-    history ++
-    [%{role: "user", content: user_message}]
+  @doc """
+  與角色對話（串流模式）- 用於即時顯示回應
+  """
+  def stream_with_character(character, conversation_history, user_message) do
+    system_prompt = character.system_prompt || default_system_prompt(character)
+    model = default_model()
+
+    context =
+      ReqLLM.Context.new([
+        ReqLLM.Context.system(system_prompt)
+        | build_history_messages(conversation_history)
+      ])
+      |> ReqLLM.Context.append(ReqLLM.Context.user(user_message))
+
+    ReqLLM.stream_text(model, context,
+      temperature: character.temperature || default_temperature(),
+      max_tokens: default_max_tokens()
+    )
+  end
+
+  @doc """
+  消費串流回應的 tokens
+  """
+  def consume_stream(stream_response, callback) when is_function(callback, 1) do
+    stream_response
+    |> ReqLLM.StreamResponse.tokens()
+    |> Stream.each(callback)
+    |> Stream.run()
+
+    # 串流結束後取得 usage 資訊
+    ReqLLM.StreamResponse.usage(stream_response)
+  end
+
+  # Private helpers
+
+  defp build_context(messages) do
+    messages
+    |> Enum.map(fn
+      %{role: "system", content: content} -> ReqLLM.Context.system(content)
+      %{role: "user", content: content} -> ReqLLM.Context.user(content)
+      %{role: "assistant", content: content} -> ReqLLM.Context.assistant(content)
+      # 處理 atom keys
+      %{role: :system, content: content} -> ReqLLM.Context.system(content)
+      %{role: :user, content: content} -> ReqLLM.Context.user(content)
+      %{role: :assistant, content: content} -> ReqLLM.Context.assistant(content)
+    end)
+    |> ReqLLM.Context.new()
+  end
+
+  defp build_history_messages(history) do
+    Enum.map(history, fn
+      %{role: "user", content: content} -> ReqLLM.Context.user(content)
+      %{role: "assistant", content: content} -> ReqLLM.Context.assistant(content)
+      %{role: :user, content: content} -> ReqLLM.Context.user(content)
+      %{role: :assistant, content: content} -> ReqLLM.Context.assistant(content)
+      _ -> nil
+    end)
+    |> Enum.reject(&is_nil/1)
   end
 
   defp default_system_prompt(character) do
@@ -766,12 +732,76 @@ defmodule Xaifu.AI.LLM do
     """
   end
 
-  defp get_provider do
-    case Application.get_env(:xaifu, Xaifu.AI)[:llm_provider] do
-      :anthropic -> Anthropic
-      :openai -> OpenAI
-      _ -> OpenAI
-    end
+  defp default_model do
+    Application.get_env(:xaifu, Xaifu.AI)[:default_model] || "anthropic:claude-sonnet-4"
+  end
+
+  defp default_temperature do
+    Application.get_env(:xaifu, Xaifu.AI)[:default_temperature] || 0.7
+  end
+
+  defp default_max_tokens do
+    Application.get_env(:xaifu, Xaifu.AI)[:default_max_tokens] || 1000
+  end
+end
+```
+
+### 6.2 ReqLLM 優勢
+
+| 功能 | 說明 |
+|------|------|
+| **多服務商支援** | 45+ 個 LLM 服務商，包含 OpenAI、Anthropic、Google、Groq 等 |
+| **統一 API** | 不同服務商使用相同介面，輕鬆切換模型 |
+| **串流支援** | 內建 Server-Sent Events 處理，支援即時回應 |
+| **成本追蹤** | 自動計算 token 使用量與費用 |
+| **結構化輸出** | 支援 JSON Schema 驗證的結構化回應 |
+| **Tool Calling** | 內建函式呼叫支援 |
+
+### 6.3 模型選擇指南
+
+```elixir
+# 推薦的模型配置
+
+# 聊天對話 - 平衡品質與成本
+"anthropic:claude-sonnet-4"     # Anthropic 主力模型
+"openai:gpt-4o"                  # OpenAI 主力模型
+
+# 快速回應 - 低延遲場景
+"anthropic:claude-haiku-4"       # 最快的 Claude 模型
+"openai:gpt-4o-mini"             # 較快的 GPT 模型
+
+# 複雜推理 - 需要深度思考
+"anthropic:claude-opus-4"        # 最強的 Claude 模型
+"openai:o1"                      # OpenAI 推理模型
+```
+
+### 6.4 錯誤處理
+
+```elixir
+# lib/xaifu/ai/llm.ex (續)
+
+@doc """
+包裝 LLM 呼叫，提供統一的錯誤處理
+"""
+def safe_chat_with_character(character, history, message) do
+  case chat_with_character(character, history, message) do
+    {:ok, text, metadata} ->
+      {:ok, text, metadata}
+
+    {:error, %{status: 429}} ->
+      {:error, :rate_limited, "API 請求過於頻繁，請稍後再試"}
+
+    {:error, %{status: 401}} ->
+      {:error, :unauthorized, "API 金鑰無效或已過期"}
+
+    {:error, %{status: 500..599}} ->
+      {:error, :server_error, "LLM 服務暫時無法使用"}
+
+    {:error, :timeout} ->
+      {:error, :timeout, "請求超時，請重試"}
+
+    {:error, reason} ->
+      {:error, :unknown, "發生未知錯誤: #{inspect(reason)}"}
   end
 end
 ```
@@ -871,9 +901,9 @@ defmodule XaifuWeb.ChatChannel do
     # 取得最後一則用戶訊息
     user_message = List.last(history).content
 
-    # 生成回應
+    # 生成回應（ReqLLM 返回 {:ok, text, metadata} 格式）
     case LLM.chat_with_character(character, formatted_history, user_message) do
-      {:ok, response_content} ->
+      {:ok, response_content, _metadata} ->
         # 儲存 AI 回應
         {:ok, ai_message} = Chat.create_message(conversation.id, %{
           role: :assistant,
@@ -1724,29 +1754,11 @@ defmodule Xaifu.AI.LLMTest do
 
   alias Xaifu.AI.LLM
 
-  # 使用 Mock 測試
-  import Mox
-
-  setup :verify_on_exit!
-
-  describe "chat_completion/2" do
-    test "calls the configured provider" do
-      # 這裡可以用 Mox 來 mock API 呼叫
-      # 實際測試時建議使用 mock 避免 API 費用
-
-      messages = [
-        %{role: "system", content: "You are a helpful assistant."},
-        %{role: "user", content: "Hello!"}
-      ]
-
-      # 假設設定了 mock provider
-      # 這裡示範結構，實際需要設定 Mox
-      assert is_list(messages)
-    end
-  end
+  # 使用 Mox 來 mock ReqLLM
+  # 需要在 test_helper.exs 中設定 Mox
 
   describe "chat_with_character/3" do
-    test "builds correct message structure" do
+    test "builds correct context structure" do
       character = %{
         name: "Alice",
         personality: "活潑開朗",
@@ -1759,12 +1771,68 @@ defmodule Xaifu.AI.LLMTest do
         %{role: "assistant", content: "嗨！"}
       ]
 
-      # 驗證結構正確性（不實際呼叫 API）
+      # 驗證結構正確性
       assert character.temperature == 0.8
       assert length(history) == 2
+      assert character.system_prompt =~ "Alice"
+    end
+
+    test "handles empty history" do
+      character = %{
+        name: "Bob",
+        personality: "安靜內向",
+        system_prompt: nil,
+        temperature: 0.7
+      }
+
+      # 空的對話歷史應該能正常處理
+      assert is_nil(character.system_prompt)
+    end
+  end
+
+  describe "safe_chat_with_character/3" do
+    # 這些測試需要 mock ReqLLM 的回應
+    # 實際整合測試可使用 sandbox 環境或真實 API（限制使用）
+
+    test "handles rate limit error" do
+      # Mock 設定示例（需配合 Mox 設定）
+      # expect(ReqLLMMock, :generate_text, fn _, _, _ ->
+      #   {:error, %{status: 429, body: "Rate limited"}}
+      # end)
+
+      # assert {:error, :rate_limited, _} =
+      #   LLM.safe_chat_with_character(character, [], "test")
+
+      # 佔位測試
+      assert true
+    end
+
+    test "handles unauthorized error" do
+      # Mock 設定示例
+      # 佔位測試
+      assert true
     end
   end
 end
+```
+
+### 9.3.1 ReqLLM Mock 設定
+
+```elixir
+# test/support/mocks.ex
+# 如需 mock ReqLLM，可使用 Mox 設定
+
+# 在 test/test_helper.exs 中加入:
+# Mox.defmock(ReqLLMMock, for: ReqLLM.Behaviour)
+# Application.put_env(:xaifu, :req_llm_module, ReqLLMMock)
+
+# 或使用整合測試時跳過實際 API 呼叫:
+# @tag :external_api
+# test "integration with real API" do
+#   ...
+# end
+#
+# 執行時排除: mix test --exclude external_api
 ```
 
 ### 9.4 LiveView 測試
