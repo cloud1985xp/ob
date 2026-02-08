@@ -425,3 +425,31 @@ input3: 指定為 prompt5
 並請把分析規劃的結果與開發計畫，存在 docs/ 目錄下
 
 確認計畫沒問題後，就開始實作開發
+
+
+
+ 我要將 GenerationInput 改成用 table 存，並加上關聯，最終欄位為
+
+- identifier: string
+- prompt_category_id: belongs to prompt_category(optional)
+- prompt_id: belongs to prompt(optional)
+- prompt_text: text, optional
+
+請更新與 Generation 的關聯，以及調整 changeset 的處理
+並確保在 GenerationLive.New 時寫入 generation 及 generation inputs
+是從 Generation 所屬的 Workflow 對應的 workflow input，將 prompt_category_id 的值指定到對應的 GenerationInput.prompt_category_id
+
+在 GenerationInput 增加一個 amount 欄位，型態為 integer，預設值為 0，並更新對應的 changeset
+
+修改 GenerationLive.New 在設定每筆 generation input 時，可以輸入 amount
+
+# 修正 Generation Form
+
+請檢查並修正 Generation.New 裡的表單行為
+
+傳入的 overrides 參數並沒有正確的被寫進
+GenerationInput 的 prompt_id, amount 欄位
+
+另外請將表單拆出成一個可以 re-use 的 component
+然後對 Generation 加上 Edit 頁面，使用相同的 form 
+並實作編輯的功能

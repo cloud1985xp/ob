@@ -56,3 +56,117 @@ tags:
 等於同時建立 api 文件以及 mock api 供測試
 
 請評估適合的解決方案
+
+
+請將 journal_drafts_controller 的功能的頁面中
+Selection Bar 裡的「對象」與「標籤」的 selector，都換成 tagify 的版本
+
+繼續調整 select 相關的前端元件，完成以下需求
+
+一、優化 tagify_controller.js
+請參考舊版的 TagifyWithApiSearch.js
+檢查並調整 tagify_controller.js 成支援跟 TagifyWithApiSearch.js 一樣的 data-attributes 選項，包括：
+
+- 可設定 apiUrl
+- 可設定是否啟用 api search: useApiSearch: true/false
+- 可設定最多多少選項: maxTags
+- 從 data-attributes 設定選項清單: whitelist 
+- 若有 data-existed-values 就用 data-existed-values 判斷已選取的項目，若無則從 input 本身的 value
+
+二、調整  tag_select_controller.js 與 contac_select_controller.js
+請將基於 tom_select_base_controller.js 版本的 tag_selector_controller.js 和 contact_selector_controller.js
+調整成像 tagify_controller 的功能，包括：
+
+- 仍然基於 tom_select，但
+- 支援 api 查詢
+- 用 data-attribute 控制是否要啟用 api 查詢
+- 和 tagify 版本用同樣的 data-attributes 來控制
+	- 可設定 apiUrl
+	- 可設定是否啟用 api search: useApiSearch: true/false
+	- 可設定最多多少選項: maxTags
+	- 從 data-attributes 設定選項清單: whitelist 
+	- 若有 data-existed-values 就用 data-existed-values 判斷已選取的項目，若無則從 input 本身的 value
+
+請參考以下 commits:
+- 8f672fab946a6332c4ecdcf4c14589149948ec21
+- 192bdce6114cc7bb27fe7049b421fa327967bbba
+裡的修改
+將 journal_drafts_controller 的功能的頁面中
+Selection Bar 裡的「對象」與「標籤」的選項也加上對應的 data-attributes 
+可能會需要在  HasGroupAssets 裡調整產生給新版 (stimulus) 版本的 input_data
+
+
+ex:
+```
+#tags_input_data(:stimulus)
+#contacts_input_data(:stimulus)
+```
+
+
+目的是為了讓在 Selection Bar 的對象&標籤 input 中，要使用從 data attributes 傳入的設定，包括
+- whitelist options
+- apiUrl 與 useApiSearch 等設定
+
+
+# 建立「收款原因」 input 元件
+
+我要新的前端 stack 架構下建立「收款原因」的 input 共用元件
+參考舊版前端 stack 的下的設計，migrate 成新版架構的元件，且易於各處表單可重複使用
+
+「收款原因」的元件可命名為 subject_menu
+
+主要行為是依當下 group 所擁有 menu 資料，render 出階層(2層)式的選單
+- 第一層是選項分類
+- 第二層是會被選取的目標選項
+- 第一層分類被 hover 時，展開第二層選單
+	- 第二層選單仍會帶有該分類標題
+
+同時這個選單會帶有一個 text field 可以讓使用者用文字輸入的方式，篩選選項
+- 當有輸入文字時進行篩選，會將符合的選項直接用第二層選單的樣式展開出現
+
+請參考：
+
+- `app/views/accountings/journals/_form.html.erb`  中的 `data-role="subject-dropdown-menu"` 的 DOM 元素，了解 html 結構
+- `assets/javascript/components/subject_menu.js.coffee` 了解 javascript 的設計邏輯
+- `app/assets/javascripts/components/journal_form.js.coffee` 中：
+  ```
+  @subjectMenu = new SubjectMenu @dom.find('[data-role=subject-dropdown-menu]')...
+  ```
+  等程式碼，理解該元件如何被使用的情境
+
+## 實作內容
+將產生 html 結構的部分製作成 FormHelper#subjet_menu_input 方法，傳入所需的參數(包括 form_builder 物件與 subject menu 的資料)，來產生 menu html
+
+搭配新版前端的元件，例如 subject_menu_input_controller.js 裡實現對應的前端互動行為
+
+期望的使用方式：
+
+ex:
+```ruby
+<% simple_form_for(some_form) do |f| %>
+
+  <%= subjet_menu_input(f, current_group, :subject_id) %>
+
+<% end %>
+```
+
+其中 
+- f 是 form_builder 
+- current_group 是當前的群組帳本，會帶有 #fetch_menu_cache 方法取得 menu 資料
+- :subject_id 則是這次對 form build 所要呼叫 input field 的名稱
+
+請研究清楚後規劃實作方法，確認後開始進行
+若資訊不夠清楚，可再多參考其他相關檔案的程式碼
+對於前端互動行為若有不妥善之處，也提出建議討論如果修改
+
+# 套用收付原因至 journal_drafts 功能
+
+請將新的收付原因元件(subject_menu)，套用至 journal_drafts_controller 的功能的頁面中，包括
+
+- Row Template 中的 Reason 欄位
+- Selection Bar 中的 bulk-input-reason 欄位
+
+正確的用法會需要用 simple_form_for 產一個 form builder，所以 controller 中應該要定義一個 form object 來給 form_for 使用
+
+請參考 Accountings::JournalDraftsLegacyController#index 裡的 index 的作法 (包括 #load_draft_data 方法)
+若有需要可以先用假資料來建立一個 form object
