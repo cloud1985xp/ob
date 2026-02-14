@@ -170,3 +170,75 @@ ex:
 
 請參考 Accountings::JournalDraftsLegacyController#index 裡的 index 的作法 (包括 #load_draft_data 方法)
 若有需要可以先用假資料來建立一個 form object
+
+
+# 實作 JournalDraftForm
+
+
+
+# 製作 Dropzone Controller
+
+用 stimulus 包裝 Dropzone 套件來製作一個可公用的 dropzone 前端元件
+
+用新版 stack 來建立 app/javascript/controller/dropzone_controller.js
+
+預期使用方法
+
+```
+<div data-controller="dropzone">
+  <input name="file" 
+    data-dropzone-target="input" 
+    data-dropzone-preview-template-value="[data-role=dropzone-template]"
+    data-dropzone-previews-contaienr-value="[data-role=dropzone-container]"
+    />
+</div>
+
+<div data-role="dropzone-template">
+  ... 給 dropzone 使用的進度模板內容
+</div>
+
+<div data-role="dropzone-container">
+  ... 給 dropzone 顯示上傳區的容器內容
+</div>
+```
+
+- 用該 input 欄位的 name 做為檔案上傳的 input name
+- 用 preview-template 和 preview-container 這兩個 value，來分別指向 dropzone 所需要的 previewTemplate 和 previewsContainer 的 dom selector，在 dropzone 被初始化前，會先用這兩個 selector 找到對應的 dom，傳給 dropzone
+- dropzone_controller 本身內建兩組預設參數，分別代表 import 與 attachment 模式
+	- import 預設參數：
+		- maxFiles: 1,
+		- maxFilesize: 10,
+		- acceptedFiles: ".csv,.xlsx,.xls",
+	- attachment 預設參數：
+		- maxFiles: 4,
+		- maxFilesize: 5,
+		- acceptedFiles: ".jpg,.jpeg,.png,.pdf,.zip,.rar",
+- 用 data attribute(value) 來決定要用哪種模式，預設是 attachment
+- DropZone 的 config 都可以再用 input 元素的 data-attribute(value) 來設定
+
+
+
+
+# 修正 Subject Menu Input 樣式
+請調整 FormHelper#subjet_menu_input 產生出來的 subjet menu
+應該要長得像附檔圖片中的樣式
+而且目前有以下的問題：
+
+- 當 input 在畫面靠底部，空間不夠顯示時，選單應該向上方展開，而非擠開下方畫面
+	- 同理，在靠畫面右方空間不夠時，要向左方展開
+- 整個 dropdown menu 應該要浮現在其他元素之上，目前有 z-index 的問題，會被其他元素 overflow 狀態下裁切掉
+- 最末層的選項要帶有 subject code
+
+請詳細參考舊版元件
+
+
+- `app/views/accountings/journals/_form.html.erb`  中的 `data-role="subject-dropdown-menu"` 的 DOM 元素，了解 html 結構
+- `assets/javascript/components/subject_menu.js.coffee` 了解 javascript 的設計邏輯
+- `app/assets/javascripts/components/journal_form.js.coffee` 中：
+  ```
+  @subjectMenu = new SubjectMenu @dom.find('[data-role=subject-dropdown-menu]')...
+  ```
+  等程式碼，理解該元件如何被使用的情境
+
+附圖樣式：
+![[Pasted image 20260210201502.png]]
