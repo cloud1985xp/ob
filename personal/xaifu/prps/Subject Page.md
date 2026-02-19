@@ -70,3 +70,97 @@ Subject 封面的定義方式目前未實作，可以先把方法建立，內容
 
 注意不可破壞 SubjectLive.Show 與 GenerationLive.Show 自身原本的功能
 
+## 調整 SubjectLive.Show 與 GenerationLive
+
+在 SubjectLive.Show 的畫面，圖片列表的上方，也加上與該 Subject 相關的 Generation List
+跟 PromptLive.Show 一樣，請把這個 Generation List 也做成共用的 Component
+GenerationList 裡的 Generation 用 GenerationCard 來實現
+
+ 並調整 GenerationList  與 GenerationCard，
+ 在 GenerationList 要 preload 每個 generation 的最近十筆 generated Images
+ 並在 GenerationCard 裡用水平排列呈現 image 的 thumb 縮圖
+ 如果 PromptLive.Index
+
+# 調整 Gallery 畫面
+
+將 Gallery Index 的圖片列表，調整成跟 Subject Show 裡的 圖片列表一樣
+- 加上右側圖片資訊欄
+- 點擊圖片會顯示圖片資訊
+- 圖片資訊欄有 Full View 可展開圖片
+- Full View 可以切換上一張、下一頁圖片
+
+請將以下三處相同的行為整理為使用共同的組件來實現，包括
+- Subject Show 裡的圖片列表
+- Generation Show 裡的圖片列表
+- 以及這次的 Gallery Index 裡的圖片列
+
+
+# 調整 PromptLive 畫面
+
+請將 PromptLive 改成 PromptLive.Index
+並讓列表中的 prompt 可以被點擊瀏覽，進到 PromptLive.Show 頁面
+並加上以下的調整：
+
+## PromptLive.Show
+- 將原本放在 PromptLive 裡的「編緝」 與 「刪除」 Prompt 的功能，移到 PromptLive.Show 
+- 在 PromptLive.Show 頁面，顯示
+	- 名稱
+	- 所屬 category
+	- 英文內容
+	- 中文內容
+	- 備註
+- 並且列出
+	- 全部相關的 generations
+		- 請將 GenerationLive.Index 中的 generation 列表，每筆 generation 的呈現重構成 GenerationCard Component
+		- 並在這裡 PrompLive.Show 裡列出相關 generations 使用同樣的 GenerationCard
+			- 點擊後會進行 GenerationLive.Show
+	- 相關的 generated images
+		- 請重複利用 Gallery Component 來顯示 images
+		- 一樣要有 infinite scroll 來載入更多 image
+		- 一樣設計成點擊圖片，在側邊欄顯示 info
+		- 一樣在側欄欄 info 可以切換成 full view
+		- 請參考 SubjectLive.Show, GenerationLive.Show 的作法，使用相同的 component
+
+# PromptLive.Index
+PromptLive.Index 中，對讀入的 prompts 列表
+- 每個 prompt 要 preload 最新的 10 筆 generated images
+- 在列表中顯示每筆 prompt 顯示這些 images 的 thumb 
+	- 用水平的方式排列顯示 image
+
+
+
+
+# (wip)從 Generation Show 快建更新
+
+我要在 Generation Show 的畫面，直接可以快速調整 Generation 並執行
+修改需求如下：
+
+- 將現在顯示 Input Configuration 調整成一個表單，
+- 表單裡照目前顯示每個 Generation Input，但每個都有一個編輯圖示，點擊後可以設定該 generation input，包括
+	- 可以直接從下拉選單選擇同 category 的 prompt
+	- 同時也有一個 textarea 可以直接輸入新的 prompt text
+	- 也可以設定 amount 
+- 表單按下送出後，處理的邏輯如下：
+	- 如果有輸入 textarea 內容，會新建立一個新的 prompt，在對應的 category 下
+	- 然後將對應的 generation input 改成使用這個新建立的 prompt
+	- 
+
+# (tbd)調整 Subject Index 
+將 Subject 改成類似表格呈現，但仍用 grid 實作
+每一列是一個 subject
+
+調整 Projects.list_subjects_with_images 的 query：
+- 目前已可透過 opts 傳入一個 target workflow，預設為第一個，來 preload 對應的 generations
+	- 要把該 workflow 的 workflow input 和 prompt category 也載入
+	- 要把對應的 generations 的 generation input 也載入
+
+
+調整列表的呈現
+欄位包括
+- subject name
+- subject description
+- 顯示一張 generation 的 image
+- 當前 workflow 的各 prompt category 名稱
+在顯示每一列時，
+- 顯示該 subject name 與 description
+- 

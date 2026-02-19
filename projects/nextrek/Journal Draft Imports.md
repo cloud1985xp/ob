@@ -242,3 +242,69 @@ ex:
 
 附圖樣式：
 ![[Pasted image 20260210201502.png]]
+
+# 新版本的交易匯入功能
+
+我正在實作新版本的交易匯入功能
+請比較與 feature/t2646-selection-api 的差異了解目前的實作狀況
+並參考以下的程式碼了解舊版本的功能
+
+```
+apps/controllers/accountings/journal_drafts_controller.rb
+apps/controllers/accountings/import_uploads_controller.rb
+```
+
+新版本的交易匯入主要有以下變動：
+
+新版本在操作邏輯上以「資金池暫存區」的基礎
+原本匯入的所有交易草稿(JournalDraft)資料，將依照所屬的資金帳戶(Accountings::Account) 分組
+讓使用者在處理交易匯入時，都先決定要在哪個資料池暫存區操作
+
+因此流程調整為 
+
+列出所有資金池暫存區
+使用者先選擇資金池暫存區
+- 若選擇進行上傳，會進入該資金池暫存區的上傳表單
+	- 選擇檔案上傳後，上傳的草稿就歸在該資金池暫存區下
+- 若進入瀏覽，進入該資金池暫存區的草稿清單，進行管理，包括
+	- 對單筆草稿編輯資料，存為正式交易
+	- 刪除草稿紀錄
+	- 選擇複數草稿編輯資料，整批存為正式交易
+
+
+操作優化，新版本在草稿管理的頁面，改用了 hotwire 的 turbo
+以及前端 stack 改用新版本 (esbuild + stimulus 為主)，並對一些操作介面做了調整
+
+目前已完成基本的新版 routes 配置與 controller 規劃：
+
+```
+/draft_stages 做為新的入口，列出所有資金池暫網區
+/draft_stages/:draft_stage_id 進入特定資金池暫存區
+/draft_stages/:draft_stage_id/upload 在指定的資金池暫存區進行檔案上傳
+```
+
+目前已完成
+- 在 draft_stage_uploads_controller 進行上傳檔案建立 journal_drafts 
+- 在 draft_stages#show 列出 journal drafts
+	- 使用 turbo_frame
+	- 實現換頁
+
+請接續完成以下目標 
+- draft_stages#show 裡的各種操作行為，包括
+	- 在表單上對單筆的 journal draft 調整資料 
+	- 將單筆的 journal draft 資料送出存成正式的 journal
+	- 將單筆的 journal draft 資料進行刪除
+	- 在表單上勾選多筆的 journal draft 批次調整資料
+		- 新版本將批次編輯的輸入項設計在 selection_bar 中
+	- 將勾選多筆的 journal drafts 送出存成正式的 journal
+		- 預計是由 journal_draft_bulks_controller 負責，但沿用 JournalDraftForm 來處理資料寫入
+
+請參考並沿用舊版的 JournalDraftForm 來實現後端對多筆資料的批次建立
+且必須維持原有的批次建立的行為與規則，會需要調整 draft_stages/list 裡的表單內容
+如果有舊版的 js 的部分需要從舊版本 migrate 到新版本，請寫在 DraftStageImportForm.js 
+
+
+請一步一步進行規劃開發
+先將目前已實作的部分釐清，以及了解舊版本的規格
+並且要確認有哪些是舊版本存在的功能，但在新版本還未實現的 ，這部分要特別列成 檢查清單
+然後再規劃及進行
