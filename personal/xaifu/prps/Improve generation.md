@@ -35,9 +35,42 @@ key :cancel_event not found in: %{
 
 請修正
 
-# 實作先預覽再儲存的功能
+# 強化 Generation Form 的功能
 
-支援指定尺寸的功能
+對現在的 Generation Form 做以下功能強化
+
+## 可同時輸入 prompt text
+對每一組 GenerationInputs 的 prompt，除了可用選擇的方式之外，
+增加支援可以用輸入文字的方式，在輸入的同時建立新的 prompt
+會同時提供 text_en 與 text_zh 的 textarea 欄位供輸入
+
+若使用者選擇用輸入文字，在送出 save 時，會建立新的 prompt 並套用至 generation input
+
+### Promp Text 欄位支援翻譯
+text_en 與 text_zh 的欄位，和 XaifuWeb.PromptLive.Show 裡表單的欄位一樣會提供 translate 的功能，可以點擊翻譯圖示直接進行將 text_en 中的內容翻成中文，傳至 text_zh 的欄位，或反過來將 text_zh 內容翻成英文傳至 text_en
+請將這段翻譯的功能儘量與 XaifuWeb.PromptLive.Show 裡做成共用的模組
+
+## 可在送出 save 前先進行 preview 生成
+在 save 之外提供一個 preview 的按鈕
+按下後會先呼叫 Generations.preview 的函式執行圖片生成
+生成後會將圖片內容先顯示在畫面上
+
+- preview 時會接受 Generation Form 裡的 prompt 資料，可以是用選擇的 prompt_id，也可以是 text_en 裡的文字
+- 進行 preview 不會真的產生 GeneratedImage 資料，請將從 comfyui 生成的圖片資料讀進入轉成 base64 編碼後顯示在畫面上
+
+### 重構 Generations.Processor
+
+為了實現 preview 功能，請在 Processor module 增加另一個 generate 函式
+來接受 preview 情境下的參數生成一張圖片，回傳 url 給 Generations.preview 再做後續的圖片處理
+
+先確認目前 Processor 模組的現有實作，並進行適當的重構來減少重複的程式碼與複雜度
+但不可破壞現有的功能
+
+
+
+
+在 Generation (copy) Duplicate 的加上一個 preview 功能
+進入讓使用者可以
 
 
 提示詞解析
@@ -46,3 +79,6 @@ key :cancel_event not found in: %{
 使用 comfyui 取得標籤
 使用 grok API 過濾標籤：服裝顏色、場景
 串預覽的功能流程
+
+
+支援指定尺寸的功能

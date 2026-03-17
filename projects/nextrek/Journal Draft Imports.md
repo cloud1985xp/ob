@@ -247,7 +247,7 @@ ex:
 
 我正在實作新版本的交易匯入功能
 請比較與 feature/t2646-selection-api 的差異了解目前的實作狀況
-並參考以下的程式碼了解舊版本的功能
+並參考以下相關的程式碼了解舊版本的功能
 
 ```
 apps/controllers/accountings/journal_drafts_controller.rb
@@ -285,9 +285,11 @@ apps/controllers/accountings/import_uploads_controller.rb
 
 目前已完成
 - 在 draft_stage_uploads_controller 進行上傳檔案建立 journal_drafts 
-- 在 draft_stages#show 列出 journal drafts
-	- 使用 turbo_frame
-	- 實現換頁
+- 在 draft_stages#show 的部分功能，包括
+	- 列出 journal drafts
+		- 使用 turbo_frame
+		- 實現換頁
+	- 產生 form tag 來包裝各筆 journal draft 的資料列 (rows)
 
 請接續完成以下目標 
 - draft_stages#show 裡的各種操作行為，包括
@@ -299,12 +301,47 @@ apps/controllers/accountings/import_uploads_controller.rb
 	- 將勾選多筆的 journal drafts 送出存成正式的 journal
 		- 預計是由 journal_draft_bulks_controller 負責，但沿用 JournalDraftForm 來處理資料寫入
 
-請參考並沿用舊版的 JournalDraftForm 來實現後端對多筆資料的批次建立
-且必須維持原有的批次建立的行為與規則，會需要調整 draft_stages/list 裡的表單內容
-如果有舊版的 js 的部分需要從舊版本 migrate 到新版本，請寫在 DraftStageImportForm.js 
+請參考並舊版的 JournalDraftForm 改寫成 DraftStageForm 來實現後端對資料的建立，包括
+- 當勾選多筆資料，從 selection bar 按下「一次建立」時，將表單使用 turbo frame 的方式送出，DraftStagesController#create 接到 request 使用 DraftStageForm 將 JournalDraft 轉成 Journal 的動作
+- 同理，當勾選多筆資料，從 selection bar 按下「全部刪除」時，將表單用 turbo frame 的方式送出，送到 DraftStagesController#destroy，來處理刪除
+- 當對單筆(row)資料按下「建立交易」時，透過 js，僅取得該單一 row 的資料送出表單，一樣送用 turbo frame 到 DraftStages controller，由 DraftStageForm 將該筆 JournalDraft 轉成 Journal
+- 同理，若是單筆 row 按下「刪除資料」，一樣用 js 僅取得單一 row 的資料然後送出表單，由 DraftStagesController#destroy 資料
+
+DraftStagesController 在 DraftStageForm 處理完筆資料後，會需要將畫面上處理過的 journal draft 資料 row 從畫面上移除，並且補上同等數量下 n 筆 journal draft 資料列到表單 list 裡
+
+
+JournalDraft 轉成 Journal 的行為必須維持原有的批次建立的作法與規則，
+請確實參照舊版本 JournalDraftForm 裡的邏輯來改寫 DraftStageForm
+
+如果有舊版的 js 的部分需要從舊版本 migrate 到新版本，請寫在 draft_stage_list_controller.js 
 
 
 請一步一步進行規劃開發
 先將目前已實作的部分釐清，以及了解舊版本的規格
 並且要確認有哪些是舊版本存在的功能，但在新版本還未實現的 ，這部分要特別列成 檢查清單
 然後再規劃及進行
+
+
+# 修正
+
+請修正以下問題
+
+- DraftStage list 中每一個資料列(row)，當被勾選時，要自動被展開(expand)
+- selection bar 套用「收款原因」時，沒有正確更新對像資料列的 「收付款原因」，應該要：
+	- 正確更新每列的 subject_id 與 menu_id
+	- 而且要觸發各列的 subjet_menu input 顯示成對應的選項
+
+Part II
+
+請修正以下問題
+- 當交易資料列的交易類型(kind) 被設為移轉(exchange)時，要把憑證日期(audited_on)和發票號碼(receipt_number)的欄位設成 disabled
+- Selection Bar 中
+	- 各個輸入欄位，必須對應的 checkbox 勾選時才啟用
+	- 收款原因選項的輸入欄位，必須要 list 中所勾選的資料列每一列的類型是相同的(收款或付款)，才允許使用
+
+Part III
+請修正以下問題
+
+- Selection Bar 中，收付原因欄位
+	- 該欄位的名稱，維持「收付原因」即可，不需要因選擇的資料列是收款或付款而變更名稱
+	- 該欄位預設應該就是 disable 的狀態
