@@ -42,6 +42,15 @@ OperationRequestBatch
 - 進入畫面會顯示表單，讓使用者建立新的 OperationRequestCase
 - 實作 OperationRequestForm
 
+Index 
+顯示 batch 清單，
+- 預設只顯示 pending 的
+- 包括所含的 case
+- 用 processed on 升冪排序
+- 若配沒有資料則顯示 blank state
+同時顯示表單讓ㄕ ㄩㄥ
+
+
 OperationRequestForm
 是用來建立或編輯 OperationhRequestCase
 
