@@ -48,7 +48,7 @@ Index
 - 包括所含的 case
 - 用 processed on 升冪排序
 - 若配沒有資料則顯示 blank state
-同時顯示表單讓ㄕ ㄩㄥ
+同時顯示表單讓使用者 建立新的 case
 
 
 OperationRequestForm
@@ -77,13 +77,15 @@ OperationRequestForm save 時會在建立 Case 時同時建立一個新的批次
 
 通知系統
 實作一個通知機制，目前是用 slack 發送通知
-並將 slack 的訊息的發送頻道、通知的訊息內文要 mention 的對象，都設計成可以被設的組態
+並將 slack 的訊息的發送頻道、通知的訊息內文要 mention 的對象，都設計成可以被設定的組態
 
 在以下事件發生時會要發送通知，且不同事件可以設定不同的
 
 - 頻道
 - mention 對象(可多位)
 - 訊息內文
+
+預設都先用暫時的假資料，我之後再修改預設值
 
 事件包括：
 - 當有 case 被建立的時候
