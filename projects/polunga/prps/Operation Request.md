@@ -155,6 +155,58 @@ OperationRequestForm save 時會在建立 Case 時同時建立一個新的批次
 
 在 #show 畫面一樣有 action buttions，來對 batch 執行 process 和 complete 的 action
 
-# 實作 Batch 編輯
-
 # 實作 Case 編輯
+
+實作 requests/:id/edit，對應 OperationRequestsController#edit, #update action 來進行對 OperationRequestCase 的資料編輯
+一樣使用 OperationRequestForm 來實現編輯功能
+
+並在 OperationRequestForm 裡考量以下情況：
+- 當有 OperationRequestCase 的 expired_on 日期有調整時，要重新評估調整所屬的 OperationRequestBatch 的 procssed_on 是否要被更新
+- 當有 OperationRequestCase 所屬的 batch 有變動時，變動前的 Batch 與變動後的 Batch 的 procssed_on 都需要評估是否要更新
+
+原則是  OperationRequestBatch 的 processed_on 必須是 has_many cases 中最小的 expired_on 日期
+
+在 OperationRequestsController#index 的畫面上，對每個 batch 裡的 cases 加上 edit 的連結，連到 requets/:id/edit 來進行編輯
+
+修正：在 OperationRequestForm 裡 save 時，若 batch 或 previous batch 的 processed_on 有變動時，對應的 title 也要跟著調整
+
+# 實作 Case 刪除
+
+實作 DELETE requests/:id 對應 OperationRequestsController#destroy action 來對
+OperationRequestCase 的資料刪除
+
+並在刪除後，一樣要觸發對該 case 所屬的 OperationRequestBatch 做調整，包括：
+
+- 如果刪除後該 Batch 下沒有任何的 case，那該 batch 也跟著被刪除
+- 否則，要檢查該 batch 的 processed_on 和 title 是否要被更新
+
+在 #index 的列表中，一樣對 case 加上 "delete" 的連結，發送 DELETE request 到 /requests/:id 來執行刪除，刪除連結要加上 data-confirm 的訊息做確認
+
+
+進行以下調整：
+
+1、在 #index 畫面中，每個 batch 裡的 case，請用 expired_on 升幕排序
+2、如果 batch 的狀態是 :pending，才會允許刪除裡面的 case
+
+
+
+# 產生文件
+
+請將目前實作且調整後的 OperationRequest 整體功能
+彙整成規格文件，放在 ai_docs/operation_request_system.md 裡
+做為日後理解功能規格和設計的依據
+
+
+請檢查並確認 OperationRequesgt 相關的 spec 測試
+確保 spec 內容符合規格與程式現狀，若有需要請修正測試檔
+
+包括：
+ - spec/models/operation_request_batch_spec.rb
+ - spec/models/operation_request_case_spec.rb
+ - spec/forms/operation_request_form_spec.rb
+ - spec/services/operation_request_notification_service_spec.rb
+
+請把 OperationRequestNotification 讀取的設定檔 `config/operation_request_notifications.yml`
+改成可以依  Rails.env 有不同的設定，包括 development、test、staging、production 環境
+
+
