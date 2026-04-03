@@ -210,3 +210,20 @@ OperationRequestCase 的資料刪除
 改成可以依  Rails.env 有不同的設定，包括 development、test、staging、production 環境
 
 
+# 增加 OperationRequestCheckService
+
+請先閱讀 ai_docs/operation_request_system.md 及相關程式碼，
+了解有關 OperationRequest 的功能
+
+目標增加實作以下功能：
+
+建立一個 service class，在執行時
+會對目前狀態為 pending 的 operation request batch 資料以 processed_on 日期為條件
+當在 batch 的 processed_on 日期距離當下日期的 7天、3天 和 1天的時
+會用該筆 batch 資料發送通知
+
+- 實作在 OperationRequestCheckService
+	- app/services/operation_request_check_service.rb
+- 請重複使用 OperationRequestNotificationService，來實現 slack 通知發送
+	- 7天、3天、1天的事件分別有不同的訊息內文與 mention 對象
+
