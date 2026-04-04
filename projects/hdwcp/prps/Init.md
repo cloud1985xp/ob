@@ -1,3 +1,4 @@
+# HDWCP 系統重建專案
 這是一個有關窗簾產品公司的內部平台系統，包括：
 
 - 產品管理：包括產品組成、規格、訂價
@@ -10,19 +11,22 @@
 目前已有現成開發好的程式，位於 ~/projects/hdwcp
 當前版本是用 Ruby/Rails 開發的版本
 
-目標是將它改寫並重構成新版本，改用 Elixir + Phoenix + Liveview 來開發
-前端改用 esbuild + tailwind4 + daisyUI 
-而資料庫結構完全不改變，沿用現有的資料庫
+現在目標是將它改寫並重構成新版本，改用：
+- Elixir + Phoenix + Liveview 來開發
+- 前端使用 esbuild + tailwind4 + daisyUI 
+- 資料庫結構完全不改變，沿用現有的資料庫
 
-在 Elixir 的開發架構與風格下，以 Context/Domain 來拆分
-我目前預計拆分以下的 Context
+並且在 Elixir 的開發架構與風格下，以 Context/Domain 來拆分
 
-Sales: 銷售模組，包括訂單的新增編輯動作，訂單流程管理
-Shippings: 出貨模組，管理出貨作業
-Products: 產品與價格管理
-Pricings: 產品計價模組
-Marketings: 行銷模組，關於 coupon 券的發行處理作業、行銷活動管理
-Settings : 系統管理員(admin) 所有資料基本 CRUD 與設定，使用者帳號管理等
+我目前預計至少拆分以下的 Context
+- Sales: 銷售模組，包括訂單的新增編輯動作，訂單流程管理
+- Shippings: 出貨模組，管理出貨作業
+- Products: 產品內容、規格與價格管理
+- Pricings: 產品計價模組
+- Marketings: 行銷模組，關於 coupon 券的發行處理作業、行銷活動管理
+- Accounts: 使用登入模組，需相容於舊 rails 版本
+- Settings : 系統管理員(admin) 所有資料基本 CRUD 與設定，使用者帳號管理等
+請參考我的意見，理解分析後，建出你建議的作法
 
 ## 規格注意 
 這裡提供一些系統規格上特別要注意的地方
@@ -97,14 +101,56 @@ Settings : 系統管理員(admin) 所有資料基本 CRUD 與設定，使用者�
 若該窗選擇是期貨，則可能是要改查詢期貨用的價目表
 或著(沒有設定期貨價目表)是用現貨價目表來查詢金額，但依該價目表設定另用一個期貨價的公式做追加計算。
 
-
 其他更多的系統細節，請確保能從現在 rails 版本的程式碼中理解
 
+## 產出
 請理解完後先產生一份完整的規格在 ai_docs/ 路徑下
 並擬定一份整個專案的改寫重構計畫，
 請務必將改計畫折分多個階段來實現，每個階段寫成一個獨立開發任務文件
 
-例如先決定個 context，並定義好各 context 會用到的 schema
-再依照依賴程度，將各個 context 逐一實作
+例如(舉例)
+- 決定個 context，並定義好各 context 會用到的 schema
+- 實作 Accounts, User 登入功能，相容於 Rails 版本的 devise 
+- 實作 Settings Context, 讓 User (admin) 可對所有資料做基本的 CRUD
+- 實作 Products...
+- 實作 Pricings
+- 實作 Context X
+- 實作 Context Y...
+- ...
+
+我們之後會再依照項計畫的依賴程度，執行分工實作
 
 
+
+請依以下修正做出對應處理：
+經銷商使用者登入的身份也是 User，僅用 role 來代表是否為經銷商
+經銷商可使用的功能，部分也是用權限限制
+但有些部分應該會在程式碼中直接定義限制，避免權限設定錯誤而造成經銷商 user 權限過大
+
+舊系統中的 Customer 指的是終端消費者，指向經銷商實體購買產品的一般民眾消費者
+舊系統中有一個功能是面向大眾的保固登記服務
+讓一般消費者可以透過訂單/出貨單編號來登記產品保固
+請將這部分也分析理解後，也加到規格中，並做為另一項開發任務，排在最後面
+
+
+
+我對 Cross-Context References 的使用有疑慮
+如果在 Context 仍有使用到該張 table 的需求
+我認為仍然可以在該 Context 加上該 Table 的 schema 並使用 association(belongs_to、has_many 等)
+
+例如 Sales Context 下仍有可能會用到 product 的 category，只是可能著重的事務不同
+只是在 Products context 會有 category 的寫入，但在 Sales 下可能只有 category 的呈現
+
+我不確定這樣做是否一定正確
+請分析 Elixir 的使用慣例給出建議
+
+
+在我們逐步開始進行各 phases 的實作前
+因為目前的任務是會需要大量參考舊版專案(rails)來做開發
+我希望先將 rails-application-migration 這件事，製作成一個 skill
+請你將對舊專案的了解，彙整成一個值得做為之後進行逐項任務開發時參考技鵽的背景準則
+
+
+我想再加上一些準則：
+- 舊專案可能有多餘或繁瑣的程式碼內容，在 migration 開發時務必理解其必要性並做適度的重構與優化
+- UI 部分在這次重構會重新規劃設計，在 migration 過程中可先以最簡單的設計實現，但務必將一些可能會被重複使用的常見 UI 元件等，抽離出成可共用的元件，並且紀錄成 ai_docs/ui/ 的路徑下，供未來使用以及套用新設計時的基底
