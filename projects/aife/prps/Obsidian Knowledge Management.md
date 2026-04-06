@@ -21,7 +21,7 @@
 
 1. 將 facebook 上收集的珍藏文章，轉存到 00_inbox 下
 2. 將 youtube 上收集的稍後觀看影片，透過 notebookLLM mcp 解析內容，產生 markdown 文件存到 00_inbox 下
-3. 將 00_inbox 內的所有文章做彙整，分析分類與內容，依分類，存在 00_wiki 目錄下
+3. 將 00_inbox 內的所有文章做彙整，分析分類、內文、日期等，依分類，存在 00_wiki 目錄下
 
 各分類下再依文章主題做統整，例如相關主題的文章合併，並對文章設定好 tag、日期 等 metadata，方便 obsidian 檢索
 

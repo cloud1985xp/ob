@@ -11,49 +11,37 @@ source: notion
 ---
 
 # Year Tournament 2026
-
-**template designed by @amiiich**
-
-> **Homepage**
-> 
-
 ---
 
-<aside>
-<img src="https://www.notion.so/icons/flag-pennant_orange.svg" alt="https://www.notion.so/icons/flag-pennant_orange.svg" width="40px" /> **2026年目標｜Main Goals**
+2026年目標
 
 - 學作菜
 - 健康飲食/↓65KG
 - 學日文
 
-[2024年目標（詳細）](Year%20Tournament%202026/2024%E5%B9%B4%E7%9B%AE%E6%A8%99%EF%BC%88%E8%A9%B3%E7%B4%B0%EF%BC%89%202db15131ca6d81f8b814e4cfccafd480.md)
+## 專案目標
 
-</aside>
+- Nextrek Refactor / Nexign SSO 上線
+- xHDWCP
+	- Elixir 重購
+	- 電子發票 / 報價單
+- Aife
+	- 綁定個人 claude code 來使用 /schedule, /remote 等功能
+	- KM / Wiki
+- Xaifu
+- Venux
+	- 移出 Linode
+- Misers
+- Doxtrine
+- Samuai
+- Reboot
 
-<aside>
-<img src="https://www.notion.so/icons/cursor-click_brown.svg" alt="https://www.notion.so/icons/cursor-click_brown.svg" width="40px" /> **目錄 ｜Index**
+## AI Workflow
+- 設計
+- 知識管理
+- Assistant
 
-[個人管理](Year%20Tournament%202026/%E5%80%8B%E4%BA%BA%E7%AE%A1%E7%90%86%202db15131ca6d81f08e10d7da80bd6fce.csv)
-
-[飲食計畫](Year%20Tournament%202026/%E9%A3%B2%E9%A3%9F%E8%A8%88%E7%95%AB%202db15131ca6d8145b249e2e9165d9b09.md)
-
-[頻道計畫](Year%20Tournament%202026/%E9%A0%BB%E9%81%93%E8%A8%88%E7%95%AB%202db15131ca6d81db886cf2df4f321746.md)
-
-</aside>
-
-<aside>
-<img src="https://www.notion.so/icons/clipping_yellow.svg" alt="https://www.notion.so/icons/clipping_yellow.svg" width="40px" /> 專案目標
-
-Nexign SSO 上線
-
-HDWCP 進銷存
-
-Nexalon 金流
-
-</aside>
-
-<aside>
-<img src="https://www.notion.so/icons/clipping_yellow.svg" alt="https://www.notion.so/icons/clipping_yellow.svg" width="40px" /> 技術學習
+技術學習
 
 Elixir / Phoenix / LiveView
 
@@ -63,59 +51,23 @@ VueJS
 
 其他 Rust / Flutter / App
 
-</aside>
-
-<aside>
-<img src="https://www.notion.so/icons/clipping_yellow.svg" alt="https://www.notion.so/icons/clipping_yellow.svg" width="40px" /> **復盤 ｜Review**
-
-[每月復盤](Year%20Tournament%202026/%E6%AF%8F%E6%9C%88%E5%BE%A9%E7%9B%A4%202db15131ca6d819c940de7f0e1a2d324.md)
-
-[年度復盤](Year%20Tournament%202026/%E5%B9%B4%E5%BA%A6%E5%BE%A9%E7%9B%A4%202db15131ca6d81d8992bfb688e8db880.md)
-
-</aside>
-
-> **Count Down**
-> 
-
 ---
 
 [https://indify.co/widgets/live/progressBar/lpqI8ysNcwFU3BpnlGqF](https://indify.co/widgets/live/progressBar/lpqI8ysNcwFU3BpnlGqF)
 
 ---
 
-=
-
 [Monthly Plan](Year%20Tournament%202026/Monthly%20Plan%202db15131ca6d81cbaf17e59e9be8e155.csv)
 
-# Monthly Plan - Dec,2025
 
----
+自動化 nx 的開發，將投入降到最低
+自動化 aktsk 的工作處理，將投入降到最低
+提高被動收入，目標 70k/month (含股利，但不算nk)
+- 投資
+	- 完成 hd 收款，投入股市？
+- 建立能快速變現的產品？
+- 
 
-<aside>
-<img src="https://www.notion.so/icons/book-closed_lightgray.svg" alt="https://www.notion.so/icons/book-closed_lightgray.svg" width="40px" /> **學業&事業｜Academic&Career**
-
-</aside>
-
-- [ ]  完成Lesson5作業
-- [ ]  
-
-<aside>
-<img src="https://www.notion.so/icons/heart_lightgray.svg" alt="https://www.notion.so/icons/heart_lightgray.svg" width="40px" /> **身體&精神健康｜Physical&Mental Health**
-
-</aside>
-
-- [ ]  運動10次！
-- [ ]  
-
-<aside>
-<img src="https://www.notion.so/icons/bookmark_lightgray.svg" alt="https://www.notion.so/icons/bookmark_lightgray.svg" width="40px" /> **個人事項｜Personal**
-
-</aside>
-
-- [ ]  家人保險check！
-- [ ]  
-
----
 
 ## Idea / Blinking
 
@@ -256,13 +208,3 @@ VueJS
 
 [Game in Progress](Year%20Tournament%202026/Game%20in%20Progress%202db15131ca6d81468604ece6dd092243.csv)
 
-# Vision Board
-
----
-
-<aside>
-<img src="https://www.notion.so/icons/dialogue_lightgray.svg" alt="https://www.notion.so/icons/dialogue_lightgray.svg" width="40px" /> 願景板：將人生中的夢想放進這個Vision Board 里，把腦中的未來藍圖具象製作出來，當作目標不斷提醒自己。
-
-</aside>
-
-[Vision Board](Year%20Tournament%202026/Vision%20Board%202db15131ca6d812c8b42dcddc0049433.csv)

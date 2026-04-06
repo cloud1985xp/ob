@@ -1,0 +1,30 @@
+# 操作日誌
+
+> append-only 記錄。快速搜尋最近操作：`grep "^## \[" log.md | tail -10`
+
+---
+
+## [2026-04-06] update | Wiki 系統初始化
+- 建立目錄結構：inbox/、archive/、pages/sources/、pages/entities/、pages/concepts/、pages/synthesis/
+- 建立 CLAUDE.md（Schema v1.0）
+- 建立 index.md（空索引）
+- 建立 log.md（本檔）
+- Inbox 中現有待處理來源：
+  - `Claude Code 之父分享的內部工作流：一份 CLAUDE.md 讓你晉升 10 倍工程師`
+  - `Claude Code 創始者 Boris Cherny 親自示範每天在用的 15 個功能`
+  - `《How Anthropic teams use Claude Code》的中文翻譯`
+
+## [2026-04-06] ingest | Claude Code 三篇來源首次批次消化
+- 消化來源：
+  1. `Claude Code 之父分享的內部工作流` (DeTools, 2026-02-24)
+  2. `Boris Cherny 親示 15 個 Claude Code 功能` (INSIDE, 2026-03-30)
+  3. `How Anthropic teams use Claude Code 中譯` (小滑, 2025-06-09)
+- 新建頁面（11 頁）：
+  - sources/2026-02-24_claude-code-workflow-detools.md
+  - sources/2026-03-30_boris-cherny-15-features.md
+  - sources/2025-06-09_how-anthropic-teams-use-claude-code.md
+  - entities/Boris-Cherny.md、entities/Claude-Code.md、entities/Anthropic.md
+  - concepts/CLAUDE.md-最佳實踐.md、concepts/子代理策略.md
+  - concepts/排程自動化.md、concepts/Hooks-機制.md、concepts/Worktrees-並行處理.md
+- 更新：index.md（統計：3 來源、3 實體、5 概念）
+- 移動：3 個原始檔從 inbox/ → archive/

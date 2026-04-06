@@ -72,13 +72,3 @@ text_en 與 text_zh 的欄位，和 XaifuWeb.PromptLive.Show 裡表單的欄位�
 在 Generation (copy) Duplicate 的加上一個 preview 功能
 進入讓使用者可以
 
-
-提示詞解析
-輸入圖片網址、檔案或貼上
-使用 grok API 取得提示詞
-使用 comfyui 取得標籤
-使用 grok API 過濾標籤：服裝顏色、場景
-串預覽的功能流程
-
-
-支援指定尺寸的功能
