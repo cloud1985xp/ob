@@ -43,3 +43,9 @@ PriceTable 的 form 應該要可以上傳檔案(csv)，來更新定價內容(pri
 整理成完整的規格，紀錄在 ai_docs/specs/price_table.md
 
 
+請在 Price Table 的 show 畫面，編輯按鈕旁加上一個「下載」的按鈕
+並增加下載的功能
+讓使用者可以下載該 price table 的價目表 csv 檔案
+
+csv 檔案的內容必須是從當前 db table 裡的 price_table_cell 資料組成的
+
