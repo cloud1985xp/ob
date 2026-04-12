@@ -28,3 +28,20 @@
   - concepts/排程自動化.md、concepts/Hooks-機制.md、concepts/Worktrees-並行處理.md
 - 更新：index.md（統計：3 來源、3 實體、5 概念）
 - 移動：3 個原始檔從 inbox/ → archive/
+
+## [2026-04-07] update | Wiki 主題擴展為技術知識庫
+- 更新 CLAUDE.md：新增 Wiki 主題範疇（AI 工具 / 架構 / Elixir / 系統設計 / 基礎設施）
+
+## [2026-04-07] ingest | 15 篇技術文章批次消化
+- 消化來源（15 篇）：
+  - 架構：Clean Architecture、Hexagonal Architecture、Onion Architecture、Strangler Fig
+  - Elixir：LiveView Async Assigns、Cyanview 超級盃案例、K8s+Erlang VM、LiveView+Leaflet.js
+  - 系統設計：Netflix API 優化、Discord Go→Rust、PostgreSQL 擴展到 8 億用戶
+  - AI 工具：Conductor Gemini CLI、Slack LLM 支援平台
+  - 工具：htop 欄位解析、資訊架構 MIX2018
+- 新建頁面（24 頁）：
+  - 15 個 source 頁（pages/sources/）
+  - entity 頁：Martin-Fowler、José-Valim、Uncle-Bob、Elixir
+  - concept 頁：軟體架構模式、Strangler-Fig、Context-Driven-Development、Elixir-進程模型、GC-vs-所有權模型、PostgreSQL-大規模擴展策略
+- 更新：index.md（統計：18 來源、7 實體、11 概念）
+- 移動：15 個原始檔從 inbox/ → archive/（archive 共 18 個檔案）

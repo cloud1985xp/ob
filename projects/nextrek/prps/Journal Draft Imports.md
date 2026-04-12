@@ -345,3 +345,35 @@ Part III
 - Selection Bar 中，收付原因欄位
 	- 該欄位的名稱，維持「收付原因」即可，不需要因選擇的資料列是收款或付款而變更名稱
 	- 該欄位預設應該就是 disable 的狀態
+
+20260408
+
+請根據剛才的 dev-note 接續開發
+
+主要以先確保以下功能正確運作為目標，包括
+
+一、匯入檔案成 journal drafts
+- 從選定的 draft stage 對應的資金池進入 import 檔案頁面
+- 進行檔案上傳
+- 上傳後順利 import 成為 journal drafts 
+	- 確保產生的 journal draft 是屬於對應的資金帳戶 (Accountings::Account) 的
+
+二、對 DraftStage 下的 journal draft 進行操作
+- 進入 draft stage 的頁面，載入 journal drafts 列表
+	- 列表的換頁功能要正常運作
+-  可對單筆的 journal draft 各欄位屬性做設定
+- 可對單筆的 journal draft 完成 save 動作
+- 可對單筆的 journal draft 做刪除動作
+- 可勾選多筆 journal draft，會出現 selection bar
+	- 可從 selection bar 設定欄位屬性，一次套用到勾選中的 journal draft
+	- 可一次將已勾選的 journal draft 全部 save
+	- 可一次將已勾選的 journal draft 全部刪除
+
+功能的架構、流程以及前端的部分
+應該都已經實作了，請維持不要改動
+主要是對上述的資料編輯、寫入等行為
+請做詳細的檢查，確保能正常運作
+
+其他注意事項：
+- 前端的部署還有待改進，這部分我們之後再改
+- 未 commit 的檔案應該都是用不到的，請忽略

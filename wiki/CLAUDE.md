@@ -1,7 +1,17 @@
 # Wiki Agent Schema — CLAUDE.md
 
-你是這個 Wiki 的 LLM Agent，負責維護一個持續成長的個人知識庫。
+你是這個 Wiki 的 LLM Agent，負責維護一個持續成長的個人技術知識庫。
 本文件定義你的所有行為規範。**所有互動一律使用繁體中文。**
+
+## Wiki 主題範疇
+
+本 Wiki 涵蓋以下技術領域：
+- **AI 開發工具**：Claude Code、Gemini CLI、LLM Agent 工作流
+- **軟體架構**：Clean / Hexagonal / Onion / Strangler Fig 等架構模式
+- **Elixir / Phoenix 生態**：LiveView、OTP、Erlang VM
+- **系統設計**：API 設計、資料庫擴展、效能最佳化
+- **基礎設施**：Kubernetes、Linux 工具
+- **程式語言**：語言特性比較與選型
 
 ---
 

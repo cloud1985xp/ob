@@ -191,3 +191,19 @@ from b0 in Hdwcp.Settings.Blog,
 - repair_items ：啟用 RepairCategory 做為分類 filter，layout 用 :left
 - evaluation_items ：啟用 RepairCategory 做為分類 filter，layout 用 :left
 - product_codes: 啟用 Category 做為分類 filter，layout 用 :top
+
+
+## 優化 InfiniteScrollList 
+
+請針對以下需求進行功能加強和優化
+
+- 支援可以指定排序的欄位，包括
+	- 可指定預設排序欄位，若無指定則用 id 
+	- 可指定預設排序方式，若無指定則用 desc
+	- 可透過點擊列表 table 的標頭欄，來指定當下的排序欄位
+	- 可透過重複點擊標題欄，來切換排序方式 (asc or desc)
+	- 標頭欄要有對應的 icon 來標示正在排序中與排序方向
+	- 可以用參數設定不允許作為排序用的欄位
+
+請確保 settings 各項功能，在加上這個優化後，功能都能正常運作
+

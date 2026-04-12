@@ -52,4 +52,18 @@ contact_select_controller
 放在 ai_docs/ui/ 目錄下，方便之後參考，包括使用的範例等等
 
 
+## 請再次確認 TagifyWithApiSearch 元件
 
+原舊版本的 TagifyWithApiSearch 有做了一些優化
+請再次檢查確認是否有完整地 migrate 到新版本的各相關元件
+包括：
+
+- /app/javascript/controller/contact_select_controller.js
+- /app/javascript/controller/tag_select_controller.js
+- /app/javascript/controller/tagify_controller.js
+- /app/javascript/controller/tagify_search_controller.js
+
+請重新檢視各個使用情境
+確保新版本 stimulus 的程式能符合需求
+
+完成後記得更新 ai_docs/ui/tagify_stimulus_controllers.md 文件

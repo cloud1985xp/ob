@@ -6,25 +6,22 @@
 使用 grok API 過濾標籤：服裝顏色、場景
 串預覽的功能流程
 
+刪除 generated_image (同時要刪除圖片原檔與各 version 圖檔)
 
-支援指定尺寸的功能
+建立提示詞後，繼續在同分類下建立下一個
+
+用 llm 用一段描述，批次生成多組提示詞，編修確認後批次建立
+
+把 尺寸移到 prompt level
+- 優先於 generation 的 size
+- 若多個 prompt 都有設定 size 時，要用誰的？
+
+
+~~支援指定尺寸的功能~~
 
 
 
-# (wip)從 Generation Show 快建更新
 
-我要在 Generation Show 的畫面，直接可以快速調整 Generation 並執行
-修改需求如下：
-
-- 將現在顯示 Input Configuration 調整成一個表單，
-- 表單裡照目前顯示每個 Generation Input，但每個都有一個編輯圖示，點擊後可以設定該 generation input，包括
-	- 可以直接從下拉選單選擇同 category 的 prompt
-	- 同時也有一個 textarea 可以直接輸入新的 prompt text
-	- 也可以設定 amount 
-- 表單按下送出後，處理的邏輯如下：
-	- 如果有輸入 textarea 內容，會新建立一個新的 prompt，在對應的 category 下
-	- 然後將對應的 generation input 改成使用這個新建立的 prompt
-	- 
 
 # (tbd)調整 Subject Index 
 將 Subject 改成類似表格呈現，但仍用 grid 實作

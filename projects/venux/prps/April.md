@@ -163,3 +163,43 @@ attach image 只是對對象 works 執行 attach images 的動作，但不會改
 傾向在系統裡建立簡單的 task supervisor 就好
 
 
+# 增加建立與編輯 Subject 的功能
+
+在 /subjects 頁面，加上 建立和編輯 subject 的功能
+
+請將建立/編輯 拆成一個共用的 form_component for subject
+
+輸入的欄位會因是 新增 或 編輯 而不同
+
+新增 subject 時，欄位包括
+- belongs_to 的 site
+- name
+- term
+- enabled: 開關，代表是否啟用
+- trackable: reference to Actress，提供下拉選單
+- sites: subject has many sites through subject_site，可設定相關的 sites，用 check boxes 做多選
+
+另外，可以允許在建立 subject 時同時建立  trackable 的 Actress
+也就是當沒有選擇 trackble 時，會同時建立(upsert) Actress
+
+因此畫面，同時提供屬於 trackable (actress) 的欄位：
+- description
+- remark
+
+在沒有選擇 trackable，要處理 actress 時
+會用 subject.name 或 subject.term 作為 Actress 的 name，會先找尋有沒有 name 相符的 actress
+若有就會用既存的 actress 當作此 subject 的 trackable
+若沒有就會新增 actress，並寫入 description 和 remark
+
+當有選擇 trackable，就不需理會 description 和 remark 欄位
+當沒有選擇 trackable，就會在建立 subject 時同時新增 actress (name+description+remark)
+
+但編輯 subject 時，只可以修改 
+- name
+- term 
+- enabled
+- sites
+
+但不會變動任何有關 trackable(actress) 的資料
+
+

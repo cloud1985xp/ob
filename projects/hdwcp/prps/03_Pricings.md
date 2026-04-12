@@ -49,3 +49,11 @@ PriceTable 的 form 應該要可以上傳檔案(csv)，來更新定價內容(pri
 
 csv 檔案的內容必須是從當前 db table 裡的 price_table_cell 資料組成的
 
+
+如果 price_table 的類型是型狀 (shape)
+那高的維度，依序為：1. 半圓, 2. 全圓, 3.1/4圓
+
+請修正包括：
+- #show 頁面的顯示價目表內容
+- 下載成 csv 時的內容
+- 匯入時對應的判斷
