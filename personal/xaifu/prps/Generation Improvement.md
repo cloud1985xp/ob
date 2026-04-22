@@ -1,3 +1,8 @@
+
+Generation 列表優化
+
+# Done
+
 ## 實作複製功能
 請在 GenerationLive.Show 增加一個複製的功能
 
@@ -58,6 +63,7 @@ text_en 與 text_zh 的欄位，和 XaifuWeb.PromptLive.Show 裡表單的欄位�
 - preview 時會接受 Generation Form 裡的 prompt 資料，可以是用選擇的 prompt_id，也可以是 text_en 裡的文字
 - 進行 preview 不會真的產生 GeneratedImage 資料，請將從 comfyui 生成的圖片資料讀進入轉成 base64 編碼後顯示在畫面上
 
+
 ### 重構 Generations.Processor
 
 為了實現 preview 功能，請在 Processor module 增加另一個 generate 函式
@@ -66,9 +72,9 @@ text_en 與 text_zh 的欄位，和 XaifuWeb.PromptLive.Show 裡表單的欄位�
 先確認目前 Processor 模組的現有實作，並進行適當的重構來減少重複的程式碼與複雜度
 但不可破壞現有的功能
 
+## 修正 Generation duplicate 的功能
 
-
-
-在 Generation (copy) Duplicate 的加上一個 preview 功能
-進入讓使用者可以
+請修改 Generation 的 duplicate (複製) 功能
+調整成點擊擊 duplicate 後，出現獨立的畫面，跟 New Generation 一樣
+只是把複製的來源 generation 的資料帶入表單，其餘行為跟新增 generation 一樣
 

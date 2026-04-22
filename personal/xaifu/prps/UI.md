@@ -105,6 +105,13 @@ subject 的 options 顯示
 
 
 
+## 增加 Generation Select Input Component
+請參考現有的 FormComponent 的 subject_elect 與 prompt_select 
+來增加 FormComponent.generation_select 的元件，做為可在 form 裡使用讓使用者選擇 generation (generation_id) 的輸入元件
+
+generation_select 的 option 顯示內容 (slot) 需包含：
+- generation 的名稱
+- generation 最近的 10 筆 images (recent_images) 的縮圖，一樣用水平排列
 
 
 

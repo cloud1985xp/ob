@@ -1,3 +1,41 @@
+在 Subject 上增加 likes 功能
+- 在 subjects 上增加欄位來代表 likes 數量
+- 在顯示 Subject 列表時依 likes 數從大到小排序
+- 在 Subject 列表或瀏覽，加上對 subject 進行 like or dislike 的按鈕，來增加或減少 likes 數
+	- likes 數最小為 0 ，不會變成負的
+	- 不用紀錄是誰按 like/dislike，可以重複的執行
+- 在顯示 subject 時 (列表或瀏覽)，加上顯示 likes 數
+
+請參考 prompt 也有相同的功能，請盡量將這個功能重構成可以重複使用，包括像是 ui component、javascript、共用的 macro module 等等，未來也有可能有其他地方也會想要套用它
+
+調整 Subject Index 的列表
+- 在 query subjects，同時 preload appearance generation
+- 決定 represent image：
+	- 如果有 appearance generation ，從 appearance generation 的 images 依 likes 排序後，隨機挑一張當作代表圖片
+	- 如果無法從 appearance generation 得到，就從所有 generations 的 images，依 likes 排序後，隨機挑一張
+- Index 頁改成支援兩種顯示模式 grid(預設) 和 list
+- 調整 Subject Card 的 with_image component
+	- 主圖片改以 represent image 來顯示
+	- 此外另外增加顯示多張 images，直接從 generations 的 images 中依 likes 排序後隨機挑 n 張
+		- n 預設為 10，可在呼叫 with_image 時用參數控制
+	- 分成 grid 與 list 兩種顯示方法，建議的版型為：
+		- grid 模式時：
+			- 上方顯示 subject name 與 like 數
+			- 下方分成兩欄，左側欄佔 50% 寬，顯示主圖片，右側欄顯示多張 images，每張圖為相同高度，會換行，若超過整個右側欄的空間都 overflow hidden，
+		- list 模式時
+			- 上方顯示 subject name 與 likes 數
+			- 下方分成兩欄，左側主圖，右側依水平排列顯示 images，若超出範圍可以 scroll
+	- grid 和 list 內容版型與整體介面請依你的專業設計來調整美化，確保 ui 友善且現代化的設計
+
+請加上可以從 Subject Show 頁面，可以連到 new generation 頁面，並且傳入 subject_id，預先填入 new generation 的 subject_id
+# Done
+
+## 重整 Subject 的 new/edit 功能
+- 將 new 與 edit 都改成獨立的畫面，但共用 subject_form
+- 在 subject_form 裡，加上 appearance_generation_id 的欄位，並使用 generation_select 元件來輸入選擇
+
+
+
 # 調整 Subject Index 與 Show 頁面
 
 請將 Subject index 頁面中，每個 subject 設為可以點擊，點擊進入 Show 畫面瀏覽該 Subject
