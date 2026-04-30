@@ -27,6 +27,8 @@
 		- 在 prompt 加上 position，用 last position 的
 - [x] ~~支援指定尺寸的功能~~
 
+Workflow management
+- 要可以設定 latent identifier, prompt identifier, filename identifier
 
 ## 實作 LLM PromptHelper
 
@@ -83,22 +85,37 @@
 並且保留未來可替換成別的 LLM provider (例如 openai) 的彈性
 
 
-# (tbd)調整 Subject Index 
-將 Subject 改成類似表格呈現，但仍用 grid 實作
-每一列是一個 subject
+# 實作 comfyui 圖生文功能
 
-調整 Projects.list_subjects_with_images 的 query：
-- 目前已可透過 opts 傳入一個 target workflow，預設為第一個，來 preload 對應的 generations
-	- 要把該 workflow 的 workflow input 和 prompt category 也載入
-	- 要把對應的 generations 的 generation input 也載入
+新增「圖生文」功能，在 /img2text
 
+會分成上下兩個表單
 
-調整列表的呈現
-欄位包括
-- subject name
-- subject description
-- 顯示一張 generation 的 image
-- 當前 workflow 的各 prompt category 名稱
-在顯示每一列時，
-- 顯示該 subject name 與 description
-- 
+第一個表單
+左方有一個輸入圖片的區塊
+使用者可以透以下方式來輸入圖片：
+- 由使用者上傳一張圖片檔案
+- 由使用者提供一個圖片的網址
+- 使用者直接從剪貼簿貼上的 blob 資料
+
+使用者輸入後
+右方會先出現該張圖片的預覽
+
+送出後，會透過與 comfyui 整合來進行圖生文，我理解的實作流程會是：
+
+先將圖片內容，呼叫 comfyui 上傳成檔案 asset，取得該 asset 的 id
+利用預先定義好的工作流 json，將 asset id 置入 json
+用工作流 json，呼叫 comfyui api 執行，得到回傳的資料
+
+預先定義的工作流 json 請先用常數定義，
+以及給定替換 asset id 的 node name(identifier)，我之後會再修改 
+
+第二個表單
+左測有一個 textarea 欄位和一個 workflow 的選單
+workflows 的選單可以選擇 workflow
+第一個表單圖片產生的 text，會放進畫面中這個表單的 textarea
+
+按下「預覽」按鈕，會用所選擇的 workflow + textarea 的內容，進行生成圖片的預覽
+產生的圖片的顯示在第二個表單右側的區塊
+
+請先幫我把整個流程架構規劃好，缺少的部分我再補上

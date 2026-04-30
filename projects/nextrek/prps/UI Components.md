@@ -150,6 +150,41 @@ tags 和 contacts select 則就是從 resources store 取得 top 30 items
 
 以下補充各欄位目前仍需要調整和確認的需求
 
+## 實作「檔案上傳」元件
+
+在 import journal 的資料列，每筆資料都有一個「上傳附件」欄位，允許上傳多個檔案，在進行實作前，我想先將「檔案上傳」建立成一個可重複使用的元件。可包括：
+- 對應的 form_helper，來包裝 render input fields 
+- 對應的 helper 或 partial，來包裝 modal 的 view
+- 對應的 javascript controller(stimulus) 來包裝 uploader (dropzone) 的行為
+
+需求
+- 程式端用 form_helper 來 render input fields，可接受 form builder、field name 等參數，render 出對應的 html、button 和 attribute 來綁定 js
+- 點擊 button 後跳出 modal，出現讓使用者進行上傳的介面
+- modal 裡用 dropzone 套件
+- 可以透過 data-attributes 來設定 dropzone 的一些 options，例如
+	- 支援哪些檔案格式
+	- 最多上傳幾個檔案
+	- 單個檔案的容量大小
+- 上傳檔案後，按下 modal 的確保按鈕，會將上傳的檔案實際輸入 input field 裡
+
+設計和實作時要考慮到上述在 import journal 的使用情境，即同個畫面上會有許多資料列，每列可進行自己的上傳，不互相影響
+ 
+
+參考：
+- 舊版本的上傳檔案實作：
+	- app/views/accountings/journal_drafts/_fields.html.erb
+	- app/controllers/accountings/journal_drafts_controller.rb
+		- 先將更新 attachment to journal_drafts
+	- app/assets/javascripts/accountings/journal_draft_bulk_form.js.coffee
+		- 僅參考，我的目標是把 uploader 做成可複用的 controller 元件，不限於綁定在 journal draft form
+
+請先將 uploader component 完成後，建立規格文件在 ai_docs/ui/ 裡
+再套用到 journal draft (draft stage) 的功能上
+
+為維持 uploader 元件的獨立及可重複使用，
+請設計最適合的功能邊界
+若有其他責任需是要放到呼叫端(ex: draft stage list controller) 就請明確拆分工作，並將使用方式也寫入文件
+
 ## 優化「收付原因」輸入元件
 
 ### 欄位輸入的具體行為

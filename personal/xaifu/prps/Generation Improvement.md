@@ -1,6 +1,13 @@
 
-Generation 列表優化
-
+## Generation 列表優化
+請優化 Generaion Index 列表，包括以下項目
+- 每個 generation 要同時載入 images，依 likes 數大到小 + rand 排序，取前10張
+- 每個 generation 的顯示，分成左右兩欄
+	- 左欄顯示 subject name，workflow name，status，complete 時間，寬度約160
+	- 右欄顯示 images 縮圖，水平排列，圖片等高，若超出整體寬度就換行
+- 列表可以用 grid 或 list 呈現，預設 grid, grid 在一般畫面尺寸為3欄，依級距加1欄
+- 列表加上可以用 subject 篩選，篩選 subject 的 input 請用 subject_select component
+- 列表用 InfinateScroll 來載入更多的 Generation
 # Done
 
 ## 實作複製功能

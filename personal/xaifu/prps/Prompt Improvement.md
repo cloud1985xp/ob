@@ -1,3 +1,117 @@
+
+# 增加 PromptCategoryGroup
+
+我想在  Category 再加上一層 group，可以再把 category 分組
+
+group has many categories
+category belongs to group (optional)
+
+group 有以下欄位
+- title
+- code: 英文代碼，必填，不可重覆
+- remark: 備註文字
+- position: 排序
+
+在 prompt index 左側的 category 列表
+調整成依 group 來分組顯示：
+覺依 group 排序
+group 內的 categories 用 updated_at desc 排序
+未分組(no group) 的 categories 放在最後一組
+
+要增加 group_form 來做新增/編輯 group 的操作
+在原本的 category form 裡也要有可以指定 group 的 select 欄位 
+
+左側選單最下方有新增 group 的按鈕
+左側選單每個 group 名稱旁邊有編輯與刪除的圖示
+
+其他 prompt 列表、select 的部分都先不要變動
+
+# 快速設定 Prompt 尺寸
+
+在 prompt form 裡有 width / height 欄位來設定尺寸
+我想加上除了原本的手動各別輸入尺寸之外
+旁邊可以有按鈕直接快取設定尺寸，按鈕包括：
+- L(M): 設成  1536 x 1024
+- L(S): 設成 1536 x 768
+- L(L): 設定 1536 x 1280
+- P(M): 設定 1024 x 1536
+- P(S) : 設定成 768 x 1536
+- P(L): 設定成 1280 x 1536
+
+請將這個組合設為常數，方便我日後可以調整
+
+另外，
+在 PromptIndex 的清單中，每個 prompt，
+目前已有可以設定 decorations 與 likes 的的圖示功能
+也請加上上述的 prompt 尺寸快速設定功能
+
+
+# 整合 Prompt Decorations 與 Generation.Processor
+請完成以下三項調整：
+
+一
+prompt 的 decorations 每一個 flag 會對應到一串系統預設的文字
+先用常數定義這些 flag to text 的 mapping
+
+二
+在 Generations.Processor 的 set_prompt_inputs 方法裡
+在組成 input_texts，對每一個 input(prompt)，原本僅是取出該 prompt 的 text_en
+請改成 text_en 加上 (用「,」 串接) 該 prompt 的 decorations 對應的每組文字
+
+三
+在 Generations.Processor 的 set_prompt_inputs 方法裡
+組成最後要使用的 prompt_text 時，加下以下處理
+- 將整個內容先用「,」拆分，
+- 對每個 string 做 strip，
+- 去除空字串
+- 取 uniq
+- 最後再用「, 」join 回來
+
+
+
+
+# Prompt Decorations
+
+## 一、Promp Schema 變動
+在 Prompt 加上新欄位 decorations, :integer, default: 0
+在 Schema 設定中，使用 Bitmask 類型
+
+ref:
+https://hexdocs.pm/bitmask/Bitmask.html
+
+並定義 PromptDecorations 來做為 decorations 欄位的 type ，依序定義：
+- overture
+- main
+- oral
+- hand
+- ejac_1
+- ejac_2
+- ejac_3
+- grouping_2
+- grouping_3
+- grouping_4
+- grouping_n
+- grabbing
+- clothing
+
+來做為複選的設計
+
+## 二 、PromptLive 的更動
+- 將 Prompt new/edit 畫面的 Prompt Form 加上用 check boxes 來做為 decorations 的複選操作
+- 在 PromptLivew.Show 時，列出的 prompt list，每個 prompt 區塊右下方，有可以直接設定 decorations 的 icon，點擊 icon 就可以啟用/關閉該項 decoration
+
+
+# Prompt Position Ordered in Category
+
+請在 Prompt 加上 position 欄位，整數，預設是 0
+為了代表 prompt 在 prompt category 下的順序
+並做出以下修改：
+
+
+- 請在 prompt_form 裡也加上對應的欄位供編輯修改
+- 在 prompt category 下瀏覽 prompts 時，依照 position (小到大) 、inserted_at(小到大)排序
+- 在Generations.Processor 的 expand_input_prompts，若 amount 是 0，取用的 category.prompts 要依照 position 排序
+
 # 改良 Prompt 功能
 
 對 GenerationInput 加上 position 欄位，作為在 Generation 下的 inputs 的排序
