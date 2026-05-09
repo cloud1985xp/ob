@@ -179,6 +179,38 @@ gem install mysql2 -v '0.5.4' -- \
 brew install neovim
 ```
 
+### 2026/05/10 (Mac Studio)
+
+```
+系統套件(brew)
+
+  brew install neovim          # 需要 0.12.0+(新版 nvim-treesitter 強制要求)
+  brew install tree-sitter     # parser runtime
+  brew install tree-sitter-cli # 新版 nvim-treesitter 編譯 parser 用 ★ 這次新加
+  brew install lazygit         # lazygit.nvim 用
+  brew install ripgrep fd      # telescope 搜尋更快(建議)
+
+  tar、curl、cc(Xcode CLT)macOS 預設都有,不用額外裝。
+
+  設定檔
+
+  把 ~/.config/nvim/ 整份 clone/複製過去即可,不需要先手動裝 packer:plugins-setup.lua:1-12 會自動 bootstrap packer.nvim 到 ~/.local/share/nvim/site/pack/packer/start/。
+
+  第一次啟動流程
+
+  1. nvim — 第一次開會自動 clone packer。
+  2. :PackerSync — 安裝所有 plugin。期間 nvim-treesitter 的 run = ":TSUpdate" 會被觸發,自動下載並編譯所有 parser。
+  3. 退出後再開 nvim,treesitter 的 install() 對已安裝的 parser 會 no-op,啟動會很乾淨。
+
+  其他可能要做的事(與這次修改無關但設定 nvim 時會需要)
+
+  - GitHub Copilot::Copilot setup 登入。
+  - Claude Code plugin:確保 claude CLI 已裝(你應該已經有)。
+  - Elixir LSP(elixir-tools.nvim):需要本地有 Elixir/mix 環境。
+
+  如果之後要加新語言到 treesitter,記得 treesitter.lua 的 parsers 與 FileType 兩個 list 都各加一筆。
+```
+
 ### 2025/01/24
 
 Followed this to setup nvim using lua config
