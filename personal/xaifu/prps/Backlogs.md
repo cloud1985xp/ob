@@ -118,4 +118,105 @@ workflows 的選單可以選擇 workflow
 按下「預覽」按鈕，會用所選擇的 workflow + textarea 的內容，進行生成圖片的預覽
 產生的圖片的顯示在第二個表單右側的區塊
 
+
+
 請先幫我把整個流程架構規劃好，缺少的部分我再補上
+
+
+# 擴展圖文生文功能
+
+一、建立圖生文資料紀錄
+我想將圖生文的紀錄用開資料表紀錄下來
+即 form1 的行為會被存下來
+資料表名稱 image2text_records
+
+紀錄包括
+- image：將貼上(或上傳、或 url取得)的原始圖片存下來(上傳到s3)
+	- version 包括原圖與縮圖 (thumb)，縮圖按照原比例，縮至寬最多320px
+- comfyui_filename：來源圖片在 comfyui upload 之後的檔名
+- content: img2text 之後得到的文字
+- state，狀態
+	- saved: 上傳至 s3 完成
+	- uploaded: 上傳至 comfyui 完成
+	- converted: img2text 完成
+- remark: 文字備註
+
+二、更新現有 img2text 功能
+將現有的圖生文功能 form1，修改成會把執行結果存進 (一) 建立的資料表
+
+三、增加 img2text 紀錄列表
+預設依 inserted 時間 desc 排序，列出所有 image2text_records
+用 infinite scroll 載入更多
+列表顯示縮圖、狀態、content、文字備註
+
+四、image2text show 畫面
+(三) 的列表可以點擊進入 show 畫面
+show 畫面顯示原圖，以及可編展 remark
+同時也顯示原本 img2text 的 form2 (請抽成重複使用的元件)，
+表單裡填入當下這筆 image2text_record 的 content，可進行 generation preview
+
+
+請先幫我把整個流程架構規劃好，若有不確定之處請與我討論
+
+# 批次 img2text 功能
+建立 image2text_batches 資料表，來存放批次
+每個 batch 可以有多筆 image2text_records
+image2text_record belongs_to batch，但允許不屬於任何 batch
+
+batch 的欄位有
+- title: 標題，若使用者沒填就自動用 timestamp 命名
+- state: 狀態，pending、saving、ready、processing、completed
+- remark: 備註文字
+
+使用者可以建立批次
+- 在批次裡上傳(增加)多個圖片，來建立 image2text_records
+- 增加 records 後，先把每筆 records 的來源圖片存下，狀態為 saved
+- 然後執行批次，把所有 saved 的 records，執行 img2text，即經過 uploaded -> converted 的階段
+	- 進行批次 img2text 處理會需要長時間，應該要用 oban 處理
+	- 進行多個檔案上傳，因為會需要處理大量圖檔 blob 資料，我覺得不適合用 oban，用同個 process 開 task 或其它適合的方式處理
+
+## 操作流程：
+- 使用者先建立批次
+- 建立後，進入批次圖片上傳表單
+- 使用者上傳多個圖片
+- 送出表單後，
+	- 批次狀態變為 saving
+	- 會將圖片建立成多筆 image2text_records
+	- 完成後狀態變為 ready
+- 使用者會進到 show 畫面，show 畫面列出各筆 image2text_records
+- image2text_records 的排列用檔名排序
+- 可按下 process 開始執行
+	- 執行時狀態變為 processing
+	- 執行過程中，不能再進到圖片上傳表單 = 不能再增加圖片
+	- 執行完成後，
+		- 狀態變為 completed
+		- 可以再進到圖片上傳表單再增加圖片
+
+可以在增加更多圖片後，再次按下 process 執行
+每次執行都只會處理狀態為 :saved 的 records，進行 img2text 轉換
+
+## 主要頁面：
+
+Batch Index
+- Infinite Scroll 載入
+- 預設用 inserted_at desc 排序
+- 可用 title 搜尋
+- 顯示檔名、狀態與備註文字，可建立、編輯批次
+- 可點擊進入 show 畫面
+- 可點擊直接進入 upload 畫面
+
+Batch Show
+- 列出 records
+	- 複用 app/img2text/records/ 的列表，呈現 縮圖、狀態、content、文字備註
+		- 點擊 record 進到對應的 app/img2text/records/:id show 畫面
+- 有按鈕點擊進入 upload 畫面
+
+Batch Upload
+- 有表單可以進行多張圖片檔案上傳
+## Route 規劃：
+/app/img2text/batches 會列出 batches 的清單
+/app/img2text/batches/:id  batch show 畫面
+/app/img2text/batches/:id/upload 該 batch 的圖片上傳表單畫面 
+
+
+請先幫整個流程架構規劃好，若有不確定之處請與我討論
