@@ -89,8 +89,11 @@ brew install tmux
 
 ### Tmux Plugins
 
+```
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+
 - tmux-resurrect
-- tpm
 - vim-tmux-navigator
 
 
