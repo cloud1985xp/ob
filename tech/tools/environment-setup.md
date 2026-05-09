@@ -169,6 +169,7 @@ brew install imagemagick
 brew install pkg-config
 brew install watch
 brew install libpq
+brew install libyaml
 ```
 
 If only install mysql-client (instead of mysql), when ruby bundler installing mysql2, it could be failed and needs to use following command:
