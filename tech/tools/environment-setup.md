@@ -469,6 +469,9 @@ brew install btop
 
 - sequel pro
 - Obsdian
+- Fork
+- Sequal Ace
+- TablePlus
 - DB Browser for SQLite
 
 [Downloads - DB Browser for SQLite](https://sqlitebrowser.org/dl/)
