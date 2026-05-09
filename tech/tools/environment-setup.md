@@ -87,6 +87,13 @@ claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena-
 brew install tmux
 ```
 
+### Tmux Plugins
+
+- tmux-resurrect
+- tpm
+- vim-tmux-navigator
+
+
 TODO: tmuxifier, tmux-xpane
 
 [https://github.com/jimeh/tmuxifier](https://github.com/jimeh/tmuxifier)
