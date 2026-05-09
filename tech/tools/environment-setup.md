@@ -553,6 +553,10 @@ Ref:
 
 my local run docker services
 
+```
+docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=xxxxx -v /Users/aaron.kuo/docker/mysql8:/var/lib/mysql -d mysql:8.4 --mysql-native-password=ON
+```
+
 ```jsx
 docker run --name mysql57 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=xxxx -v /Users/aaron.kuo/docker/mysql:/var/lib/mysql -d mysql:57
 ```
