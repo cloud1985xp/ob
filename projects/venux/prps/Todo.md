@@ -1,5 +1,4 @@
 
-# Todo
 
 - [x] 加上 avatar 的 裁切設定
 - [x] 對各種圖片加上點擊放大瀏覽的功能
@@ -11,6 +10,15 @@
 - 在 Actress List 增加篩選
 	- by state
 	- by rank
+
+# 設定排程
+請對專案加上排程(用 Oban Schedule)，設定每天的 0點、6點、12點、18點
+執行：
+
+```
+Venus.Crawlers.default()
+```
+
 
 # Done
 ## 增加圖片放大瀏覽功能
