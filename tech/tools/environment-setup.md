@@ -65,8 +65,12 @@ brew install fzf
 brew install tree
 brew install jq
 brew install mysql-client
+
 brew install redis
 brew services start redis
+brew install memcached
+brew services start memcached
+
 brew install imagemagick
 brew install pkg-config
 brew install watch
