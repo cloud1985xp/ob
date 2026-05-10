@@ -12,11 +12,91 @@ source: notion
 
 Created: 2022年4月15日 下午3:03
 
+待加入 myenv
+
+- ~/.gitconfig
+- claude statusline script
+- 
+
+## Mac Setup
+- 安裝嘸蝦米
+- 設定 -> 鍵盤 -> 快速鍵
+	- 輸入方式，改成 cmd + space
+	- spotlight -> 關閉 (安裝 raycast)
+- 設定 -> 桌面與 dock
+	- dock 圖示縮小
+	- dock 位置：靠左
+	- 動畫效果關閉
+- 設定 -> 滑鼠
+	- 軌跡速度：快
+- 設定 -> 網路 -> dns: 8.8.8.8
+
+## Homebrew
+
+[Homebrew](https://brew.sh/index_zh-tw)
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+### Softwares
+
+- sequel pro
+- Obsdian
+- Fork
+- Sequal Ace
+- TablePlus
+- Claude Desktop
+- Docker Desktop [Install Docker Desktop on Mac](https://docs.docker.com/desktop/install/mac-install/)
+- DB Browser for SQLite [Downloads - DB Browser for SQLite](https://sqlitebrowser.org/dl/)
+
+## Raycast
+- 安裝程式
+- Import Setting -> 將 env 備份的 setting 匯入
+
+
+
+## Install Packages
+
+```bash
+brew install the_silver_searcher
+brew install ripgrep
+brew install fzf
+brew install tree
+brew install jq
+brew install mysql-client
+brew install redis
+brew services start redis
+brew install imagemagick
+brew install pkg-config
+brew install watch
+brew install libpq
+brew install libyaml
+brew install bat # https://github.com/sharkdp/bat
+
+brew install fastfetch
+brew install btop
+
+brew install zoxide
+brew install gh
+```
+
+If only install mysql-client (instead of mysql), when ruby bundler installing mysql2, it could be failed and needs to use following command:
+
+```bash
+gem install mysql2 -v '0.5.4' -- \
+--with-mysql-lib=$(brew --prefix mysql-client)/lib \
+--with-mysql-dir=$(brew --prefix mysql-client) \
+--with-mysql-config=$(brew --prefix mysql-client)/bin/mysql_config \
+--with-mysql-include=$(brew --prefix mysql-client)/include
+```
+
+
 # New Added by Brew Install
 
 ```jsx
 brew install tree
-brew install fastfetch
+
 # brew install koekeishiya/formulae/skhd
 brew install --cask nikitabobko/tap/aerospace
 
@@ -32,8 +112,7 @@ brew install yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide resvg imagema
 # replacement of "cd"
 brew install zoxide
 
-# https://github.com/sharkdp/bat
-brew install bat
+
 
 # install sketchybar
 
@@ -41,11 +120,16 @@ brew install bat
 brew tap FelixKratz/formulae
 brew install borders
 
-brew install gh
 
 install:
 claude-code
 ```
+
+
+## Claude Code
+
+
+
 
 ### MCP
 
@@ -73,13 +157,6 @@ claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena-
         - Kay Mappings → Presets → [Terminal.app](http://Terminal.app) Compatibility
     - Terminal → Unlimited scrollback
 
-## Homebrew
-
-[Homebrew](https://brew.sh/index_zh-tw)
-
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
 
 ## tmux
 
@@ -154,33 +231,6 @@ Install zsh-syntax-highlight
 [TBD] Other ZSH plugin
 
 - zsh-gcloud-prompt
-
-## Install Packages
-
-```bash
-brew install the_silver_searcher
-brew install ripgrep
-brew install fzf
-brew install jq
-brew install mysql-client
-brew install redis
-brew services start redis
-brew install imagemagick
-brew install pkg-config
-brew install watch
-brew install libpq
-brew install libyaml
-```
-
-If only install mysql-client (instead of mysql), when ruby bundler installing mysql2, it could be failed and needs to use following command:
-
-```bash
-gem install mysql2 -v '0.5.4' -- \
---with-mysql-lib=$(brew --prefix mysql-client)/lib \
---with-mysql-dir=$(brew --prefix mysql-client) \
---with-mysql-config=$(brew --prefix mysql-client)/bin/mysql_config \
---with-mysql-include=$(brew --prefix mysql-client)/include
-```
 
 ## Neovim
 
@@ -289,12 +339,19 @@ Setup env dotfile, config
 
 ```bash
 brew install asdf
+
 asdf plugin add ruby
 asdf plugin add erlang
 asdf plugin add elixir
 asdf plugin add nodejs
+
 asdf install nodejs $latest_version
+asdf set -u nodejs $latest_version
 npm install —global yarn
+
+asdf install ruby {version}
+asdf set -u ruby {version}
+
 ```
 
 ## puma-dev
@@ -508,20 +565,7 @@ brew install btop
 - [x]  dump db test data if necessary
     - [x]  ishin develop user/master, kpi_ishin_develop
 
-### Softwares
 
-- sequel pro
-- Obsdian
-- Fork
-- Sequal Ace
-- TablePlus
-- DB Browser for SQLite
-
-[Downloads - DB Browser for SQLite](https://sqlitebrowser.org/dl/)
-
-### Docker Desktop
-
-[Install Docker Desktop on Mac](https://docs.docker.com/desktop/install/mac-install/)
 
 ### GitX
 
@@ -559,6 +603,16 @@ Ref:
 **AutoSuggestions**
 
 [https://github.com/zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
+
+
+### eza
+alternative of `ls`
+needs cargo
+
+```
+cargo install eza
+```
+
 
 # Other
 
