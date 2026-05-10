@@ -529,6 +529,18 @@ curl https://sh.rustup.rs -sSf | sh
 brew install btop
 ```
 
+## Logi Option+ 精簡版
+
+https://free.com.tw/logi-options-plus-mini/
+
+```
+git clone https://github.com/tjsky/logi-options-plus-mini.git
+cd logi-options-plus-mini
+
+chmod u+x logi-options-plus-mini.command
+./logi-options-plus-mini.command
+```
+
 # Check List
 
 - [x]  xbar setting

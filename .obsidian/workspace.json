@@ -74,13 +74,11 @@
               "title": "書籤"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "ebaa18674a4c29aa",
@@ -186,6 +184,6 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "52ecf23b2b4dbada",
+  "active": "2f858617e1e2628e",
   "lastOpenFiles": []
 }
