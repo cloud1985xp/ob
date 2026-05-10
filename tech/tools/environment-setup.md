@@ -82,6 +82,11 @@ brew install fastfetch
 brew install btop
 
 brew install elixir-ls
+brew install uv
+
+uv tool install -p 3.13 serena-agent@latest --prerelease=allow
+
+brew install foreman
 
 brew install zoxide
 brew install gh
