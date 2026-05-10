@@ -19,6 +19,7 @@
 Venus.Crawlers.default()
 ```
 
+所有環境都一律執行這個排程
 
 # Done
 ## 增加圖片放大瀏覽功能
