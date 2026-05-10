@@ -81,6 +81,8 @@ brew install bat # https://github.com/sharkdp/bat
 brew install fastfetch
 brew install btop
 
+brew install elixir-ls
+
 brew install zoxide
 brew install gh
 ```
