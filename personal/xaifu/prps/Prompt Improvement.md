@@ -1,4 +1,21 @@
 
+# 優化 PromptCategoryGroup
+
+在 prompt_category_groups 增加兩個欄位
+- elimination_tags, text, default to nil
+- decoration_flags, text, default to nil：用來定義該 group 下的 prompt 會擁有的 decorations
+
+elimination_tags
+用來定義該 group 下的 prompt 的 text 中要被自動排除的 tag，內容會用 ","  間格，
+未來在新增、修改 prompt 時，會依該 prompt 所屬的 category_group (via category) 取得要排除的 tag list，然後自動將 prompt 的內容把出現的 tags 排除掉
+
+decoration_flags
+目前有定義一組 hard code 的 prompt decorations，未來會依該 prompt 所屬的 categroy_group(via category) 得可以使用的 decorations，代表不同的 category_group 可以定義不同的 decorations
+
+請在 Prompt Index 的 PromptCategoryGroup 的 crud 的功能中，在表裡加入上述兩個欄位，都是多行的文字方塊
+
+
+
 # 增加 PromptCategoryGroup
 
 我想在  Category 再加上一層 group，可以再把 category 分組
