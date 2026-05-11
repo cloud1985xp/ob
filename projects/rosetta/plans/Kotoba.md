@@ -1,3 +1,43 @@
+# 從 TranslationSource 生成 TrainingData
+
+
+
+
+
+PR Issues
+- 參數都是 opts，沒有序列或語意
+
+
+
+Translations
+DataSeed
+Segmentations
+- 處理將 string + translations 依 rules，再拆成更多 (segments) strings + translations
+Patterns
+- 將 strings 收斂成 formatted strings + translations
+
+目前 Patterns 會同時做 segmentation 再做 formatted strings
+- 耦合度太高
+- 無法單獨執行
+- 無法 batch 執行
+
+Translations.Translator.Batch Process
+Translations.Translator.Pipelines
+- content strings + translation source
+	- 有 segmentations
+		- 拆 segements + seg translation source-> 再呼叫執行 pipeline 翻譯
+	- 無 segmentations
+		- -> 執行 sop 翻譯
+
+
+第一層 domain module 會處理流程邏輯，子 module 只負責資料處理
+
+Patterns -> 處理 batch 分批次
+，每個批次會呼叫  Builder.build_formations
+拿到 formations 處理存入 db
+Builder 不負責存入 db
+
+
 
 LQA/Planner 整理好 LQA Sheet 提出 request
 

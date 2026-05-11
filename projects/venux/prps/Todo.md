@@ -1,4 +1,87 @@
 
+
+- [x] 加上 avatar 的 裁切設定
+- [x] 對各種圖片加上點擊放大瀏覽的功能
+- [x] 對各種 actress 圖片加點擊裁切功能
+	- 裁切存為 avatar
+	- 裁切存為新的 picture
+- 增加設定 actress metadata
+- 實作首頁看板
+- 在 Actress List 增加篩選
+	- by state
+	- by rank
+
+# 設定排程
+請對專案加上排程(用 Oban Schedule)，設定每天的 0點、6點、12點、18點
+執行：
+
+```
+Venus.Crawlers.default()
+```
+
+所有環境都一律執行這個排程
+
+# Done
+## 增加圖片放大瀏覽功能
+可用現成的套件，例如 colorbox
+
+需求：
+- 只要在 dom 裡加上特定的 button 或 link，點擊就能跳出介面，顯示該 button 裡設定的圖片
+- 跳出的介面可以是 modal 或任何現升套件來實作，但尺出不超過當前螢幕的 90%
+- 若允許的話，可以切換上一張/下一張圖片，在當下頁面裡有同樣設定的圖片之間切換
+
+先套用到 pending work 頁面裡，每個 work 的 cover 圖片
+- 套用顯示的圖片，是 cover 的 original version
+
+
+## 優化 Actress 新增/編輯表單
+請優化 actress_controller 的 new 和 edit 頁面
+- 裡面的編輯表單，請抽出成共用的 form_component
+	- 將 description 調整成 textarea 欄位
+	- 將 rank 調整成 scrollbar 的型式
+	- 且確保表單送出後，create 和 update 的功能正確寫入資料庫
+- 並重新設計表單的介面，附合整體的樣式風格，並且確保 ui friendly
+	- 要有可以回到 actress 列表或 show 的連結
+
+## 調整 PhotoCard component
+對 PhotoCard component render 的 photo_card 進行以下調整
+-  photo_card 裡的圖片可被點擊，點擊後會跳出 modal，顯示整張完整的原始圖片，
+- 在 render photo_card 時，允許傳入 actress_id
+	- 如果有傳入 actress_id，圖片被點擊時跳出的 modal，modal 下方會出現：
+	- 左方有有兩按鈕，按下後可以對 modal 中的圖片範圍選擇
+		- 第一個按鈕代表進行 avatar 裁切，此時選擇範圍會限制比例為 1:1
+		- 第二個按鈕代表進行 figure 裁切，此時選擇範圍的比例不受限制，可任意框選
+	- 右方有一個送出按，按下後表示送出裁切，參數用 crop 包裝命名，裡面包括
+		- crop[type] :目前正在裁切的類型，avatar or figure
+		- crop[actress_picture_id] : 當前的 picture_id(如果有需要的話，視實作方式而用)
+		- 選擇的切裁位置資訊: 視實作方式將資料用 crop[...] 傳出
+		- 
+	- 送出會將資料送到 actresses/:id/crop 這個端點
+		- 實作 actress_crop_controller
+		- 用 :id 取得 actress
+		- 用 crop[actress_picture_id] 取得圖片
+		- 用 crop[type] 得到類型，依類型決定動作
+			- 若是 avatar，則將該 actress 的 avatar 圖片換成傳進來的裁切圖片內容
+			- 若是 figure，則新增一筆 actress_figure 給該 actress
+				- 注意，actress_figure 在存入時，也要建立對應的 width, height, ratio 資料
+	- 處理裁切圖片的實作方式，可以使用 js 套件
+		- 可參考 cropper.js 這個套件
+			- 可參考舊專案(rails 版本的作法)，位於 ../venus 路徑下的檔案:
+				- app/assets/javascripts/application.js
+				- app/controllers/actress_croppers_controller.rb
+				- app/models/actress.rb
+		- 或者有更適合 phoenix / elixir 的作法
+	- 送出的 request 處理完成後，用 flash 訊息跳出結果，不用重新載入畫面
+- 將 WorksLive.Show 頁面中 pictures 在 render PhotoCard.photo_card 時，傳入當前的 actress_id
+
+請進行以下修正
+- 點擊圖片跳出的 modal，將它固定在當前畫面螢幕的中央(而不是整個頁面)
+- 當點擊 crop 的按鈕，cropperjs 並沒有作用，沒有出現裁切選取的效果，請檢查並修正
+
+Cropper 仍然沒有運作，照理說它應該會在 new Cropper Init 時，在 image 的下方 dom 產生 cropper 相關的 html，但卻沒有
+
+另外，請修改成，當按下 avatar or figure 的按鈕時，才建立 cropper
+
 # Crawler Service
 
 請從 ../venus 的舊專案中，將原本用 ruby/rails 開發的 Crawler 功能
