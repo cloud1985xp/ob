@@ -12,11 +12,102 @@ source: notion
 
 Created: 2022年4月15日 下午3:03
 
+待加入 myenv
+
+- ~/.gitconfig
+- claude statusline script
+- 
+
+## Mac Setup
+- 安裝嘸蝦米
+- 設定 -> 鍵盤 -> 快速鍵
+	- 輸入方式，改成 cmd + space
+	- spotlight -> 關閉 (安裝 raycast)
+- 設定 -> 桌面與 dock
+	- dock 圖示縮小
+	- dock 位置：靠左
+	- 動畫效果關閉
+- 設定 -> 滑鼠
+	- 軌跡速度：快
+- 設定 -> 網路 -> dns: 8.8.8.8
+
+## Homebrew
+
+[Homebrew](https://brew.sh/index_zh-tw)
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+### Softwares
+
+- sequel pro
+- Obsdian
+- Fork
+- Sequal Ace
+- TablePlus
+- Claude Desktop
+- Docker Desktop [Install Docker Desktop on Mac](https://docs.docker.com/desktop/install/mac-install/)
+- DB Browser for SQLite [Downloads - DB Browser for SQLite](https://sqlitebrowser.org/dl/)
+
+## Raycast
+- 安裝程式
+- Import Setting -> 將 env 備份的 setting 匯入
+
+
+
+## Install Packages
+
+```bash
+brew install the_silver_searcher
+brew install ripgrep
+brew install fzf
+brew install tree
+brew install jq
+brew install mysql-client
+
+brew install redis
+brew services start redis
+brew install memcached
+brew services start memcached
+
+brew install imagemagick
+brew install pkg-config
+brew install watch
+brew install libpq
+brew install libyaml
+brew install bat # https://github.com/sharkdp/bat
+
+brew install fastfetch
+brew install btop
+
+brew install elixir-ls
+brew install uv
+
+uv tool install -p 3.13 serena-agent@latest --prerelease=allow
+
+brew install foreman
+
+brew install zoxide
+brew install gh
+```
+
+If only install mysql-client (instead of mysql), when ruby bundler installing mysql2, it could be failed and needs to use following command:
+
+```bash
+gem install mysql2 -v '0.5.4' -- \
+--with-mysql-lib=$(brew --prefix mysql-client)/lib \
+--with-mysql-dir=$(brew --prefix mysql-client) \
+--with-mysql-config=$(brew --prefix mysql-client)/bin/mysql_config \
+--with-mysql-include=$(brew --prefix mysql-client)/include
+```
+
+
 # New Added by Brew Install
 
 ```jsx
 brew install tree
-brew install fastfetch
+
 # brew install koekeishiya/formulae/skhd
 brew install --cask nikitabobko/tap/aerospace
 
@@ -32,8 +123,7 @@ brew install yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide resvg imagema
 # replacement of "cd"
 brew install zoxide
 
-# https://github.com/sharkdp/bat
-brew install bat
+
 
 # install sketchybar
 
@@ -41,11 +131,16 @@ brew install bat
 brew tap FelixKratz/formulae
 brew install borders
 
-brew install gh
 
 install:
 claude-code
 ```
+
+
+## Claude Code
+
+
+
 
 ### MCP
 
@@ -73,19 +168,22 @@ claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena-
         - Kay Mappings → Presets → [Terminal.app](http://Terminal.app) Compatibility
     - Terminal → Unlimited scrollback
 
-## Homebrew
-
-[Homebrew](https://brew.sh/index_zh-tw)
-
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
 
 ## tmux
 
 ```bash
 brew install tmux
 ```
+
+### Tmux Plugins
+
+```
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+
+- tmux-resurrect
+- vim-tmux-navigator
+
 
 TODO: tmuxifier, tmux-xpane
 
@@ -145,38 +243,44 @@ Install zsh-syntax-highlight
 
 - zsh-gcloud-prompt
 
-## Install Packages
-
-```bash
-brew install the_silver_searcher
-brew install ripgrep
-brew install fzf
-brew install jq
-brew install mysql-client
-brew install redis
-brew services start redis
-brew install imagemagick
-brew install pkg-config
-brew install watch
-brew install libpq
-```
-
-If only install mysql-client (instead of mysql), when ruby bundler installing mysql2, it could be failed and needs to use following command:
-
-```bash
-gem install mysql2 -v '0.5.4' -- \
---with-mysql-lib=$(brew --prefix mysql-client)/lib \
---with-mysql-dir=$(brew --prefix mysql-client) \
---with-mysql-config=$(brew --prefix mysql-client)/bin/mysql_config \
---with-mysql-include=$(brew --prefix mysql-client)/include
-```
-
 ## Neovim
 
 [Installing Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim#macos--os-x)
 
 ```jsx
 brew install neovim
+```
+
+### 2026/05/10 (Mac Studio)
+
+```
+系統套件(brew)
+
+  brew install neovim          # 需要 0.12.0+(新版 nvim-treesitter 強制要求)
+  brew install tree-sitter     # parser runtime
+  brew install tree-sitter-cli # 新版 nvim-treesitter 編譯 parser 用 ★ 這次新加
+  brew install lazygit         # lazygit.nvim 用
+  brew install ripgrep fd      # telescope 搜尋更快(建議)
+
+  tar、curl、cc(Xcode CLT)macOS 預設都有,不用額外裝。
+
+  設定檔
+
+  把 ~/.config/nvim/ 整份 clone/複製過去即可,不需要先手動裝 packer:plugins-setup.lua:1-12 會自動 bootstrap packer.nvim 到 ~/.local/share/nvim/site/pack/packer/start/。
+
+  第一次啟動流程
+
+  1. nvim — 第一次開會自動 clone packer。
+  2. :PackerSync — 安裝所有 plugin。期間 nvim-treesitter 的 run = ":TSUpdate" 會被觸發,自動下載並編譯所有 parser。
+  3. 退出後再開 nvim,treesitter 的 install() 對已安裝的 parser 會 no-op,啟動會很乾淨。
+
+  其他可能要做的事(與這次修改無關但設定 nvim 時會需要)
+
+  - GitHub Copilot::Copilot setup 登入。
+  - Claude Code plugin:確保 claude CLI 已裝(你應該已經有)。
+  - Elixir LSP(elixir-tools.nvim):需要本地有 Elixir/mix 環境。
+
+  如果之後要加新語言到 treesitter,記得 treesitter.lua 的 parsers 與 FileType 兩個 list 都各加一筆。
 ```
 
 ### 2025/01/24
@@ -246,12 +350,19 @@ Setup env dotfile, config
 
 ```bash
 brew install asdf
+
 asdf plugin add ruby
 asdf plugin add erlang
 asdf plugin add elixir
 asdf plugin add nodejs
+
 asdf install nodejs $latest_version
+asdf set -u nodejs $latest_version
 npm install —global yarn
+
+asdf install ruby {version}
+asdf set -u ruby {version}
+
 ```
 
 ## puma-dev
@@ -418,6 +529,18 @@ curl https://sh.rustup.rs -sSf | sh
 brew install btop
 ```
 
+## Logi Option+ 精簡版
+
+https://free.com.tw/logi-options-plus-mini/
+
+```
+git clone https://github.com/tjsky/logi-options-plus-mini.git
+cd logi-options-plus-mini
+
+chmod u+x logi-options-plus-mini.command
+./logi-options-plus-mini.command
+```
+
 # Check List
 
 - [x]  xbar setting
@@ -465,17 +588,7 @@ brew install btop
 - [x]  dump db test data if necessary
     - [x]  ishin develop user/master, kpi_ishin_develop
 
-### Softwares
 
-- sequel pro
-- Obsdian
-- DB Browser for SQLite
-
-[Downloads - DB Browser for SQLite](https://sqlitebrowser.org/dl/)
-
-### Docker Desktop
-
-[Install Docker Desktop on Mac](https://docs.docker.com/desktop/install/mac-install/)
 
 ### GitX
 
@@ -514,9 +627,23 @@ Ref:
 
 [https://github.com/zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
 
+
+### eza
+alternative of `ls`
+needs cargo
+
+```
+cargo install eza
+```
+
+
 # Other
 
 my local run docker services
+
+```
+docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=xxxxx -v /Users/aaron.kuo/docker/mysql8:/var/lib/mysql -d mysql:8.4 --mysql-native-password=ON
+```
 
 ```jsx
 docker run --name mysql57 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=xxxx -v /Users/aaron.kuo/docker/mysql:/var/lib/mysql -d mysql:57
