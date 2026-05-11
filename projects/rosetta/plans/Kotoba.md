@@ -1,3 +1,8 @@
+# 從 TranslationSource 生成 TrainingData
+
+
+
+
 
 PR Issues
 - 參數都是 opts，沒有序列或語意

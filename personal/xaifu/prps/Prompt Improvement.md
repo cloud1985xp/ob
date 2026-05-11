@@ -1,3 +1,86 @@
+#  Image2Text Batch Records to Prompt
+一、增加將 image2text record 轉成 prompt 的功能
+先實做一個模組函式，可以將輸入的文字，建立成指定 prompt category 下的 prompt
+建立的過程中會依照所指的 prompt category 的 prompt category group 所設定的排除字
+將輸入的文字進行排除，請將這個功能實作成一個 function 方便重複呼叫
+先設計放在 Image2text Domain 下，與一般的 Prompts 分開
+
+排除的邏輯：
+將原輸入文字先用 `,` 拆開，並對每個 element 做 strip
+將 CategoryGroup 設定的排除文字，用 `,` 拆開，並對每個 element 做 strip
+將原輸入的文字拆開後的清單，扣掉排除文字的清單，
+再用 `, ` (,後面有空格) join 回一個字串，得到結果
+
+二、實作單一 image2text record 轉換成 prompt 的功能。
+在 image2text record 的頁面中增加一個表單，可將當下 image2text 的文字建立成 prompt
+
+表單中會有：
+- 原文 textarea，帶入 image2text 的 text(content) 
+- 選擇目標 prompt category
+- 要建立的 prompt 的 text_en (textarea)，一開始內容同原文 textarea
+- position 欄位，預設為 0
+
+當選擇 prompt category 之後會先處理經由所選的  prompt category 所屬的 group，將排除字套用後的結果，更新在要建立的 prompt text_en 欄位，在表單上讓使用者可以預覽排除後的結果。
+按下表單，送出建立 prompt
+
+三、實作批次功能。
+在 image2text 的批次 Show 畫面中，可以：
+- 勾選多筆 records 後，
+- 選擇目標 prompt category
+然後按下批次建立 prompt 的按鈕
+會進到 image2text records 批次建立 prompts 的畫面
+
+此時批次建立的表單
+會列出每一筆勾選的 records，每一筆都會出現跟 (二) 的單一建立一樣的表單欄位
+並帶入已選擇的 prompt category，以及已套用排除後的結果文字
+
+使用者仍可對每一筆修改 prompt Category，然後表單會套用文字排除後的結果。
+按下送出後，就會將所有的 records 建立成 prompt
+
+請盡量將 (二)、(三) 可共用的部分抽出成元件
+並確保程式簡潔可維護，以及整體 ui 操作介面的友善
+若有任何不確定的問題，請提出來討論，確認後開始進行
+
+## 追加自訂排除文字
+
+我想在 image2text batch 建立 prompt 的表單中，增加一個自訂全域的排除文字輸入方塊。
+整個 batch 表單都會套用這一份輸入的排除文字。
+
+等於排除文字時，會排除「所選的 category group 的排除文字 + 自訂的排除文字」
+
+表單裡當這個自訂文字有變動時，
+會送出 request、套用到每組 record 的進行文字排除，更新回畫面上各自的 record 。
+若只對單一筆 record 選擇 prompt category 觸發更新時，也會連同這組自訂文字送出來套用排除
+
+單筆建立的表單，則不需要這個行為。
+
+請再加上一下功能修改
+一、
+在從 image2text record 建立 prompt 的共用元件中，加上prompt title 的欄位，允許空白
+讓批次或單一建立的時候，都會存入 prompt 的 title。
+
+二
+在一般的 image2text (不透過 batch record)的表單也加上同樣的功能
+即： /app/img2text 這個畫面
+在生成 text 後，也可以用同個元件來實現建立 prompt
+同樣包括行為：
+- 選擇 prompt category、套用排除文字 (但不需要自訂排除文字的欄位)
+- 可輸入 prompt title
+
+
+# 優化 PromptIndex 的 Category 與  CategoryGroup 
+將這兩項資料的 New/Edit 都做成獨立的頁面，不在只是在側邊欄嵌入 form，各自有獨立的
+PromptCategory Edit/New, 共用 prompt_category_form
+PromptCategoryGroup Edit/New, 共用 prompt_category_group_form
+
+路徑可以是
+/app/prompt_categories/new
+/app/prompt_categories/:id/edit
+與
+/app/prompt_category_groups/new
+/app/prompt_category_groups/:id/edit
+
+在新增或編輯成功後，redirect 回 /app/prompts 畫面
 
 # 優化 PromptCategoryGroup
 
