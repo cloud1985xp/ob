@@ -84,6 +84,12 @@ grill on me 詢問今日的工作復盤
 工作項目分類，在 googlesheet 上的欄位的選單中選擇適合的分類
 可以參考過去的選擇，以及用一分 reference 文件來說明該如何選擇
 
+可被設定的變數 CONFIG.md
+
+GOOGLE_OAUTH_REFRESH_TOKEN
+SLACK_WEBHOOK_URL
+
+
 ## 每月工作
 - 確認 gcp / server cost
 
