@@ -64,7 +64,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -137,7 +137,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "personal/xaifu/prps/Xaifu.md",
+                "file": "personal/xaifu/prps/Prompt Improvement.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -147,7 +147,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Xaifu 的反向連結"
+              "title": "Prompt Improvement 的反向連結"
             }
           },
           {
@@ -156,12 +156,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "personal/xaifu/prps/Xaifu.md",
+                "file": "personal/xaifu/prps/Prompt Improvement.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Xaifu 的對外連結"
+              "title": "Prompt Improvement 的對外連結"
             }
           },
           {
@@ -199,13 +199,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "personal/xaifu/prps/Xaifu.md",
+                "file": "personal/xaifu/prps/Prompt Improvement.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Xaifu 的大綱"
+              "title": "Prompt Improvement 的大綱"
             }
           }
         ]
@@ -227,12 +227,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "6871642cf8b9702f",
+  "active": "2d154bf950b263fe",
   "lastOpenFiles": [
+    "personal/xaifu/prps/Xaifu.md",
     "projects/venux/prps/Todo.md",
     "personal/xaifu/prps/Prompt Improvement.md",
     "projects/reurb/REURB.md",
-    "personal/xaifu/prps/Xaifu.md",
     "projects/rosetta/prps/SP73.md",
     "daily/ISHIN Engineer Agent.md",
     "tech/tools/environment-setup.md"
