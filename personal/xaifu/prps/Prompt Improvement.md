@@ -1,4 +1,4 @@
-#  Image2Text Batch Records to Prompt
+# Image2Text Batch Records to Prompt
 一、增加將 image2text record 轉成 prompt 的功能
 先實做一個模組函式，可以將輸入的文字，建立成指定 prompt category 下的 prompt
 建立的過程中會依照所指的 prompt category 的 prompt category group 所設定的排除字
