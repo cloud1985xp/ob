@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "projects/aife/prps/Skills.md",
+                "file": "daily/ISHIN Engineer Agent.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Skills"
+              "title": "ISHIN Engineer Agent"
             }
           }
         ]
@@ -49,7 +49,7 @@
         "state": {
           "type": "search",
           "state": {
-            "query": "",
+            "query": "Ishin agent",
             "matchingCase": false,
             "explainSearch": false,
             "collapseAll": false,
@@ -57,7 +57,7 @@
             "sortOrder": "alphabetical"
           },
           "icon": "lucide-search",
-          "title": "Search"
+          "title": "搜尋"
         }
       },
       {
@@ -100,7 +100,7 @@
         }
       }
     ],
-    "currentTab": 0
+    "currentTab": 1
   },
   "right": {
     "id": "7152aed88de943d3",
@@ -112,7 +112,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "projects/aife/prps/Skills.md",
+            "file": "daily/ISHIN Engineer Agent.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -171,6 +171,7 @@
   },
   "active": "03c56d140a7add22",
   "lastOpenFiles": [
+    "projects/aife/prps/Skills.md",
     "wiki/inbox/@hotwiredturbo How we upgraded our entire Ruby on Rails monolith in one month.md",
     "wiki/inbox/ReAct agent from scratch with Gemini 2.5 and LangGraph.md",
     "personal/xaifu/prps/Subject Improvement.md",
@@ -198,7 +199,6 @@
     "projects/rosetta/plans",
     "/personal/xaifu/prps/Prompt Improvement.md",
     "/daily/ISHIN Engineer Agent.md",
-    "/tech/tools/environment-setup.md",
     "/tech/tools",
     "/tech",
     "/projects/nextrek/prps",
