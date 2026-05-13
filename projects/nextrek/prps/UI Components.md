@@ -1,11 +1,10 @@
 
-我要 migrate 整個專案的UI元件到新版本的前端技術 Stack。
-使用 esbuild + stimulus + tailwindcss + daisyui + ViewComponent
+我要 migrate 整個專案的UI , Frontend 程式到新版本的前端技術 Stack。
+使用 esbuild + stimulus + tailwindcss + daisyui ，搭配 ViewComponent
 
-請幫我掃描現有功能下各種使用用藥的UI。
+請幫我掃描現有功能下各種使用到的UI。
 整理並製作成在新版版本，前端技術stack下的元件。
-需使用USB等等來實作。
-並且整合用Loco LC來建立整體的。
+
 
 ## 需求
 請完成以下需求及目標：
@@ -38,10 +37,19 @@ UI 元件的設計不涉及業務邏輯，僅處理畫面顯示與操作互動�
 - 請也檢查目前已經建立在新版本的元件，有需要調整的也一併歸納調整
 
 ViewComponent：
-目前已有部分已建立的 view component，使用於 端的功能
-但可以不要理會目前已實作的部分，請另行製作需要的 view component，以 符合 best practice 以及考慮通用性來實作新的，包括像是：表格(table)、麵包屑(breadcrumb)…等各種需要獨立出來的元件
+目前已有部分已建立的 view component，使用於產生 daisyui 的元件
+可以不要理會目前已實作的部分，請另行製作需要的 view component，以 符合 best practice 以及考慮通用性來實作新的，包括像是：表格(table)、麵包屑(breadcrumb)…等各種需要獨立出來的元件
 
-目標請將上述元件整理成一個專案使用的元件庫，並建立完整的使用文件與設計原做，做為未來專案製作功能新頁面時，可直接參考引用的元件，且若有新增元件的需求，也能按照規範來建立。
+目標請將上述元件整理成一個專案使用的元件庫，使用 lookbook 來產出並管理
+並建立完整的使用文件與設計原做，做為未來專案製作功能新頁面時，可直接參考引用的元件，且若有新增元件的需求，也能按照規範來建立。
+
+## 建立規範與文件
+請將前述的新設計規範、ui 元件庫定義與說明等產出
+都匯整建立成完整的文件與 guidelines / 指引，並且加入到 CLAUDE.md 
+做為日後開發專案依照的準助
+
+
+請用 brainstorm 來啟動整個規劃，任何不確定之處請與我討論，或給我專業的建議。
 
 # Migrate TagifyWithApiSearch
 
