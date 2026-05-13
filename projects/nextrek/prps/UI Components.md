@@ -1,4 +1,12 @@
 
+我要開始買gay整個專案的UI元件到新版本的前端技術堆疊。
+請幫我掃描現有功能下各種使用用藥的UI。
+整理並製作成在新版版本，前端技術stack下的元件。
+需使用USB等等來實作。
+並且整合用Loco LC來建立整體的。
+
+
+
 # Migrate TagifyWithApiSearch
 
 請將舊版前端 stack 定義的 TagifyWithApiSearch 元件，改寫成在新版前端 stack 的 stimulus 元件
