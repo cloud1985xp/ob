@@ -132,12 +132,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "projects/nextrek/prps/UI Components.md",
+                "file": "projects/nextrek/prps/V3 UI Kits.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "UI Components"
+              "title": "V3 UI Kits"
             }
           }
         ],
@@ -215,7 +215,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "projects/nextrek/prps/UI Components.md",
+                "file": "projects/nextrek/prps/V3 UI Kits.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -225,7 +225,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "UI Components 的反向連結"
+              "title": "V3 UI Kits 的反向連結"
             }
           },
           {
@@ -234,12 +234,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "projects/nextrek/prps/UI Components.md",
+                "file": "projects/nextrek/prps/V3 UI Kits.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "UI Components 的對外連結"
+              "title": "V3 UI Kits 的對外連結"
             }
           },
           {
@@ -277,13 +277,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "projects/nextrek/prps/UI Components.md",
+                "file": "projects/nextrek/prps/V3 UI Kits.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "UI Components 的大綱"
+              "title": "V3 UI Kits 的大綱"
             }
           }
         ]
@@ -308,7 +308,7 @@
   "active": "19e92f2c5d5d5211",
   "lastOpenFiles": [
     "projects/polunga/prps/PolungaV3.md",
-    "projects/nextrek/prps/UI Components.md",
+    "projects/nextrek/prps/V3 UI Kits.md",
     "projects/nextrek/prps/未命名.md",
     "projects/nextrek/prps/nextrek-developer-workflow.md",
     "projects/nextrek/prps/Journal Draft Imports.md",

@@ -5,11 +5,14 @@
 請幫我掃描現有功能下各種使用到的UI。
 整理並製作成在新版版本，前端技術stack下的元件。
 
+注意：
+有一部分的功能 (v3 layout) 已經是開始採用新前端版本
+沒有使用 v3 layout 的就是舊版本
 
 ## 需求
 請完成以下需求及目標：
 
-一、未來預計要摒棄舊的 sprocket，引入新版的 js/css library
+一、未來預計要摒棄舊的 sprocket，全面引入新版 (v) 的 js/css library
 - 將所有 coffee script 改寫為 es6 javascript 並用 esbuild 的架構風格
 - 一些舊的 javascript class (大多數是為了Form 而設計)，可改寫為 stimulus 的 controller
 - icon 系統增加 lucide，舊版先不移除，但新的設計都改用 lucide
@@ -59,8 +62,8 @@ ViewComponent：
 都匯整建立成完整的文件與 guidelines / 指引，並且加入到 CLAUDE.md 
 做為日後開發專案依照的準助
 
-
 請用 brainstorm 來啟動整個規劃，任何不確定之處請與我討論，或給我專業的建議。
+
 
 # Migrate TagifyWithApiSearch
 
