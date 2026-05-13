@@ -1,4 +1,10 @@
 
+加上以下功能修改：
+- 在展開瀏覽image Data的面板裡面加上刪除按鈕，按下刪除經過確認後，會將該Jerry image刪除。
+	- 必須確保刪除資料，同時也要刪除遠端的檔案。
+- 對 image detail 進入 full view 模式，在 full view 可以按下鍵盤低鍵刪除圖片。
+
+
 - 圖生提示詞解析功能
 	- 輸入圖片網址、檔案或貼上
 	- 使用 grok API 取得提示詞
@@ -8,14 +14,14 @@
 
 - 利用 LLM 自動幫 prompt 命名 / 翻譯
 - 刪除 generated_image (同時要刪除圖片原檔與各 version 圖檔)
-- 修正 Generation duplicate 的功能
+- [x] 修正 Generation duplicate 的功能
 - Subject 優化
 	- [x] 設定 rank 或 置頂 -> likes
 	- [x] 可從 Subject 建立屬於該 Subject 的 Generation
 - Generation 列表優化
-	- 顯示 recent 圖片預覽
-	- 用 subject 篩選或排列
-	- 用 workflow 篩選或排列
+	- [x] 顯示 recent 圖片預覽
+	- [x] 用 subject 篩選或排列
+	- [x] 用 workflow 篩選或排列
 
 - 批次建立 prompt
 	- 用 llm 用一段描述，批次生成多組提示詞，編修確認後批次建立
