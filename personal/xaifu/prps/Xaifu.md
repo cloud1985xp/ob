@@ -2,8 +2,16 @@
 加上以下功能修改：
 - 在展開瀏覽image Data的面板裡面加上刪除按鈕，按下刪除經過確認後，會將該Jerry image刪除。
 	- 必須確保刪除資料，同時也要刪除遠端的檔案。
-- 對 image detail 進入 full view 模式，在 full view 可以按下鍵盤低鍵刪除圖片。
+- 對 image detail 進入 full view 模式，在 full view 模式可以按下鍵盤 "d"  鍵刪除圖片。
+	- 一樣要經過確認後，才執行刪除
+	- 一樣要確保刪除遠的檔案
 
+prompt category 選單
+
+collection 功能
+
+支援設定步數
+支援設定 lora
 
 - 圖生提示詞解析功能
 	- 輸入圖片網址、檔案或貼上
