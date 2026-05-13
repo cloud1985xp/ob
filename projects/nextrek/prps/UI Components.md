@@ -1,11 +1,47 @@
 
-我要開始買gay整個專案的UI元件到新版本的前端技術堆疊。
+我要 migrate 整個專案的UI元件到新版本的前端技術 Stack。
+使用 esbuild + stimulus + tailwindcss + daisyui + ViewComponent
+
 請幫我掃描現有功能下各種使用用藥的UI。
 整理並製作成在新版版本，前端技術stack下的元件。
 需使用USB等等來實作。
 並且整合用Loco LC來建立整體的。
 
+## 需求
+請完成以下需求及目標：
 
+一、未來預計要摒棄舊的 sprocket，引入新版的 js/css library
+- 將所有 coffee script 改寫為 es6 javascript 並用 esbuild 的架構風格
+- 一些舊的 javascript class (大多數是為了Form 而設計)，可改寫為 stimulus 的 controller
+- icon 系統增加 lucide，舊版先不移除，但新的設計都改用 lucide
+- 導入 tom_select 來取代 select2 (目前新版本應該已經有了)
+
+二、設計全新元件化 UI 組件
+請先掃描所有舊版本既有頁面，判斷出可抽出共用的 ui 元件，
+UI 元件的設計不涉及業務邏輯，僅處理畫面顯示與操作互動行為
+
+例如包括
+1. Layout 共用的介面：包括左側的主選單(navigation)、上方的 topnavi、使用者個人選單等等
+2. 各種 input 元件：例如日期選單，下拉選單、選擇環境的下選單、輸入使用者ID的文字欄為等等
+3. 各頁面共用元件，例如：
+	1. 麵包屑
+		1. 麵包屑帶有下拉選項選單
+	2. 頁首標題
+	3. 頁面動作選單：resource index 頁面中的「新增 resource」
+	4. 資料列選單：resource index 中 table row 對每筆資料的「瀏覽」、「編輯」、「更多動作」等
+	5. 資料搜尋列
+	6. 唯讀/受限模式提示列：有些頁面會是唯讀模式 或 受限模式，需要有一個清楚的提示讓使用者知道，可以用 fixed-top 的方式置頂
+
+每個 UI 元件：
+- 若需要 javascript，來綁定行為，請為各自設計成 stimulus controller，並確保可以重複地被使用
+- 若需要 render html 可寫成 rails helper function，或需要複雜邏輯來處理 ui 呈現邏輯，則可以包裝成 view component
+- 請也檢查目前已經建立在新版本的元件，有需要調整的也一併歸納調整
+
+ViewComponent：
+目前已有部分已建立的 view component，使用於 端的功能
+但可以不要理會目前已實作的部分，請另行製作需要的 view component，以 符合 best practice 以及考慮通用性來實作新的，包括像是：表格(table)、麵包屑(breadcrumb)…等各種需要獨立出來的元件
+
+目標請將上述元件整理成一個專案使用的元件庫，並建立完整的使用文件與設計原做，做為未來專案製作功能新頁面時，可直接參考引用的元件，且若有新增元件的需求，也能按照規範來建立。
 
 # Migrate TagifyWithApiSearch
 
