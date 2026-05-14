@@ -7,3 +7,9 @@
 - Tidewave Integration
 
 NK Engineer Workflow
+
+
+請參前端專案(/Users/aaron.kuo/projects/nextrek-tw)的內容，整和進現有專案
+
+- 不要完全照搬程式碼，請維持現有專案的架構
+- 但用前端專案
