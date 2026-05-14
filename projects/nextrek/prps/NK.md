@@ -3,3 +3,7 @@
 - Refactor Journal Related
 - Refactor View by subject
 - Refactor Entry Related
+- Seed data with group builder using mini data sample
+- Tidewave Integration
+
+NK Engineer Workflow
