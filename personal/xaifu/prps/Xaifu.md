@@ -16,15 +16,6 @@
 - 方向鍵「↑」來代表按 like，
 - 方向鍵「↓」來代表按 dislike
 
-
-# 刪除圖片
-加上以下功能修改：
-- 在側邊欄展開瀏覽 image detail 的面板裡面加上刪除按鈕，按下刪除經過確認後，會將該筆 generated_image 刪除。
-	- 必須確保刪除資料，同時也要刪除實體(s3)的檔案。
-- 對 image detail 進入 full view 模式，在 full view 模式可以按下鍵盤 "d"  鍵刪除圖片。
-	- 一樣要經過確認後，才執行刪除
-	- 一樣要確保刪除遠端的檔案
-
 請做以下調整
 一：
 在 Image Full View 模式下，使用者切換上一張/下一張圖片時，要記下使用者的切換動作是「上一張」還是「下一張」
@@ -34,6 +25,14 @@
 
 二：
 當有圖片被刪除時，也要從畫面上的 image list 把對應的 image 移除
+# 刪除圖片
+加上以下功能修改：
+- 在側邊欄展開瀏覽 image detail 的面板裡面加上刪除按鈕，按下刪除經過確認後，會將該筆 generated_image 刪除。
+	- 必須確保刪除資料，同時也要刪除實體(s3)的檔案。
+- 對 image detail 進入 full view 模式，在 full view 模式可以按下鍵盤 "d"  鍵刪除圖片。
+	- 一樣要經過確認後，才執行刪除
+	- 一樣要確保刪除遠端的檔案
+
 
 # TODO
 - prompt category 選單
@@ -49,7 +48,7 @@
 	- 串預覽的功能流程
 
 - (wip) 利用 LLM 自動幫 prompt 命名 / 翻譯
-- [ ] 刪除 generated_image (同時要刪除圖片原檔與各 version 圖檔)
+- [x] 刪除 generated_image (同時要刪除圖片原檔與各 version 圖檔)
 - [x] 修正 Generation duplicate 的功能
 - Subject 優化
 	- [x] 設定 rank 或 置頂 -> likes

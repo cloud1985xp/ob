@@ -92,7 +92,7 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 3
       },
       {
         "id": "fe7fa9bbeba865ef",
@@ -227,7 +227,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "projects/nextrek/prps/建立 e2e.md",
+                "file": "personal/xaifu/prps/Xaifu.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -237,7 +237,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "建立 e2e 的反向連結"
+              "title": "Xaifu 的反向連結"
             }
           },
           {
@@ -246,12 +246,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "projects/nextrek/prps/建立 e2e.md",
+                "file": "personal/xaifu/prps/Xaifu.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "建立 e2e 的對外連結"
+              "title": "Xaifu 的對外連結"
             }
           },
           {
@@ -289,13 +289,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "projects/nextrek/prps/建立 e2e.md",
+                "file": "personal/xaifu/prps/Xaifu.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "建立 e2e 的大綱"
+              "title": "Xaifu 的大綱"
             }
           }
         ]
@@ -317,10 +317,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "eb369363bf1b5d81",
+  "active": "6871642cf8b9702f",
   "lastOpenFiles": [
-    "personal/xaifu/prps/Xaifu.md",
     "projects/nextrek/prps/建立 e2e.md",
+    "personal/xaifu/prps/Xaifu.md",
     "projects/hdwcp/hdwcp.md",
     "projects/nextrek/prps/Journal Draft Imports.md",
     "projects/nextrek/prps/V3 UI Kits.md",
