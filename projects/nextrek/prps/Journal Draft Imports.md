@@ -7,7 +7,12 @@ tags:
 
 - 點擊「上傳明細」，會出現「全部刪除」menu，且位置應該是要在「其他功能」下方
 - 資料應按照上傳日期，一批一批呈現在「暫存區」頁面中，現在該資金帳戶的暫存區中，所有上傳的資料都會顯示在同一批中，詳情可參考：[https://tl-claudiachu.github.io/flow-comparison/](https://tl-claudiachu.github.io/flow-comparison/) > 交易匯入頁 - 區塊比較 Tab 頁的「區塊四：資料列表區」
-
+- 一開始載入時，會顯示 selection bar，請改為隱藏
+- 分頁(pagination) 的樣式跑版，請修正套用 daisyui 的版本
+- selection bar 在做批次套用時，面板不需要「全部刪除」鈕
+- 當類型被設為「移轉」時，營業稅欄位應 disabled
+- 進入資金帳戶的上傳頁面時，頁面標題，應為「上傳檔案 - {資金帳戶名稱}」
+- 在資金帳戶的上傳頁面，表單裡的，「套用收付原因」，選擇「不套用」時，下方的兩個收付款原因 selector 需隱藏，不顯示
 
 # 調整前後端運作架構
 在繼續補足 Journal Draft Import 的功能細節前
