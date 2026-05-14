@@ -26,3 +26,15 @@ NK Engineer Workflow
 
 若有任何不確定有疑問的地方，請提出討論
 若有覺得有更好的作法，請提出建議
+
+請把 新版 import journal：
+
+draft_stages 的相關功能
+
+裡用到的以下元件
+
+- contact select
+- tag select
+- subject menu
+
+與 ui 
