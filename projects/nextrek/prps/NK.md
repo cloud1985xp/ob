@@ -28,7 +28,7 @@ NK Engineer Workflow
 若有覺得有更好的作法，請提出建議
 
 請把新版 import journal：
-即 /draft_stages 的相關功能
+即 /accountings/draft_stages 的相關功能
 
 裡用到的以下元件，包括像是
 
@@ -49,4 +49,4 @@ NK Engineer Workflow
 並且
 - 更新到 lookbook 裡的元件庫 
 - 更新到 ai_docs 裡的 design 與 ui 文件
-- 
+	- 包括說明使用場合、範例與注意事項
