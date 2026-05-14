@@ -11,21 +11,19 @@
 
 # TODO
 - prompt category 選單
+- collection 功能
+- 支援設定步數
+- 支援設定 lora
 
-collection 功能
-
-支援設定步數
-支援設定 lora
-
-- 圖生提示詞解析功能
+- (wip) 圖生提示詞解析功能
 	- 輸入圖片網址、檔案或貼上
 	- 使用 grok API 取得提示詞
 	- 使用 comfyui 取得標籤
 	- 使用 grok API 過濾標籤：服裝顏色、場景
 	- 串預覽的功能流程
 
-- 利用 LLM 自動幫 prompt 命名 / 翻譯
-- 刪除 generated_image (同時要刪除圖片原檔與各 version 圖檔)
+- (wip) 利用 LLM 自動幫 prompt 命名 / 翻譯
+- [ ] 刪除 generated_image (同時要刪除圖片原檔與各 version 圖檔)
 - [x] 修正 Generation duplicate 的功能
 - Subject 優化
 	- [x] 設定 rank 或 置頂 -> likes
