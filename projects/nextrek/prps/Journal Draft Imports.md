@@ -3,6 +3,12 @@ tags:
   - nextrek
   - project
 ---
+# 0514 修正
+
+- 點擊「上傳明細」，會出現「全部刪除」menu，且位置應該是要在「其他功能」下方
+- 資料應按照上傳日期，一批一批呈現在「暫存區」頁面中，現在該資金帳戶的暫存區中，所有上傳的資料都會顯示在同一批中，詳情可參考：[https://tl-claudiachu.github.io/flow-comparison/](https://tl-claudiachu.github.io/flow-comparison/) > 交易匯入頁 - 區塊比較 Tab 頁的「區塊四：資料列表區」
+
+
 # 調整前後端運作架構
 在繼續補足 Journal Draft Import 的功能細節前
 我想先針對目前已實作的部分先做調整
