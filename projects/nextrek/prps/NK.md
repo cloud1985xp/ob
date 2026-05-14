@@ -9,6 +9,12 @@
 NK Engineer Workflow
 
 
+## 優化 Lookbook
+- 標題從 Nexalon 改為 Nextrek
+- 各種基本 component 的樣式目前看起來都怪怪的，似乎沒有套到(daisyui？)，包括
+	- 
+
+## Migrate 前端專案
 請詳細閱讀理解前端專案(/Users/aaron.kuo/projects/nextrek-tw)的內容，
 規劃將其整合進現有專案
 
@@ -27,6 +33,7 @@ NK Engineer Workflow
 若有任何不確定有疑問的地方，請提出討論
 若有覺得有更好的作法，請提出建議
 
+## Migrate 專用 component
 請把新版 import journal：
 即 /accountings/draft_stages 的相關功能
 
