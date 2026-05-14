@@ -27,14 +27,26 @@ NK Engineer Workflow
 若有任何不確定有疑問的地方，請提出討論
 若有覺得有更好的作法，請提出建議
 
-請把 新版 import journal：
+請把新版 import journal：
+即 /draft_stages 的相關功能
 
-draft_stages 的相關功能
-
-裡用到的以下元件
+裡用到的以下元件，包括像是
 
 - contact select
 - tag select
 - subject menu
+- selection bar
+- date picker
+- drop zone
 
-與 ui 
+另外還有現有的其他元件
+
+- numeric_input
+
+將它們設計規範對做對齊，或做出需要的更新調整
+但務必確保不要影響其功能性
+
+並且
+- 更新到 lookbook 裡的元件庫 
+- 更新到 ai_docs 裡的 design 與 ui 文件
+- 
