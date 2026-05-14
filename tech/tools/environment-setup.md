@@ -420,7 +420,8 @@ Download sdk
 [Quickstart: Install the Google Cloud CLI  |  Google Cloud CLI Documentation](https://cloud.google.com/sdk/docs/install-sdk)
 
 ```bash
-google-cloud-sdk/install.sh
+# google-cloud-sdk/install.sh
+brew install --cask gcloud-cli
 gcloud init
 
 # gcloud with gke
