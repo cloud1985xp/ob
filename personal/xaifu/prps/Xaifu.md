@@ -1,4 +1,5 @@
 
+# Full View 幻燈片模式
 
 
 加上以下功能修改：
@@ -8,7 +9,8 @@
 	- 一樣要經過確認後，才執行刪除
 	- 一樣要確保刪除遠端的檔案
 
-prompt category 選單
+# TODO
+- prompt category 選單
 
 collection 功能
 
