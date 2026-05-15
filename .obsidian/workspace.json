@@ -200,7 +200,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "agent-plu",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -221,7 +221,8 @@
               "title": "書籤"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -331,7 +332,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "e911ab90ba0ccf4d",
+  "active": "bd195e64c52ec29c",
   "lastOpenFiles": [
     "tech/tools/environment-setup.md",
     "projects/nextrek/prps/NK.md",
