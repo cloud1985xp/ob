@@ -13,6 +13,8 @@ NK Engineer Workflow
 - 標題從 Nexalon 改為 Nextrek
 - 各種基本 component 的樣式目前看起來都怪怪的，似乎沒有套到專案的 style，請檢查確認現狀
 - 請美化整個 lookbook 的樣式風格，可以獨立用 ui-ux-max-pro 設計，搭配 tailwindcss + daisyui
+- Subject Menu 裡並沒有選項的項目，請加上有選單資料
+- 
 	- 
 
 ## Migrate 前端專案
