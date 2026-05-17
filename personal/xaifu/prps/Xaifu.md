@@ -31,10 +31,13 @@ generation 後續生成的 image，也都會被加到這個 collection
 - 每個 image 可以被加到多個不同的 collection，這部分之後再實作
 - generation 生成的圖片，會依生成的順序加入 collection (記錄成 position)
 
-需要欄位：
+主要欄位說明：
 - 標題，預設用 timestamp (yyyymmdd-hhiiss)
 - 標籤(labels)，輸入時用 `,` 間隔，可以用 labels 當條件來篩選查詢
 - nsfw: 一個 boolean 值標記是否為 nsfw，預設 false
+- cover_image: 封面圖，關聯到 generated_image，當作 collection 代表圖片，允許空值
+	- 在 generation 同時建立成 collection 時，會將第一張 image 設為封面
+	- 若 generation 時只是加入現有 collection 時，不會改動 collection cover image
 
 二、collection 功能
 
@@ -56,7 +59,7 @@ generation 後續生成的 image，也都會被加到這個 collection
 		- 側邊有 image detail panel 跟可以使用 full view 模式
 	- 另外，show 頁面的左側加上清單，列出同 subject 下的 collections，方便切換瀏覽
 		- 實作 collection card 元件
-			- 
+			- 顯示封面，若沒有封面空 placeholder 區塊代替
 	- Collection 可被 like / dislike，請使用即有模組實現功能
 - /app/collections/:id/edit 與 /app/collections/new
 	- 實作編輯與新增 collection 的功能，獨立頁面，但共用 CollectionForm
@@ -70,15 +73,16 @@ generation 後續生成的 image，也都會被加到這個 collection
 未來會再支援直接操作 image 加入 collection，或從 collection 中移除 image 的情境
 
 三、調整 subject show
-在瀏覽 subject 的頁面，加上列出關聯的 collection
-## 資料表規劃
+在瀏覽 subject 的頁面，加上列出關聯的 collection，複用 collection card component
 
+## 資料表規劃
 collections
 - belongs to subject
 - belongs to generation (optional)
 - title: string
 - description: text
-- metadata: json
+- cover_image_id: reference generated_image，allow null
+	- generated image 若有被關聯到 collection 的 cover_image，則不允許刪除
 - likes: integer
 - labels: array of string, 可當作 search 條件
 - nsfw: boolean
