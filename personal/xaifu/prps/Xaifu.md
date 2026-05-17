@@ -127,14 +127,8 @@ collection_prompts
 
 若有任何不確定，請與我討論或提出建議
 
-collection index/show
-- show: list other collection of same subject
-list collections in subject show
-
-generation 加上 run and create/add to collection
-
-create collection
-每一筆 generated image 在建立後會自動加到指定的 collection
+追加以下修改：
+- 在 Generation Show 頁面把 Run with Collection 的區塊，往上移到 Generation KBY
 # Generation Images Management Mode
 
 # Prompt category 選單
