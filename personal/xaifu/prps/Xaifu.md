@@ -149,6 +149,11 @@ collection_prompts
 - Image2Text Batch 裡 Create Prompts 的功能
 請再檢查還有沒有其他地方也需要替換
 
+請 Prompt Category Select 
+
+FormComponent 的 category_select 元件
+在表單編輯時，不會正確地選中 current option，請檢查並修正
+
 # TODO
 - 
 - collection 功能
