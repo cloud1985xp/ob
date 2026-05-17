@@ -4,14 +4,15 @@ Character Management at app side
 
 # Character Part I
 
-我要來將 Character 的後台管理功能完整建立
+修改 app/characters 功能
+這裡的定位比較像是 Character 的後台管理功能
 
-app/characters
+首先先進行以下調整：
 
 一、搬移 chat 功能
 原本有做了 app/chat/:id/ 這個功能
 請先搬移到前端 /characters/:id 的畫面中
-先僅搬移就好，功能先不做調整
+先僅搬移就好，功能先不做改動
 
 二、實作 app/characters/:id 的 Character Show 頁面
 app/characters 列表加上瀏覽的連結，進入 show 頁面
@@ -29,19 +30,27 @@ app/characters 列表加上瀏覽的連結，進入 show 頁面
 		- 可以選擇 subject 的 generations 來篩選
 		- 可以選擇 subject 的 collections 來篩選
 - 有個 submenu，可以切去 Character 的：
-	- activities 管理
-	- schedules 管理
+	- posts 管理：/app/characters/:id/posts
+	- activities 管理：/app/characters/:id/activities
+	- schedules 管理：/app/characters/:id/schedules
+	- 上述三者都是獨立的網址路徑與 LiveView，只先做基本列表，詳細功能之後再定義實作 
+
+Part II
+
+擴增 Characters table
+
+- 增加 avatar 欄位，存放 avatar圖片
+- 增加 figure 欄位
+- 增加 hero_section 欄位，存放 hero section 的背景圖片
+- 
+hero_section_collection 圖片
+figure_collection 立繪圖片
 
 - schedule 設定
 	- 手動觸發 generate post 行為
 - 手動發文
 
-二、擴增 Character
-avatar 圖片
-hero_section
-hero_section_collection 圖片
-figure
-figure_collection 立繪圖片
+
 
 
 模擬時間到
