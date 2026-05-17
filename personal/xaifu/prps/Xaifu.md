@@ -13,6 +13,12 @@ collections
 - 
 
 collection images
+關聯 image to collections
+- collection_id
+- generated_image_id
+- position
+
+
 
 # Prompt category 選單
 
