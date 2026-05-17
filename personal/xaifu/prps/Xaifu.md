@@ -1,8 +1,17 @@
 # Collection 功能
 
 
+# Prompt category 選單
+
+將所有出現 prompt_category 的 select 選單
+都改成 group option 的結構：
+先用 prompt_category_group 分組、排序(by prompt_category_groups.position)
+每組再排列 prompt_categories
+
+請
+
 # TODO
-- prompt category 選單
+- 
 - collection 功能
 - 支援設定步數
 - 支援設定 lora
