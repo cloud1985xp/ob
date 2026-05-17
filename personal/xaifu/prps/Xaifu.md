@@ -35,7 +35,7 @@ app/characters 列表加上瀏覽的連結，進入 show 頁面
 	- schedules 管理：/app/characters/:id/schedules
 	- 上述三者都是獨立的網址路徑與 LiveView，只先做基本列表，詳細功能之後再定義實作 
 
-Support Image on Characters
+## Support Image on Characters
 要對 Character 增加上傳/設定圖片的功能
 
 一、修改 Characters table 欄位：
@@ -63,6 +63,15 @@ Support Image on Characters
 
 三、實作 image cropper 功能
 請參考 ../venux 路徑下的專案，有類似功能的實作：
+
+相關檔案
+
+實作 Cropper  JS:
+- Hook.PhotoCropper: at assets/js/app.js:232
+
+
+lib/venus_web/components/photo_card.ex, PhotoCard.photo_card,PhotoCard.photo_modal
+```
 
 可對屬於 character 的圖片套用 image cropper ，啟動時會跳出 image cropper 的功能
 - 在 cropper 中可選擇要進行的裁切是 avatar/illustration/hero_section 哪一種類型
