@@ -23,7 +23,20 @@ generation 後續生成的 image，也都會被加到這個 collection
 
 
 二、collection 功能
-c
+collection 以下欄位
+- 標題，預設用 timestamp (yyyymmdd-hhiiss)
+- 標籤(labels)，輸入時用 `,` 間隔，可以標篩當條件來篩選查詢
+- metadata，用 map 格式存放資料，目前預計
+	- 如果是透過 generation 建立，會在 metadata 裡加一個 prompts 的 key，存放：
+		- 該 generation 當時的 prompts 資訊
+```
+%{
+  "prompts": [
+    %{ "category"id": .., "title", }
+  ]
+}
+```
+
 
 - /app/collections 會列出所有 collection
 	- infinite scroll 載入
