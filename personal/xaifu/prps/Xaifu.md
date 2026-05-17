@@ -16,38 +16,24 @@ Collection 也可以被 like or dislike
 - collection belongs to generation
 - collection has many prompts
 
-Collection has many prompts 會紀錄
-當下 generation 用的 inputs BI
+Collection has many prompts (CollectionPrompt) 會紀錄
+當下 generation 用的 inputs 資訊，包括每個 input 的：
 
+- prompt_category_id 關聯
+- prompt_id 關聯 (若沒有就留空)，以及
+- prompt_title
+- prompt_text (當下用的 text)
 
-建立(如果選擇建立 collection) 好後
+建立(如果 genertion 時選擇建立 collection) 好後
 generation 後續生成的 image，也都會被加到這個 collection
 
 - 仍然可以只 run generation process 但不使用 collection 功能
 - 每個 image 可以被加到多個不同的 collection，這部分之後再實作
-- generation 生成的圖片，會依生成順序加入 collection
+- generation 生成的圖片，會依生成的順序加入 collection (記錄成 position)
 
 需要欄位：
 - 標題，預設用 timestamp (yyyymmdd-hhiiss)
-- 標籤(labels)，輸入時用 `,` 間隔，可以標篩當條件來篩選查詢
-- metadata，用 map 格式存放資料，目前預計
-	- 如果是透過 generation 建立，會在 metadata 裡加一個 prompts 的 key，存放：
-		- 該 generation 當時的 prompts 資訊，例如：
-```
-%{
-  "prompts": [
-    %{ 
-        "prompt_category" => prompt_category_name, 
-        "prompt_title" => prompt_title,
-        "prompt_text" => prompt_text(_en)
-    },
-    %{
-        "prompt_category" => prompt_category_name
-        # 如果沒指定 prompt 就無其他屬性
-    }
-  ]
-}
-```
+- 標籤(labels)，輸入時用 `,` 間隔，可以用 labels 當條件來篩選查詢
 - nsfw: 一個 boolean 值標記是否為 nsfw，預設 false
 
 二、collection 功能
@@ -63,6 +49,11 @@ generation 後續生成的 image，也都會被加到這個 collection
 			- 可輸入文字，可多個用 `,` 間隔) 篩選
 			- 或有預定義常用 labels 作複選
 		- 用 nsfw (true / false toggler)
+
+- /app/collections/:id 瀏覽 collection
+	- 基本頁面跟 generation 類似，列出 collection 資訊
+		- 用 ImageGallery 陳列 collection images，依 position 排列
+		- 
 
 ## 建立資料表
 
