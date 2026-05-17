@@ -53,7 +53,19 @@ Support Image on Characters
 - 也可以用下拉選單設定 illustration collection 和 hero_section collection
 	- 從 Character 關聯的 subject 取得 collection 選項
 
-請參考 ../venux 路徑下的專案，來實作圖片上傳的 
+請參考 ../venux 路徑下的專案，
+使用 waffle 來實作圖片上傳/處理與 ecto 整合的功能
+
+並設定 versions
+avatar: 
+- thum: 縮放圖片至 320x320
+
+
+
+三、實作 image cropper 功能
+請參考 ../venux 路徑下的專案
+實作從 image 清單，對 image 按下按鈕後，跳出 image cropper 的功能
+- 在 cropper 中選擇要進行的是 avatar/illustraion/hero_section
 
 figure_collection 立繪圖片
 
