@@ -24,8 +24,18 @@ Collection has many prompts (CollectionPrompt) 會紀錄
 建立(如果 genertion 時選擇建立 collection) 好後
 generation 後續生成的 image，也都會被加到這個 collection
 
-使用者XY
+在 Generation Show 頁面
+增加 Run with Collection 表單
+可以選擇：
+- 「加到現有 collection」 -> 下拉選單
+	- 實作 collection select 元件，與 prompt select、subject select 類似
+	- collection select 的選項，要依當下 generation 選擇的 subject 連動只列出該 subject 的 collections
+- 「建立新的 collection」出現簡易的表單
+	- 出現 title 欄位，但允許空白(後端自動變成 timestamp)
+	- 可選擇 nsfw
+按下送出後開始執行 run process with collection
 
+註：
 - 仍然可以只 run generation process 但不使用 collection 功能
 - 每個 image 可以被加到多個不同的 collection，這部分之後再實作
 - generation 生成的圖片，會依生成的順序加入 collection (記錄成 position)
