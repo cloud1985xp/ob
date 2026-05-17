@@ -53,9 +53,18 @@ generation 後續生成的 image，也都會被加到這個 collection
 - /app/collections/:id 瀏覽 collection
 	- 基本頁面跟 generation 類似，列出 collection 資訊
 		- 用 ImageGallery 陳列 collection images，依 position 排列
-		- 
+		- 側邊有 image detail panel 跟可以使用 full view 模式
+	- 另外，show 頁面的左側加上清單，列出同 subject 下的 collections，方便切換瀏覽
+- /app/collections/:id/edit 與 /app/collections/new
+	- 實作編輯與新增 collection 的功能，獨立頁面，但共用 CollectionForm
 
-## 建立資料表
+註：
+若在 image detail panel 或 full view 執行刪除 image，行為仍維持跟原本一樣：
+- 把 generated_image 資料刪除
+- 把該 image 與 collection 的關聯也一併刪除
+
+
+## 資料表規劃
 
 collections
 - belongs to subject
@@ -68,11 +77,15 @@ collections
 - nsfw boolean
 - 
 
-collection images
+collection_images
 關聯 image to collections
 - collection_id
 - generated_image_id
 - position
+
+collection_prompts
+關聯 Collection 與當下 generation 生成時的 Prompts 資訊
+- collection_id: (Collection has many Co)
 
 collection index/show
 - show: list other collection of same subject
