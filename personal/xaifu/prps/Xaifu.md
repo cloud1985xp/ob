@@ -8,7 +8,15 @@
 先用 prompt_category_group 分組、排序(by prompt_category_groups.position)
 每組再排列 prompt_categories
 
-請
+請先將它做成一個可重複使用的 form component (可以 form field 整合)
+然後把有用到 prompt category select 的地方都替換成這個 component
+
+包括：
+PromptForm
+GenerationForm 裡的每個 GenerationInput
+Image2Text 裡的 Create prompt from record
+
+(請再檢查還有沒有其他地方也需要替換)
 
 # TODO
 - 
