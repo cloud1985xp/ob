@@ -14,18 +14,23 @@ app/characters
 先僅搬移就好，功能先不做調整
 
 二、實作 app/characters/:id 的 Character Show 頁面
-這是 character 的後台
-要可以看到 character 的：
-- 基本資料
-- 從關聯的 appearance subject
-	- 列出 generated images list
-		- `不要` 直接複用 image gallery 元件，這個 list 會有不同的行為(後面說明)
-			- 用 grid view 顯示清單
+app/characters 列表加上瀏覽的連結，進入 show 頁面
+
+在 Character Show：
+- 顯示基本資料
+- 可以進入編輯頁 
+	- 請將目前已有新增/編輯  character 拆到獨立的頁面，但共用 CharacterForm
+- 基本資料下方，顯示 images 清單
+	- 從關聯的 appearance subject 取得 generated images
 		- 用 infinite scroll 載入
-		- 依 likes 數 desc 排序
+		-  依 likes 數 desc 排序
+		- *不要* 直接複用 image gallery 元件，這個 list 會有不同的行為(後面說明)
+			- 用 grid view 顯示清單
 		- 可以選擇 subject 的 generations 來篩選
 		- 可以選擇 subject 的 collections 來篩選
-
+- 有個 submenu，可以切去 Character 的：
+	- activities 管理
+	- schedules 管理
 
 - schedule 設定
 	- 手動觸發 generate post 行為
