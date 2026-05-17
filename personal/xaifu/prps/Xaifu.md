@@ -56,16 +56,23 @@ Support Image on Characters
 請參考 ../venux 路徑下的專案，
 使用 waffle 來實作圖片上傳/處理與 ecto 整合的功能
 
-並設定 versions
-avatar: 
-- thum: 縮放圖片至 320x320
-
-
+圖片上傳的 transform：
+- avatar:  縮放圖片至 320x320
+- illustration: 保留原圖尺寸(可以清除 exf 資訊)
+- figure: 保留原圖尺寸(可以清除 exf 資訊)
 
 三、實作 image cropper 功能
 請參考 ../venux 路徑下的專案
 實作從 image 清單，對 image 按下按鈕後，跳出 image cropper 的功能
-- 在 cropper 中選擇要進行的是 avatar/illustraion/hero_section
+- 在 cropper 中選擇要進行的是 avatar/illustration/hero_section 哪一種類型
+	- 若為 avatar，限制裁切比例是 1:1
+	- 若是 illustration 或 hero_section：不限制比例
+	- 送出後直接更新至 character 的對應檔案上傳欄位
+
+venux 專案已有完整的實作，請直接參考
+
+四、將 /app/characters/:id 的 Character Show  頁面的 images 清單
+最用 image cropper，一樣，可以參考 venux 專案 的實作方式
 
 figure_collection 立繪圖片
 
