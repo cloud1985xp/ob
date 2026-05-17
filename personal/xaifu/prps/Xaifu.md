@@ -1,5 +1,15 @@
 # Collection 功能
 
+新增
+
+collections
+- belongs to subject
+- name
+- metadata
+- likes
+- labels
+
+collection images
 
 # Prompt category 選單
 
@@ -12,11 +22,11 @@
 然後把有用到 prompt category select 的地方都替換成這個 component
 
 包括：
-PromptForm
-GenerationForm 裡的每個 GenerationInput
-Image2Text 裡的 Create prompt from record
-
-(請再檢查還有沒有其他地方也需要替換)
+- PromptForm
+- GenerationForm 裡的每個 GenerationInput
+- Image2Text Record 裡的 Create prompt from record
+- Image2Text Batch 裡 Create Prompts 的功能
+請再檢查還有沒有其他地方也需要替換
 
 # TODO
 - 
