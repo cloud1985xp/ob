@@ -1,8 +1,22 @@
 
 
+## Character Part III
 Character Management at app side
 
-# Character Part I
+figure_collection 立繪圖片
+
+- schedule 設定
+	- 手動觸發 generate post 行為
+- 手動發文
+
+模擬時間到
+-> 依背景資訊 (時間、個性、興趣、最近紀錄)
+-> 向 llm 生成活動文  + 決定故事分鏡圖片數
+-> 將分鏡生成文生圖提示 -> 生成圖片
+
+
+調整 post 與 image
+## Character Part I
 
 修改 app/characters 功能
 這裡的定位比較像是 Character 的後台管理功能
@@ -35,7 +49,7 @@ app/characters 列表加上瀏覽的連結，進入 show 頁面
 	- schedules 管理：/app/characters/:id/schedules
 	- 上述三者都是獨立的網址路徑與 LiveView，只先做基本列表，詳細功能之後再定義實作 
 
-## Support Image on Characters
+## Character Part II: Support Image on Characters
 要對 Character 增加上傳/設定圖片的功能
 
 一、修改 Characters table 欄位：
@@ -99,24 +113,6 @@ Controller to Handle cropped data
 若有任何問題或建議請提出討論
 
 
-
-
-figure_collection 立繪圖片
-
-- schedule 設定
-	- 手動觸發 generate post 行為
-- 手動發文
-
-
-
-
-模擬時間到
--> 依背景資訊 (時間、個性、興趣、最近紀錄)
--> 向 llm 生成活動文  + 決定故事分鏡圖片數
--> 將分鏡生成文生圖提示 -> 生成圖片
-
-
-調整 post 與 image
 # Generation Images Management Mode
 
 
