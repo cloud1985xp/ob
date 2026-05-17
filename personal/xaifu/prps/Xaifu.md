@@ -56,6 +56,12 @@ app/characters 列表加上瀏覽的連結，進入 show 頁面
 請參考 ../venux 路徑下的專案，
 使用 waffle 來實作圖片上傳/處理與 ecto 整合的功能
 
+ex:
+```
+lib/venus/uploaders/avatar.ex
+lib/venus/uploaders/figure.ex
+```
+
 圖片上傳的 transform：
 - avatar:  縮放圖片至 320x320
 - illustration: 保留原圖尺寸(可以清除 exf 資訊)
@@ -69,9 +75,12 @@ app/characters 列表加上瀏覽的連結，進入 show 頁面
 實作 Cropper  JS:
 - Hook.PhotoCropper: at assets/js/app.js:232
 
+Elixir Component:
+- PhotoCard.photo_card, at lib/venus_web/components/photo_card.ex:17
+- PhotoCard.photo_modal, at lib/venus_web/components/photo_card.ex:116
 
-lib/venus_web/components/photo_card.ex, PhotoCard.photo_card,PhotoCard.photo_modal
-```
+Controller to Handle cropped data
+- lib/venus_web/controllers/actress_crop_controller.ex
 
 可對屬於 character 的圖片套用 image cropper ，啟動時會跳出 image cropper 的功能
 - 在 cropper 中可選擇要進行的裁切是 avatar/illustration/hero_section 哪一種類型
