@@ -1,14 +1,28 @@
 # Collection 功能
 
-新增
+新增 Collection 的功能，來將 Generated Images 收錄進 Collection
+
+Collection 必須屬於某個 subject
+Collection 可以屬於某個 generation
+Collection 也可以被 like or dislike
+
+# 主要使用情境：
+
+在使用 generation 生成圖片(run process)時
+可以同時設定要將生成的圖片，建立(或加到現有的) collection
+這時建立的 collection 會跟該 generation 有一樣的 subject
+並把 collection 與該 generation 也建立
+
+
+## 建立資料表
 
 collections
 - belongs to subject
 - belongs to generation (optional)
-- title
-- description
-- metadata
-- likes
+- title: string
+- description: text
+- metadata: json
+- likes: integer
 - labels array of string, search able
 - nsfw boolean
 - 
