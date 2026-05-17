@@ -4,6 +4,7 @@
 
 collections
 - belongs to subject
+- belongs to generation (optional)
 - title
 - description
 - metadata
@@ -18,7 +19,15 @@ collection images
 - generated_image_id
 - position
 
+collection index/show
+- show: list other collection of same subject
+list collections in subject show
 
+generation 加上 run and create/add to collection
+
+create collection
+每一筆 generated image 在建立後會自動加到指定的 collection
+# Generation Images Management Mode
 
 # Prompt category 選單
 
