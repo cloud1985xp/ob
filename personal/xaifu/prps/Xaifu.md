@@ -2,10 +2,6 @@
 
 新增 Collection 的功能，來將 Generated Images 收錄進 Collection
 
-Collection 必須屬於某個 subject
-Collection 可以屬於某個 generation
-Collection 也可以被 like or dislike
-
 # 主要使用情境：
 
 一、從 generation 生成 image 建立/加入 collection
@@ -13,6 +9,7 @@ Collection 也可以被 like or dislike
 可以同時設定要將生成的圖片，建立(或加到現有的) collection
 這時建立的 collection 會跟該 generation 有一樣的 subject
 並建立關聯：
+- collection belongs to subject
 - collection belongs to generation
 - collection has many prompts
 
@@ -26,6 +23,8 @@ Collection has many prompts (CollectionPrompt) 會紀錄
 
 建立(如果 genertion 時選擇建立 collection) 好後
 generation 後續生成的 image，也都會被加到這個 collection
+
+使用者XY
 
 - 仍然可以只 run generation process 但不使用 collection 功能
 - 每個 image 可以被加到多個不同的 collection，這部分之後再實作
@@ -62,7 +61,13 @@ generation 後續生成的 image，也都會被加到這個 collection
 			- 顯示封面，若沒有封面空 placeholder 區塊代替
 	- Collection 可被 like / dislike，請使用即有模組實現功能
 - /app/collections/:id/edit 與 /app/collections/new
-	- 實作編輯與新增 collection 的功能，獨立頁面，但共用 CollectionForm
+	- 實作編輯與新增 collection 的功能，獨立頁面，但共用 CollectionForm，輸入欄位：
+		- subject(required): 用 subject select 元件
+		- generation (optional)
+		- title
+		- labels
+		- nsfw
+		- likes
 
 註：
 若在 image detail panel 或 full view 執行刪除 image，行為仍維持跟原本一樣：
@@ -77,12 +82,13 @@ generation 後續生成的 image，也都會被加到這個 collection
 
 ## 資料表規劃
 collections
-- belongs to subject
+- belongs to subject (required)
 - belongs to generation (optional)
 - title: string
 - description: text
 - cover_image_id: reference generated_image，allow null
 	- generated image 若有被關聯到 collection 的 cover_image，則不允許刪除
+		- 先僅作 constraint 保護，不做檢查和 ui 顯示
 - likes: integer
 - labels: array of string, 可當作 search 條件
 - nsfw: boolean
@@ -100,6 +106,8 @@ collection_prompts
 - prompt_id: belongs_to prompt, allow null
 - prompt_title: 當下 prompt title
 - prompt_text: 當下 prompt text(en)
+
+
 
 collection index/show
 - show: list other collection of same subject
