@@ -128,7 +128,8 @@ collection_prompts
 若有任何不確定，請與我討論或提出建議
 
 追加以下修改：
-- 在 Generation Show 頁面把 Run with Collection 的區塊，往上移到 Generation KBY
+- 在 Generation Show 頁面把 Run with Collection 的區塊，往上移到 Generation 基本資訊的下方，也就是 Input Configuration 區塊之上
+- 在 app layout 的主選單，加上 "Collections" 的連結項目，放在 Subjects 下，並加上適合的 icon
 # Generation Images Management Mode
 
 # Prompt category 選單
