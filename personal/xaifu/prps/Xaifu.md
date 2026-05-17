@@ -62,8 +62,10 @@ Support Image on Characters
 - figure: 保留原圖尺寸(可以清除 exf 資訊)
 
 三、實作 image cropper 功能
-請參考 ../venux 路徑下的專案
-實作從 image 清單，對 image 按下按鈕後，跳出 image cropper 的功能
+請參考 ../venux 路徑下的專案，有類似功能的實作：
+
+實作在 image detail panel，如果有傳入 character id
+會在 panel 裡出現 crop 的按鈕 image 按下按鈕後，跳出 image cropper 的功能
 - 在 cropper 中選擇要進行的是 avatar/illustration/hero_section 哪一種類型
 	- 若為 avatar，限制裁切比例是 1:1
 	- 若是 illustration 或 hero_section：不限制比例
