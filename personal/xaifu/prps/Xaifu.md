@@ -1,5 +1,8 @@
 
+
 Character Management at app side
+
+# Character Part I
 
 我要來將 Character 的後台管理功能完整建立
 
@@ -10,6 +13,17 @@ app/characters
 請先搬移到前端 /characters/:id 的畫面中
 先僅搬移就好，功能先不做調整
 
+二、實作 app/characters/:id 的 Character Show 頁面
+這是 character 的後台
+要可以看到 character 的：
+- 基本資料
+- 從關聯的 appearance subject
+	- 列出 collections
+	- all images
+- schedule 設定
+	- 手動觸發 generate post 行為
+- 手動發文
+
 二、擴增 Character
 avatar 圖片
 hero_section
@@ -17,16 +31,6 @@ hero_section_collection 圖片
 figure
 figure_collection 立繪圖片
 
-二、實作 app/characters/:id 的 Character Show 頁面
-這是 character 的後台
-要可以看到 character 的：
-- 基本資料
-- 關聯的 appearance subject
-	- collections
-	- all images
-- schedule 設定
-	- 手動觸發 generate post 行為
-- 手動發文
 
 模擬時間到
 -> 依背景資訊 (時間、個性、興趣、最近紀錄)
