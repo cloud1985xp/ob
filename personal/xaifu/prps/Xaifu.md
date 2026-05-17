@@ -2,9 +2,9 @@
 
 新增 Collection 的功能，來將 Generated Images 收錄進 Collection
 
-# 主要使用情境：
+## 主要開發項目：
 
-一、從 generation 生成 image 建立/加入 collection
+### 一、從 generation 生成 image 建立/加入 collection
 在使用 generation 生成圖片(run process)時
 可以同時設定要將生成的圖片，建立(或加到現有的) collection
 這時建立的 collection 會跟該 generation 有一樣的 subject
@@ -48,7 +48,7 @@ generation 後續生成的 image，也都會被加到這個 collection
 	- 在 generation 同時建立成 collection 時，會將第一張 image 設為封面
 	- 若 generation 時只是加入現有 collection 時，不會改動 collection cover image
 
-二、collection 功能
+### 二、collection 功能
 
 基本頁面
 - /app/collections 會列出所有 collection
@@ -87,7 +87,7 @@ generation 後續生成的 image，也都會被加到這個 collection
 目前僅實作從 generation 來將 image 加入 collection 的情境
 未來會再支援直接操作 image 加入 collection，或從 collection 中移除 image 的情境
 
-三、調整 subject show
+### 三、調整 subject show
 在瀏覽 subject 的頁面，加上列出關聯的 collection，複用 collection card component
 
 ## 資料表規劃
@@ -118,6 +118,14 @@ collection_prompts
 - prompt_text: 當下 prompt text(en)
 
 
+## 執行目標
+
+請先計劃再開始實作
+且確保既有的功能不被影響
+並盡量使用現有的 module、元件，或重構再利用
+維持一慣的 ui 和操作介面的友善
+
+若有任何不確定，請與我討論或提出建議
 
 collection index/show
 - show: list other collection of same subject
