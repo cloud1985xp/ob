@@ -53,13 +53,13 @@ app/characters 列表加上瀏覽的連結，進入 show 頁面
 - 也可以用下拉選單設定 illustration collection 和 hero_section collection
 	- 從 Character 關聯的 subject 取得 collection 選項
 
-請參考 ../venux 路徑下的專案，
-使用 waffle 來實作圖片上傳/處理與 ecto 整合的功能
 
+使用 waffle 來實作圖片上傳/處理與 ecto 整合的功能
+請參考 ../venux 路徑下的專案，
 ex:
 ```
 lib/venus/uploaders/avatar.ex
-lib/venus/uploaders/figure.ex
+lib/venus/actresses/actress.ex:7
 ```
 
 圖片上傳的 transform：
@@ -70,7 +70,13 @@ lib/venus/uploaders/figure.ex
 三、實作 image cropper 功能
 請參考 ../venux 路徑下的專案，有類似功能的實作：
 
-相關檔案
+可對屬於 character 的圖片套用 image cropper ，啟動時會跳出 image cropper 的功能
+- 在 cropper 中可選擇要進行的裁切是 avatar/illustration/hero_section 哪一種類型
+	- 若為 avatar，限制裁切比例是 1:1
+	- 若是 illustration 或 hero_section：不限制比例
+- 裁切後，按下提交，直接更新至 character 的對應檔案上傳欄位
+
+venux 專案已有完整的實作，請直接參考相關檔案例如：
 
 實作 Cropper  JS:
 - Hook.PhotoCropper: at assets/js/app.js:232
@@ -82,19 +88,17 @@ Elixir Component:
 Controller to Handle cropped data
 - lib/venus_web/controllers/actress_crop_controller.ex
 
-可對屬於 character 的圖片套用 image cropper ，啟動時會跳出 image cropper 的功能
-- 在 cropper 中可選擇要進行的裁切是 avatar/illustration/hero_section 哪一種類型
-	- 若為 avatar，限制裁切比例是 1:1
-	- 若是 illustration 或 hero_section：不限制比例
-- 裁切後，按下提交，直接更新至 character 的對應檔案上傳欄位
-
-venux 專案已有完整的實作，請直接參考：
 差別是 venux 專案中是直接點擊 image 清單中 image item 上的按鈕，
 但在本專案中是將在 image detail panel 中顯示按鈕，其他部分的行為基本上都一樣
-因此也需要修改 image detail panel，當有傳入 character_id 時，
-會出現/套用 image cropper 的功能
 
-四、將 /app/characters/:id 的 Character Show  頁面的 images 清單
+因此也需要修改 image detail panel，當有傳入 character_id 時，
+會出現 crop image 的按鈕並套用 image cropper 的功能
+
+請先詳細了解參考程式碼與相關需求
+確認後再開始進行
+若有任何問題或建議請提出討論
+
+
 
 
 figure_collection 立繪圖片
