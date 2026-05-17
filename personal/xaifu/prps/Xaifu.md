@@ -6,13 +6,27 @@ Character Management at app side
 app/characters
 
 一、搬移 chat 功能
-原舊有做了 app/chat/:id/ 這個功能
+原本有做了 app/chat/:id/ 這個功能
 請先搬移到前端 /characters/:id 的畫面中
 先僅搬移就好，功能先不做調整
+
+二、擴增 Character
+avatar 欄位
+
+
+二、實作 app/characters/:id 的 Character Show 頁面
+這是 character 的後台
+要可以看到 character 的：
+- 基本資料
+- schedule 設定
+	- 手動觸發 generate post 行為
+- 手動發文
 
 # Generation Images Management Mode
 
 
+Collection Show
+要顯示相關的 collection prompt (prompt category title, prompt_title, prompt_text) 資訊
 
 
 # Collection 功能
