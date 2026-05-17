@@ -22,11 +22,16 @@ figure_collection 立繪圖片
 要可以看到 character 的：
 - 基本資料
 - 關聯的 appearance subject
-- 
+	- collections
+	- all images
 - schedule 設定
 	- 手動觸發 generate post 行為
 - 手動發文
 
+模擬時間到
+-> 依背景資訊 (時間、個性、興趣、最近紀錄)
+-> 向 llm 生成活動文  + 決定故事分鏡圖片數
+-> 將分鏡生成文生圖提示 -> 生成圖片
 
 
 調整 post 與 image
