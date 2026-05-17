@@ -11,17 +11,25 @@ app/characters
 先僅搬移就好，功能先不做調整
 
 二、擴增 Character
-avatar 欄位
-
+avatar 圖片
+hero_section
+hero_section_collection 圖片
+figure
+figure_collection 立繪圖片
 
 二、實作 app/characters/:id 的 Character Show 頁面
 這是 character 的後台
 要可以看到 character 的：
 - 基本資料
+- 關聯的 appearance subject
+- 
 - schedule 設定
 	- 手動觸發 generate post 行為
 - 手動發文
 
+
+
+調整 post 與 image
 # Generation Images Management Mode
 
 
