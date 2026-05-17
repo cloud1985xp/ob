@@ -8,11 +8,26 @@ Collection 也可以被 like or dislike
 
 # 主要使用情境：
 
+一、從 generation 生成 image 建立/加入 collection
 在使用 generation 生成圖片(run process)時
 可以同時設定要將生成的圖片，建立(或加到現有的) collection
 這時建立的 collection 會跟該 generation 有一樣的 subject
-並把 collection 與該 generation 也建立
+並把 collection 與該 generation 也建立關聯(belongs to collection)
 
+建立(如果選擇建立 collection) 好後
+generation 後續生成的 image，也都會被加到這個 collection
+
+- 仍然可以只 run generation process 但不使用 collection 功能
+- 每個 image 可以被加到多個不同的 collection，這部分之後再實作
+- generation 生成的圖片，會依生成順序加入 collection
+
+
+二、collection 功能
+c
+
+- /app/collections 會列出所有 collection
+	- infinite scroll 載入
+	- 可用 subject
 
 ## 建立資料表
 
