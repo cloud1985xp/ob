@@ -35,15 +35,22 @@ app/characters 列表加上瀏覽的連結，進入 show 頁面
 	- schedules 管理：/app/characters/:id/schedules
 	- 上述三者都是獨立的網址路徑與 LiveView，只先做基本列表，詳細功能之後再定義實作 
 
-Part II
+Support Image on Characters
+要對 Character 增加上傳/設定圖片的功能
 
-擴增 Characters table
-
-- 增加 avatar 欄位，存放 avatar圖片
-- 增加 figure 欄位
+一、修改 Characters table 欄位：
+- 增加 avatar 欄位，存放 avatar 圖片
+- 增加 illustration 欄位，存放 illustration 立繪圖片
 - 增加 hero_section 欄位，存放 hero section 的背景圖片
-- 
-hero_section_collection 圖片
+- 增加 illustration_collection_id, reference to Collection
+	- 即也可以用 collection 的方式把多張圖片當作 illustration
+- 增加 hero_section_collection_id: reference to Collection
+	- 即也可以用 collection 的方式把多張圖片當作 hero_section
+
+二、更新 CharacterForm
+更新 Form 可以在新增/編輯時
+- 上傳 avatar、illustration、hero_sectio
+
 figure_collection 立繪圖片
 
 - schedule 設定
