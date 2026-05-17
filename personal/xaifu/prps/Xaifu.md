@@ -55,6 +55,9 @@ generation 後續生成的 image，也都會被加到這個 collection
 		- 用 ImageGallery 陳列 collection images，依 position 排列
 		- 側邊有 image detail panel 跟可以使用 full view 模式
 	- 另外，show 頁面的左側加上清單，列出同 subject 下的 collections，方便切換瀏覽
+		- 實作 collection card 元件
+			- 
+	- Collection 可被 like / dislike，請使用即有模組實現功能
 - /app/collections/:id/edit 與 /app/collections/new
 	- 實作編輯與新增 collection 的功能，獨立頁面，但共用 CollectionForm
 
@@ -63,7 +66,11 @@ generation 後續生成的 image，也都會被加到這個 collection
 - 把 generated_image 資料刪除
 - 把該 image 與 collection 的關聯也一併刪除
 
+目前僅實作從 generation 來將 image 加入 collection 的情境
+未來會再支援直接操作 image 加入 collection，或從 collection 中移除 image 的情境
 
+三、調整 subject show
+在瀏覽 subject 的頁面，加上列出關聯的 collection
 ## 資料表規劃
 
 collections
@@ -73,9 +80,8 @@ collections
 - description: text
 - metadata: json
 - likes: integer
-- labels array of string, search able
-- nsfw boolean
-- 
+- labels: array of string, 可當作 search 條件
+- nsfw: boolean
 
 collection_images
 關聯 image to collections
@@ -85,7 +91,11 @@ collection_images
 
 collection_prompts
 關聯 Collection 與當下 generation 生成時的 Prompts 資訊
-- collection_id: (Collection has many Co)
+- collection_id: (Collection has many prompts)
+- prompt_category_id: belongs_to prompt_category, not null
+- prompt_id: belongs_to prompt, allow null
+- prompt_title: 當下 prompt title
+- prompt_text: 當下 prompt text(en)
 
 collection index/show
 - show: list other collection of same subject
