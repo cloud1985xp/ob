@@ -74,6 +74,8 @@ venux 專案已有完整的實作，請直接參考
 四、將 /app/characters/:id 的 Character Show  頁面的 images 清單
 最用 image cropper，一樣，可以參考 venux 專案 的實作方式
 
+
+
 figure_collection 立繪圖片
 
 - schedule 設定
