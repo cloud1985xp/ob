@@ -1,3 +1,15 @@
+
+Character Management at app side
+
+我要來將 Character 的後台管理功能完整建立
+
+app/characters
+
+一、搬移 chat 功能
+原舊有做了 app/chat/:id/ 這個功能
+請先搬移到前端 /characters/:id 的畫面中
+先僅搬移就好，功能先不做調整
+
 # Generation Images Management Mode
 
 
