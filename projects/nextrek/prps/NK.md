@@ -13,7 +13,7 @@ NK Engineer Workflow
 
 ## Report
 
-我想插入一項重構項目
+我想插入一項有關 Reports 的重構項目
 
 目前的 reports_controller 與 routes 設計太過複雜難閱讀
 即 accountings namespace 下的：
@@ -31,7 +31,12 @@ namespace :reports do
 end
 ```
 
-然後不同的 category 分別是獨立
+然後不同的 category 分別是獨立的 controller
+在各自的 controller 只要用不同 action 來產生不同的 controller
+如果這些 reports 用的 controller，有共用的行為，再拆出成 module 來引用就好
+
+請幫我思考規劃一下這樣的調整是否合理，分析優缺點
+確認後再按排插入到 Phase 3 (後續往後延)
 
 ## 優化 Lookbook
 - 標題從 Nexalon 改為 Nextrek
