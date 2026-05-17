@@ -4,10 +4,13 @@
 
 collections
 - belongs to subject
-- name
+- title
+- description
 - metadata
 - likes
-- labels
+- labels array of string, search able
+- nsfw boolean
+- 
 
 collection images
 
