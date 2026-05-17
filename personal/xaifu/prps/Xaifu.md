@@ -18,8 +18,15 @@ app/characters
 要可以看到 character 的：
 - 基本資料
 - 從關聯的 appearance subject
-	- 列出 collections
-	- all images
+	- 列出 generated images list
+		- `不要` 直接複用 image gallery 元件，這個 list 會有不同的行為(後面說明)
+			- 用 grid view 顯示清單
+		- 用 infinite scroll 載入
+		- 依 likes 數 desc 排序
+		- 可以選擇 subject 的 generations 來篩選
+		- 可以選擇 subject 的 collections 來篩選
+
+
 - schedule 設定
 	- 手動觸發 generate post 行為
 - 手動發文
