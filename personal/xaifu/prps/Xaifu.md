@@ -64,18 +64,19 @@ Support Image on Characters
 三、實作 image cropper 功能
 請參考 ../venux 路徑下的專案，有類似功能的實作：
 
-實作在 image detail panel，如果有傳入 character id
-會在 panel 裡出現 crop 的按鈕 image 按下按鈕後，跳出 image cropper 的功能
-- 在 cropper 中選擇要進行的是 avatar/illustration/hero_section 哪一種類型
+可對屬於 character 的圖片套用 image cropper ，啟動時會跳出 image cropper 的功能
+- 在 cropper 中可選擇要進行的裁切是 avatar/illustration/hero_section 哪一種類型
 	- 若為 avatar，限制裁切比例是 1:1
 	- 若是 illustration 或 hero_section：不限制比例
-	- 送出後直接更新至 character 的對應檔案上傳欄位
+- 裁切後，按下提交，直接更新至 character 的對應檔案上傳欄位
 
-venux 專案已有完整的實作，請直接參考
+venux 專案已有完整的實作，請直接參考：
+差別是 venux 專案中是直接點擊 image 清單中 image item 上的按鈕，
+但在本專案中是將在 image detail panel 中顯示按鈕，其他部分的行為基本上都一樣
+因此也需要修改 image detail panel，當有傳入 character_id 時，
+會出現/套用 image cropper 的功能
 
 四、將 /app/characters/:id 的 Character Show  頁面的 images 清單
-最用 image cropper，一樣，可以參考 venux 專案 的實作方式
-
 
 
 figure_collection 立繪圖片
