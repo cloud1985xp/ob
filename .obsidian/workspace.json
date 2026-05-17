@@ -228,7 +228,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "tech/tools/environment-setup.md",
+                "file": "projects/nextrek/prps/NK.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -238,7 +238,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "environment-setup 的反向連結"
+              "title": "NK 的反向連結"
             }
           },
           {
@@ -247,12 +247,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "tech/tools/environment-setup.md",
+                "file": "projects/nextrek/prps/NK.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "environment-setup 的對外連結"
+              "title": "NK 的對外連結"
             }
           },
           {
@@ -290,13 +290,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "tech/tools/environment-setup.md",
+                "file": "projects/nextrek/prps/NK.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "environment-setup 的大綱"
+              "title": "NK 的大綱"
             }
           }
         ]
@@ -357,11 +357,11 @@
       }
     ]
   },
-  "active": "52ecf23b2b4dbada",
+  "active": "e911ab90ba0ccf4d",
   "lastOpenFiles": [
+    "tech/tools/environment-setup.md",
     "personal/xaifu/prps/Xaifu.md",
     "projects/nextrek/prps/NK.md",
-    "tech/tools/environment-setup.md",
     "projects/nextrek/prps/Journal Draft Imports.md",
     "projects/nextrek/prps/建立 e2e.md",
     "projects/hdwcp/hdwcp.md",

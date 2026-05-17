@@ -9,6 +9,30 @@
 NK Engineer Workflow
 
 
+# Refactor View By Subject
+
+## Report
+
+我想插入一項重構項目
+
+目前的 reports_controller 與 routes 設計太過複雜難閱讀
+即 accountings namespace 下的：
+```
+get '/reports/(/:category)(/:type)(/:date)' => 'reports#show'
+```
+
+把所有 reports 共用在同一個 controller
+controller 裡又複雜地去決定 presenter，
+
+我考慮將它們調整成，搬到 reports namespace 下，如 
+```
+namespace :reports do
+  scope "/budgets" ...
+end
+```
+
+然後不同的 category 分別是獨立
+
 ## 優化 Lookbook
 - 標題從 Nexalon 改為 Nextrek
 - 各種基本 component 的樣式目前看起來都怪怪的，似乎沒有套到專案的 style，請檢查確認現狀
