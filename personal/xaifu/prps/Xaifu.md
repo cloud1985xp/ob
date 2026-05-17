@@ -49,7 +49,11 @@ Support Image on Characters
 
 二、更新 CharacterForm
 更新 Form 可以在新增/編輯時
-- 上傳 avatar、illustration、hero_sectio
+- 上傳 avatar、illustration、hero_section 的圖片
+- 也可以用下拉選單設定 illustration collection 和 hero_section collection
+	- 從 Character 關聯的 subject 取得 collection 選項
+
+請參考 ../venux 路徑下的專案，來實作圖片上傳的 
 
 figure_collection 立繪圖片
 
