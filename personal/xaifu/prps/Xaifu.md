@@ -12,7 +12,13 @@ Collection 也可以被 like or dislike
 在使用 generation 生成圖片(run process)時
 可以同時設定要將生成的圖片，建立(或加到現有的) collection
 這時建立的 collection 會跟該 generation 有一樣的 subject
-並把 collection 與該 generation 也建立關聯(belongs to collection)
+並建立關聯：
+- collection belongs to generation
+- collection has many prompts
+
+Collection has many prompts 會紀錄
+當下 generation 用的 inputs BI
+
 
 建立(如果選擇建立 collection) 好後
 generation 後續生成的 image，也都會被加到這個 collection
@@ -49,7 +55,14 @@ generation 後續生成的 image，也都會被加到這個 collection
 基本頁面
 - /app/collections 會列出所有 collection
 	- infinite scroll 載入
-	- 可用 subject (subject select)、labels (輸入文字，可多個用 `,` 間隔) 篩選
+	- 依 likes 數 desc 排序
+	- 可篩選：
+		- 用 subject (subject select)
+		- 用 title 輸入文字，模糊比對
+		- 用 labels 
+			- 可輸入文字，可多個用 `,` 間隔) 篩選
+			- 或有預定義常用 labels 作複選
+		- 用 nsfw (true / false toggler)
 
 ## 建立資料表
 
