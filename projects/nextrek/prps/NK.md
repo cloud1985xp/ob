@@ -8,7 +8,6 @@
 
 NK Engineer Workflow
 
-
 ## Refactor Planning
 請幫我檢視整個專案，將程式碼重構、簡化及優化
 先理解整個專案架構與功能需求後，整理需要重構優化處理的部分
@@ -31,6 +30,34 @@ NK Engineer Workflow
 務必拆分成多個可分開提交的計畫來進行
 請用 /brainstorming 規劃並與我進行討論確認
 
+# Refactor View By Subject
+
+## Phase 3: Report
+
+我想插入一項有關 Reports 的重構項目
+
+目前的 reports_controller 與 routes 設計太過複雜難閱讀
+即 accountings namespace 下的：
+```
+get '/reports/(/:category)(/:type)(/:date)' => 'reports#show'
+```
+
+把所有 reports 共用在同一個 controller
+controller 裡又複雜地去決定 presenter，
+
+我考慮將它們調整成，搬到 reports namespace 下，如 
+```
+namespace :reports do
+  scope "/budgets" ...
+end
+```
+
+然後不同的 category 分別是獨立的 controller
+在各自的 controller 只要用不同 action 來產生不同的 controller
+如果這些 reports 用的 controller，有共用的行為，再拆出成 module 來引用就好
+
+請幫我思考規劃一下這樣的調整是否合理，分析優缺點
+確認後再按排插入到 Phase 3 (後續往後延)
 
 ## 優化 Lookbook
 - 標題從 Nexalon 改為 Nextrek

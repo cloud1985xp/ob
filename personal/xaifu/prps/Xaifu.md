@@ -1,11 +1,290 @@
+
+
+## Character Part III
+Character Management at app side
+
+figure_collection 立繪圖片
+
+- schedule 設定
+	- 手動觸發 generate post 行為
+- 手動發文
+
+模擬時間到
+-> 依背景資訊 (時間、個性、興趣、最近紀錄)
+-> 向 llm 生成活動文  + 決定故事分鏡圖片數
+-> 將分鏡生成文生圖提示 -> 生成圖片
+
+
+調整 post 與 image
+## Character Part I
+
+修改 app/characters 功能
+這裡的定位比較像是 Character 的後台管理功能
+
+首先先進行以下調整：
+
+一、搬移 chat 功能
+原本有做了 app/chat/:id/ 這個功能
+請先搬移到前端 /characters/:id 的畫面中
+先僅搬移就好，功能先不做改動
+
+二、實作 app/characters/:id 的 Character Show 頁面
+app/characters 列表加上瀏覽的連結，進入 show 頁面
+
+在 Character Show：
+- 顯示基本資料
+- 可以進入編輯頁 
+	- 請將目前已有新增/編輯  character 拆到獨立的頁面，但共用 CharacterForm
+- 基本資料下方，顯示 images 清單
+	- 從關聯的 appearance subject 取得 generated images
+		- 用 infinite scroll 載入
+		-  依 likes 數 desc 排序
+		- *不要* 直接複用 image gallery 元件，這個 list 會有不同的行為(後面說明)
+			- 用 grid view 顯示清單
+		- 可以選擇 subject 的 generations 來篩選
+		- 可以選擇 subject 的 collections 來篩選
+- 有個 submenu，可以切去 Character 的：
+	- posts 管理：/app/characters/:id/posts
+	- activities 管理：/app/characters/:id/activities
+	- schedules 管理：/app/characters/:id/schedules
+	- 上述三者都是獨立的網址路徑與 LiveView，只先做基本列表，詳細功能之後再定義實作 
+
+## Character Part II: Support Image on Characters
+要對 Character 增加上傳/設定圖片的功能
+
+一、修改 Characters table 欄位：
+- 增加 avatar 欄位，存放 avatar 圖片
+- 增加 illustration 欄位，存放 illustration 立繪圖片
+- 增加 hero_section 欄位，存放 hero section 的背景圖片
+- 增加 illustration_collection_id, reference to Collection
+	- 即也可以用 collection 的方式把多張圖片當作 illustration
+- 增加 hero_section_collection_id: reference to Collection
+	- 即也可以用 collection 的方式把多張圖片當作 hero_section
+
+二、更新 CharacterForm
+更新 Form 可以在新增/編輯時
+- 上傳 avatar、illustration、hero_section 的圖片
+- 也可以用下拉選單設定 illustration collection 和 hero_section collection
+	- 從 Character 關聯的 subject 取得 collection 選項
+
+
+使用 waffle 來實作圖片上傳/處理與 ecto 整合的功能
+請參考 ../venux 路徑下的專案，
+ex:
+```
+lib/venus/uploaders/avatar.ex
+lib/venus/actresses/actress.ex:7
+```
+
+圖片上傳的 transform：
+- avatar:  縮放圖片至 320x320
+- illustration: 保留原圖尺寸(可以清除 exf 資訊)
+- figure: 保留原圖尺寸(可以清除 exf 資訊)
+
+三、實作 image cropper 功能
+請參考 ../venux 路徑下的專案，有類似功能的實作：
+
+可對屬於 character 的圖片套用 image cropper ，啟動時會跳出 image cropper 的功能
+- 在 cropper 中可選擇要進行的裁切是 avatar/illustration/hero_section 哪一種類型
+	- 若為 avatar，限制裁切比例是 1:1
+	- 若是 illustration 或 hero_section：不限制比例
+- 裁切後，按下提交，直接更新至 character 的對應檔案上傳欄位
+
+venux 專案已有完整的實作，請直接參考相關檔案例如：
+
+實作 Cropper  JS:
+- Hook.PhotoCropper: at assets/js/app.js:232
+
+Elixir Component:
+- PhotoCard.photo_card, at lib/venus_web/components/photo_card.ex:17
+- PhotoCard.photo_modal, at lib/venus_web/components/photo_card.ex:116
+
+Controller to Handle cropped data
+- lib/venus_web/controllers/actress_crop_controller.ex
+
+差別是 venux 專案中是直接點擊 image 清單中 image item 上的按鈕，
+但在本專案中是將在 image detail panel 中顯示按鈕，其他部分的行為基本上都一樣
+
+因此也需要修改 image detail panel，當有傳入 character_id 時，
+會出現 crop image 的按鈕並套用 image cropper 的功能
+
+請先詳細了解參考程式碼與相關需求
+確認後再開始進行
+若有任何問題或建議請提出討論
+
+
+# Generation Images Management Mode
+
+
+Collection Show
+要顯示相關的 collection prompt (prompt category title, prompt_title, prompt_text) 資訊
+
+
 # Collection 功能
 
+新增 Collection 的功能，來將 Generated Images 收錄進 Collection
+
+## 主要開發項目：
+
+### 一、從 generation 生成 image 建立/加入 collection
+在使用 generation 生成圖片(run process)時
+可以同時設定要將生成的圖片，建立(或加到現有的) collection
+這時建立的 collection 會跟該 generation 有一樣的 subject
+並建立關聯：
+- collection belongs to subject
+- collection belongs to generation
+- collection has many prompts
+
+Collection has many prompts (CollectionPrompt) 會紀錄
+當下 generation 用的 inputs 資訊，包括每個 input 的：
+
+- prompt_category_id 關聯
+- prompt_id 關聯 (若沒有就留空)，以及
+- prompt_title
+- prompt_text (當下用的 text)
+
+建立(如果 genertion 時選擇建立 collection) 好後
+generation 後續生成的 image，也都會被加到這個 collection
+
+在 Generation Show 頁面
+增加 Run with Collection 表單
+可以選擇：
+- 「加到現有 collection」 -> 下拉選單
+	- 實作 collection select 元件，與 prompt select、subject select 類似
+	- collection select 的選項，要依當下 generation 選擇的 subject 連動只列出該 subject 的 collections
+- 「建立新的 collection」出現簡易的表單
+	- 出現 title 欄位，但允許空白(後端自動變成 timestamp)
+	- 可選擇 nsfw
+按下送出後開始執行 run process with collection
+
+註：
+- 仍然可以只 run generation process 但不使用 collection 功能
+- 每個 image 可以被加到多個不同的 collection，這部分之後再實作
+- generation 生成的圖片，會依生成的順序加入 collection (記錄成 position)
+
+主要欄位說明：
+- 標題，預設用 timestamp (yyyymmdd-hhiiss)
+- 標籤(labels)，輸入時用 `,` 間隔，可以用 labels 當條件來篩選查詢
+- nsfw: 一個 boolean 值標記是否為 nsfw，預設 false
+- cover_image: 封面圖，關聯到 generated_image，當作 collection 代表圖片，允許空值
+	- 在 generation 同時建立成 collection 時，會將第一張 image 設為封面
+	- 若 generation 時只是加入現有 collection 時，不會改動 collection cover image
+
+### 二、collection 功能
+
+基本頁面
+- /app/collections 會列出所有 collection
+	- infinite scroll 載入
+	- 依 likes 數 desc 排序
+	- 可篩選：
+		- 用 subject (subject select)
+		- 用 title 輸入文字，模糊比對
+		- 用 labels 
+			- 可輸入文字，可多個用 `,` 間隔) 篩選
+			- 或有預定義常用 labels 作複選
+		- 用 nsfw (true / false toggler)
+
+- /app/collections/:id 瀏覽 collection
+	- 基本頁面跟 generation 類似，列出 collection 資訊
+		- 用 ImageGallery 陳列 collection images，依 position 排列
+		- 側邊有 image detail panel 跟可以使用 full view 模式
+	- 另外，show 頁面的左側加上清單，列出同 subject 下的 collections，方便切換瀏覽
+		- 實作 collection card 元件
+			- 顯示封面，若沒有封面空 placeholder 區塊代替
+	- Collection 可被 like / dislike，請使用即有模組實現功能
+- /app/collections/:id/edit 與 /app/collections/new
+	- 實作編輯與新增 collection 的功能，獨立頁面，但共用 CollectionForm，輸入欄位：
+		- subject(required): 用 subject select 元件
+		- generation (optional)
+		- title
+		- labels
+		- nsfw
+		- likes
+
+註：
+若在 image detail panel 或 full view 執行刪除 image，行為仍維持跟原本一樣：
+- 把 generated_image 資料刪除
+- 把該 image 與 collection 的關聯也一併刪除
+
+目前僅實作從 generation 來將 image 加入 collection 的情境
+未來會再支援直接操作 image 加入 collection，或從 collection 中移除 image 的情境
+
+### 三、調整 subject show
+在瀏覽 subject 的頁面，加上列出關聯的 collection，複用 collection card component
+
+## 資料表規劃
+collections
+- belongs to subject (required)
+- belongs to generation (optional)
+- title: string
+- description: text
+- cover_image_id: reference generated_image，allow null
+	- generated image 若有被關聯到 collection 的 cover_image，則不允許刪除
+		- 先僅作 constraint 保護，不做檢查和 ui 顯示
+- likes: integer
+- labels: array of string, 可當作 search 條件
+- nsfw: boolean
+
+collection_images
+關聯 image to collections
+- collection_id
+- generated_image_id
+- position
+
+collection_prompts
+關聯 Collection 與當下 generation 生成時的 Prompts 資訊
+- collection_id: (Collection has many prompts)
+- prompt_category_id: belongs_to prompt_category, not null
+- prompt_id: belongs_to prompt, allow null
+- prompt_title: 當下 prompt title
+- prompt_text: 當下 prompt text(en)
+
+
+## 執行目標
+
+請先計劃再開始實作
+且確保既有的功能不被影響
+並盡量使用現有的 module、元件，或重構再利用
+維持一慣的 ui 和操作介面的友善
+
+若有任何不確定，請與我討論或提出建議
+
+追加以下修改：
+- 在 Generation Show 頁面把 Run with Collection 的區塊，往上移到 Generation 基本資訊的下方，也就是 Input Configuration 區塊之上
+- 在 app layout 的主選單，加上 "Collections" 的連結項目，放在 Subjects 下，並加上適合的 icon
+
+
+# Prompt category 選單
+
+將所有出現 prompt_category 的 select 選單
+都改成 group option 的結構：
+先用 prompt_category_group 分組、排序(by prompt_category_groups.position)
+每組再排列 prompt_categories
+
+請先將它做成一個可重複使用的 form component (可以 form field 整合)
+然後把有用到 prompt category select 的地方都替換成這個 component
+
+包括：
+- PromptForm
+- GenerationForm 裡的每個 GenerationInput
+- Image2Text Record 裡的 Create prompt from record
+- Image2Text Batch 裡 Create Prompts 的功能
+請再檢查還有沒有其他地方也需要替換
+
+請 Prompt Category Select 
+
+FormComponent 的 category_select 元件
+在表單編輯時，不會正確地選中 current option，請檢查並修正
 
 # TODO
-- prompt category 選單
+- 
 - collection 功能
 - 支援設定步數
 - 支援設定 lora
+- 手機版
+	- 閱讀
+	- 生圖
+	- app?
 
 - (wip) 圖生提示詞解析功能
 	- 輸入圖片網址、檔案或貼上

@@ -144,6 +144,15 @@ claude-code
 
 ### MCP
 
+https://github.com/microsoft/playwright-cli
+
+```
+npm install -g @playwright/cli@latest
+playwright-cli install --skills
+```
+
+
+
 [Setting Up MCP Servers in Claude Code: A Tech Ritual for the Quietly Desperate](https://www.reddit.com/r/ClaudeAI/comments/1jf4hnt/setting_up_mcp_servers_in_claude_code_a_tech/)
 
 ```bash
