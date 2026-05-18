@@ -1,6 +1,18 @@
 
 Batch Prompt support TSV
-請將 batch create ptom
+請將 batch create prompt 做以下修改
+
+將表單加上
+可設定 type 是 text or tsv
+text 就用原本的方式建立 prompts
+
+若 type 選擇 tsv
+送出後
+會把 textarea 裡輸入的文字，當作 tsv 的內容來處理
+
+處理方式請參考 priv/repo/chapter.exs 裡的作法
+來一次建立多筆 prompt 在當下的 prompt category
+
 
 ## Character Part III
 Character Management at app side
