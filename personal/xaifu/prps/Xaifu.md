@@ -1,4 +1,6 @@
 
+Batch Prompt support TSV
+請將 batch create ptom
 
 ## Character Part III
 Character Management at app side
