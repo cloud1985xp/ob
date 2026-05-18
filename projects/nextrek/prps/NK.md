@@ -9,11 +9,35 @@
 NK Engineer Workflow
 
 
+## Refactor Planning
+請幫我檢視整個專案，將程式碼重構、簡化及優化
+先理解整個專案架構與功能需求後，整理需要重構優化處理的部分
+並安排計畫可階段性的更新
+
+以下列出我已知可能需要處理的部分
+
+- Reports 功能程式碼閱讀性太差
+	- 調整 routes 成為  reports/:name, 不需要有 show 這增路徑
+	- 重整 controller
+	- 重構各種 report 的 presenter
+	- 多種 reports presenter 裡有類似的程式碼，例如 statement group 的處理
+- JournalQuery 需要簡化，各地方用到 jquery query 以及其對應的 search form 要整合方便管理
+- EntryQuery 也是，需要簡化
+- Accountings 這層 namespace 可以被省略掉
+
+應該還有很多太過複雜需要優化的部分
+請盡量檢查並提出改善計畫
+
+務必拆分成多個可分開提交的計畫來進行
+請用 /brainstorming 規劃並與我進行討論確認
+
+
 ## 優化 Lookbook
 - 標題從 Nexalon 改為 Nextrek
 - 各種基本 component 的樣式目前看起來都怪怪的，似乎沒有套到專案的 style，請檢查確認現狀
 - 請美化整個 lookbook 的樣式風格，可以獨立用 ui-ux-max-pro 設計，搭配 tailwindcss + daisyui
-- Subject Menu 裡並沒有選項的項目，請加上有選單資料
+- Subject Menu 裡並沒有選項的項目，請加上有選單資料的悄況
+- Contact Select, Tag Select 等等，也請加上有選項的範例
 - 
 	- 
 
