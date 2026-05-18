@@ -4,11 +4,66 @@
 
 啟動時/定時，檢查 todo -> 需要整理一份屬於它的工作清單 (從 youtrack 產生？)
 
+
+TODO:
+- 增強 debug knowledge 能力
+	- 可能要參考最近的 程式 變動
+
+## 增加 REPO_LIST 在 CONFIG.md 裡
+
+整個工作流會使用到多個 repositores
+我想直接在 CONFIG.md 裡定義好清單，包括
+
+repo name, alias names, local path
+
+這樣在工作流中或 CONFIG.md 裡的其他地方，
+可以直接用 repo name 或 alias 來代表就好
+
+## 收集程式開發紀錄
+我想在每日復盤階段
+增加一個動作來收集我的程式開發工作行為紀錄
+經由：
+- neovim 編輯器的 log
+- 各個 repo 的 commit 紀錄
+收集這些資訊，來匯整今當日的工作紀錄
+並做為 `Stage 2 — Review Today's Items` 內容的一部分
+
+請把這個「收集程式開發工作行為」也做成一個 skill
+
+並會從 CONFIG.md 裡來定義：
+1、需要收集的 repo 清單
+2、neovim 的 log 位置
+
+結果產生一份 report，
+並讓在 retrospective skill 裡也去參考這份資料
+
+## 確認 update_worksheet Skill
+
+請檢查並修改 update-worksheet 的 Skill
+是否符和以下期望的行為來寫入 worksheet
+
+我已設定了 CONFIG.md
+一、請試試看是否能正確讀到我的 sheet
+
+二、請閱讀目前的 worksheet 結構：
+- 將目前有選取過的「分類」(B)，資料，更新到 references/sheet-categories.md 裡，這些是目前常用到的項目與相關的工內容
+
+三、確認 skill 寫入的行為
+當工作紀錄資料整理好後，skill 要進行更新時：
+- 從 A 欄(日期)最後一列空白開始填寫當日的工作紀錄
+- 會從即有的分類選擇適合的項目
+- 這個寫入的行為，應該可以製作成 skill 的 scripts 腳本，方便直接呼叫執行
+
+
+
+
+
 我要設計一個以 LLM Agent 來代理我的日常工作的工作流
 請與我討論後，設計出這個工作流的 CLAUDE.md Schema 
 以及規劃出可能需要建立的 skill
 
 目標滿足以下的工作行為、任務項目與需求
+
 
 ## 工作任務內容
 - 多個不同專案的開發項目 issue，可能是依需求功能開發，或修正 bug

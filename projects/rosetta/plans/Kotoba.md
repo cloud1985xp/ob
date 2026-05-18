@@ -1,3 +1,34 @@
+
+Review TranslatorV2
+
+關於 Phase 4 的 TranslationPipeline 和 TranslatorV2
+我有以下問題討論調整
+
+1.
+一次會處理大量的 Strings，如果將所有既有翻譯一次查詢放在 Context 資料結構中。
+可能會有效能上的問題。j
+請考慮在開始處理時，先將 Strings 拆分成多個批次來進行。
+
+2
+在翻譯整合服務 Integrations 模組的部分。
+- Kotoba 比較像是一種 provider 。指的是自架的 model translation 服務，提供模型像是 mt5, gemma 之類的
+- 其他則是第三方雲端 LLM provider API 的服務，例如 Gemini, ChatGPT，有M T Phi。
+
+所以目前的 LLM provider module 放在 Kotoba 下可能不太適合，這邊的 llm provider 指的就是用其他第三方的 api 服務
+請適當地調整 Integrations 下的模組結構
+
+3 
+請考慮使用更符合 Elixir OTP / GenStage 架構的方式來實作各個 stage 的處理。
+分析評估使用這個套件
+https://hexdocs.pm/broadway/Broadway.html
+先詳細了解這個套件的用途，並評估提出它是如何適用(或不適用) TranslatorV2 的架構中
+再做決定
+
+上述想法請幫我仔細評估、若要進行調整
+請以不要影響到 TranslatorV2 與外界構通的介面為前提做修改
+
+
+
 # 目標
 
 對 Rosetta 的翻譯資料/功能系統增加以下變動
