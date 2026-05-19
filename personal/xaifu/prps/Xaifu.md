@@ -19,7 +19,14 @@ text 就用原本的方式建立 prompts
 可搭配 shift 鍵選擇起始-結束範圍的多張圖片
 也可用 cmd(control)鍵分別選取
 
-選取
+可對選取的圖片進行批次動作，包括
+- 刪除
+- 加到指定的 collection：如果有傳入 subject id 時才啟用，可選擇 subject 的 collection 作為目標
+保留未來擴充更多動作的彈性
+
+請規劃並實作
+且確保原本的功能不受影響
+
 ## Character Part III
 Character Management at app side
 
