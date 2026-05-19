@@ -13,7 +13,13 @@ text 就用原本的方式建立 prompts
 處理方式請參考 priv/repo/chapter.exs 裡的作法
 來一次建立多筆 prompt 在當下的 prompt category
 
+對 image gallery 元件增加批次操作的功能
+增加「選取」模式
+使用者可點圖片複選多張圖片
+可搭配 shift 鍵選擇起始-結束範圍的多張圖片
+也可用 cmd(control)鍵分別選取
 
+選取
 ## Character Part III
 Character Management at app side
 
