@@ -29,12 +29,17 @@
 在 Collection Show 頁面
 在中間欄 image gallery 上方增加一個詳細資訊的區塊
 要顯示相關的 collection prompts (prompt category title, prompt_title, prompt_text) 資訊
-- 請製作成 PromptCard 元件，方便在其他頁面重複使用
+- 請製作成 PromptCard 元件，方便未來在其他頁面重複使用
 
 在 Collection Form 中
 在「編輯」時，要可以設定 cover 的 image，
 - new collection 則不需要
-- 使用 Image Select 來擇，將該 collection
+- 使用 Image Select 來讓使用者選擇，將該 collection 的 images 當作 options
+
+
+# 調整 Subject 功能
+將 Subject Show 裡的 generations，改成用 gird 呈現
+generations 和 collections，應該要在 image gallery tool bar 上方，tool bar 應該緊接著 gallery
 
 
 
