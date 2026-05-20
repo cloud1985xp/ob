@@ -76,6 +76,13 @@ text 就用原本的方式建立 prompts
 ## Character Part III
 Character Management at app side
 
+實作在 app side 後台觸發 activity 發文/生圖功能
+
+手動輸入活動
+呼叫 llm 產生活動內容
+決定活動圖片書
+再呼叫llm 生成分鏡ㄊㄧˊ
+
 figure_collection 立繪圖片
 
 - schedule 設定
