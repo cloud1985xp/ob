@@ -2,9 +2,20 @@
 # Generation Images Management Mode
 
 
-新增 Image Select 元件
-參考 Subject Select
-傳入 generated images
+# 新增 Image Select 元件
+參考 Subject Select, Prompt Select 等現有元件
+實作 Image Select 的 input 元件
+可以傳入 generated images 當作清單，在 options slot 顯示該張圖片的預覽
+(若需要 name 或 description，可以略過或用 position 值代替)
+讓這個元件可以在表單中，當作 image id 的 input
+
+圖片預覽的尺寸: w-16 h-16
+
+## 調整 Prompt Select 元件
+option slot 裡預覽的圖片數，減少為 5 張
+圖片預覽的尺寸調整為: w-16 h-16
+
+
 # 調整 Collection 功能
 
 在 Collection Show 頁面
