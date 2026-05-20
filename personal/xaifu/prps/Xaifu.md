@@ -79,9 +79,19 @@ Character Management at app side
 實作在 app side 後台觸發 activity 發文/生圖功能
 
 手動輸入活動
+用活動類型限定提示詞
+時間、天氣因素
 呼叫 llm 產生活動內容
-決定活動圖片書
-再呼叫llm 生成分鏡ㄊㄧˊ
+決定活動圖片數
+決定服裝
+- 依活動限定
+- 一活動生成
+- 可隨機
+
+再呼叫llm 生成分鏡提示詞
+執行生圖功能
+用 subject appearance generation
+取得 care group 為外觀的提示詞
 
 figure_collection 立繪圖片
 
