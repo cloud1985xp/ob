@@ -1,5 +1,23 @@
 
-Batch Prompt support TSV
+# Generation Images Management Mode
+
+
+新增 Image Select 元件
+參考 Subject Select
+傳入 generated images
+# 調整 Collection 功能
+
+在 Collection Show 頁面
+在中間欄 image gallery 上方增加一個詳細資訊的區塊
+要顯示相關的 collection prompts (prompt category title, prompt_title, prompt_text) 資訊
+- 請製作成 PromptCard 元件，方便在其他頁面重複使用
+
+在 Collection 
+
+
+
+
+# Batch Prompt support TSV
 請將 batch create prompt 做以下修改
 
 將表單加上
@@ -13,7 +31,8 @@ text 就用原本的方式建立 prompts
 處理方式請參考 priv/repo/chapter.exs 裡的作法
 來一次建立多筆 prompt 在當下的 prompt category
 
-對 image gallery 元件增加批次操作的功能
+# 對 image gallery 元件增加批次操作的功能
+
 增加「選取」模式
 使用者可點圖片複選多張圖片
 可搭配 shift 鍵選擇起始-結束範圍的多張圖片
@@ -139,12 +158,6 @@ Controller to Handle cropped data
 確認後再開始進行
 若有任何問題或建議請提出討論
 
-
-# Generation Images Management Mode
-
-
-Collection Show
-要顯示相關的 collection prompt (prompt category title, prompt_title, prompt_text) 資訊
 
 
 # Collection 功能
