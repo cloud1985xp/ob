@@ -31,7 +31,10 @@
 要顯示相關的 collection prompts (prompt category title, prompt_title, prompt_text) 資訊
 - 請製作成 PromptCard 元件，方便在其他頁面重複使用
 
-在 Collection 
+在 Collection Form 中
+在「編輯」時，要可以設定 cover 的 image，
+- new collection 則不需要
+- 使用 Image Select 來擇，將該 collection
 
 
 
