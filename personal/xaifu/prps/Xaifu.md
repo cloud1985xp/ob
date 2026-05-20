@@ -11,9 +11,17 @@
 
 圖片預覽的尺寸: w-16 h-16
 
-## 調整 Prompt Select 元件
-option slot 裡預覽的圖片數，減少為 5 張
-圖片預覽的尺寸調整為: w-16 h-16
+## 調整其他 Select 元件
+請調整包括
+- prompt_select
+- subject_select
+- generation_select
+- collection_select
+
+將
+- option slot 裡預覽的圖片數，調整為最多 5 張
+	- 若原本就只有一張則不調整
+- 圖片預覽的尺寸調整為: w-16 h-16
 
 
 # 調整 Collection 功能
