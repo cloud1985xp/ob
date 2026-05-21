@@ -1,6 +1,15 @@
 
-PromoCard Client Dev
+# PromoCard Preview Dev
 https://github.com/aktsk-pjt-ishin/tw-ishin-devops/blob/feature/ISHINTW-15490-promo-chara-info/web/promo-chara-info/BACKEND_API_SPEC.md
+
+資料來源
+
+- jp csv
+
+支援多語言？
+- 若遇到該語言沒有的資料，要可以輸入？
+
+
 
 PSD 字形大量轉換
 https://github.com/psd-tools/psd-tools

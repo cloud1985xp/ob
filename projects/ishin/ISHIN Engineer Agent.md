@@ -9,6 +9,30 @@ TODO:
 - 增強 debug knowledge 能力
 	- 可能要參考最近的 程式 變動
 
+我想將工作項目(task domain) `server` , `version-merge` 做進一步補充
+
+一、server -> tooling、tool development
+工具程式的開發/維護，包括像是 rosetta、ishin-tool、polunga 等 repo
+未來可能還會增加，
+
+可能改叫 tooling 或 tool-development
+
+二、version merge
+這部分主要都是 ishin 這個專案相關的工作，包括
+版本的更新，會去 merge 上遊(另一個 jp 版本的 repo)的程式
+像是 ishin-server、ishin-analysis、ishin-cookbooks 的 repo 都會是這類的工作對象 repo
+
+對於 version merge 的對象 repo，也要有獨立的 repo 路徑，定義在 CONFIG.md 裡
+在處理 version merge 的 knowledge 裡，
+agent 應該依要處理的對象(server 、analysis or cookbook) 不同
+依照 CONFIG.md 的設定到不同的 repo 工作
+
+
+
+
+
+要工作內容是
+
 ## 增加 REPO_LIST 在 CONFIG.md 裡
 
 整個工作流會使用到多個 repositores

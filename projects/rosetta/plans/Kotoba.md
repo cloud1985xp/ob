@@ -1,5 +1,81 @@
+# 整合 Miles Package 與 Rosetta TranslationBatch
 
-Review TranslatorV2
+原本的 Miles Packages module 中 #process 與 #process_ai_translation
+實作了舊版的處理「文字轉換」、「查找 db 中既有翻譯」、「(分開地)執行 ai 翻譯」
+
+此次修改是要將它兩個動作合併，並改成用 Rosetta TransaltionBatch / TranslatorV2 來完整
+
+預計新增 Packages.process_full 方法來實現
+- 呼叫 Rosetta，傳入 namespace + property + strings (id + content) 
+- 建立 TranslationBatch 並啟動
+- 等候 batch 執行完成，得到結果
+
+首先 Rosetta 端覺得也要做出以下對應修正
+
+TranslationWorkerV2 裡有許多處理的邏輯，
+是不是應該要拆出到另外的 module, ex: Rosetta.Translations.Batches
+Worker 自身應該只要負責讓包裝 async process (retryable) 的角色，
+而出的 module 可以單獨被執行運作
+
+而 Miles.Packages.process_full 就直接呼叫 module 並等候完成
+Miles 端的 async 管理則由它自己的 worker 來啟動
+
+
+
+
+## 調整 TranslatorV2
+
+當執行 translate 時若傳入的 subject(translation_source)，是有 segmentation (rule)s 時
+需要把傳入的 subject，當作 root subject 放進 context 中來傳遞
+
+承上，在 KotobaProvider 中，會需要：
+
+一：上傳 input 時的目標 gs 路徑
+
+要改成
+- namespace，若有 root subject 要使用 root subject 的 namespace
+- property，若有 root subject 要使用 root subject 的 property
+
+來組成 gs 的目標路徑，格式調整為：
+```
+"gs://#{config.gcs_bucket}/generate/#{job_id}/input/#{namespace}.{property}/#{namespace}.{property}.ja.jsonl"
+```
+
+
+二、在呼叫 jenkins 執行翻譯 job 時
+傳送 trigger job 的參數，要調整：
+- namespace，若有 root subject 要使用 root subject 的 namespace
+- property，若有 root subject 要使用 root subject 的 property
+
+三、下載 jenkins 執行好的翻譯結果
+
+一樣要改成
+- namespace，若有 root subject 要使用 root subject 的 namespace
+- property，若有 root subject 要使用 root subject 的 property
+
+每個語言下載的路徑調整為：
+```
+"gs://#{gcs_bucket}/generate/#{job_id}/output/#{namespace}.{property}/#{namespace}.{property}.ja-#{lang}.jsonl"
+```
+
+請確認上述需求，理解後擬定修改的計畫再進行
+
+## 調整 Trainings 的 Build Data 方法
+
+當遇到 translation source 是有 segmentation rules 時，
+會將所有子(拆分後得到的) translation sources 的 build data 後合併
+
+我希望，仍維持有一個製作單一 translation source data 行為的方法 (即現在的 build_data)
+
+但有另一個入口，是會判斷傳入的 translation source
+檢查是否為有 segmentations ，若是需要拆分子 translation source，
+會分別呼叫 build_data
+後再將得到的資料合併，合併時要注意
+- content、glossary 的各語言都要合併，各語言的資料順序仍然要對齊
+
+而 Trainings.upload_and_trigger_training，是呼叫這個新的入口
+
+# Review TranslatorV2
 
 關於 Phase 4 的 TranslationPipeline 和 TranslatorV2
 我有以下問題討論調整
