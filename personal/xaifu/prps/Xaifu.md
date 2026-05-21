@@ -1,5 +1,50 @@
 
-Batch Prompt support TSV
+# Generation Images Management Mode
+
+
+# 新增 Image Select 元件
+參考 Subject Select, Prompt Select 等現有元件
+實作 Image Select 的 input 元件
+可以傳入 generated images 當作清單，在 options slot 顯示該張圖片的預覽
+(若需要 name 或 description，可以略過或用 position 值代替)
+讓這個元件可以在表單中，當作 image id 的 input
+
+圖片預覽的尺寸: w-16 h-16
+
+## 調整其他 Select 元件
+請調整包括
+- prompt_select
+- subject_select
+- generation_select
+- collection_select
+
+將
+- option slot 裡預覽的圖片數，調整為最多 5 張
+	- 若原本就只有一張則不調整
+- 圖片預覽的尺寸調整為: w-16 h-16
+
+
+# 調整 Collection 功能
+
+在 Collection Show 頁面
+在中間欄 image gallery 上方增加一個詳細資訊的區塊
+要顯示相關的 collection prompts (prompt category title, prompt_title, prompt_text) 資訊
+- 請製作成 PromptCard 元件，方便未來在其他頁面重複使用
+
+在 Collection Form 中
+在「編輯」時，要可以設定 cover 的 image，
+- new collection 則不需要
+- 使用 Image Select 來讓使用者選擇，將該 collection 的 images 當作 options
+
+
+# 調整 Subject 功能
+將 Subject Show 裡的 generations，改成用 gird 呈現
+generations 和 collections，應該要在 image gallery tool bar 上方，tool bar 應該緊接著 gallery
+
+
+
+
+# Batch Prompt support TSV
 請將 batch create prompt 做以下修改
 
 將表單加上
@@ -13,9 +58,40 @@ text 就用原本的方式建立 prompts
 處理方式請參考 priv/repo/chapter.exs 裡的作法
 來一次建立多筆 prompt 在當下的 prompt category
 
+# 對 image gallery 元件增加批次操作的功能
+
+增加「選取」模式
+使用者可點圖片複選多張圖片
+可搭配 shift 鍵選擇起始-結束範圍的多張圖片
+也可用 cmd(control)鍵分別選取
+
+可對選取的圖片進行批次動作，包括
+- 刪除
+- 加到指定的 collection：如果有傳入 subject id 時才啟用，可選擇 subject 的 collection 作為目標
+保留未來擴充更多動作的彈性
+
+請規劃並實作
+且確保原本的功能不受影響
 
 ## Character Part III
 Character Management at app side
+
+實作在 app side 後台觸發 activity 發文/生圖功能
+
+手動輸入活動
+用活動類型限定提示詞
+時間、天氣因素
+呼叫 llm 產生活動內容
+決定活動圖片數
+決定服裝
+- 依活動限定
+- 一活動生成
+- 可隨機
+
+再呼叫llm 生成分鏡提示詞
+執行生圖功能
+用 subject appearance generation
+取得 care group 為外觀的提示詞
 
 figure_collection 立繪圖片
 
@@ -126,12 +202,6 @@ Controller to Handle cropped data
 確認後再開始進行
 若有任何問題或建議請提出討論
 
-
-# Generation Images Management Mode
-
-
-Collection Show
-要顯示相關的 collection prompt (prompt category title, prompt_title, prompt_text) 資訊
 
 
 # Collection 功能
