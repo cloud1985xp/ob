@@ -52,7 +52,11 @@ Character Management at app side
 目標要可以：
 - 一篇 po 文以有多張 image，用關聯的方式關聯 generated_image
 - 可將現在的單張圖片改成用關聯的方式指向 generated_image 作為 post 主圖
-- 生圖的時候，BA 
+- 生圖的時候，要先決定要生成幾張圖片
+	- 預設一個 range 的範圍，從 range 中隨機決定張數
+	- 有一個 mapping 表來控制不同 activity type 參照的 range 範圍，參照不到就用預設的 range
+	- 
+- 決定圖片張數後，會分批次呼叫 llm 來生成 
 
 決定服裝
 - 依活動限定
