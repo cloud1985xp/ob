@@ -19,7 +19,7 @@
 - 用 llm 用一段描述，批次生成多組提示詞，編修確認後批次建立
 
 # Character Part III
-Character Management at app side
+Character Activity/Post/Image Generation at app side
 
 實作在 app side 後台 character 的 activity 功能，
 可以手動觸發 character 的 activity 執行發文/生圖功能
@@ -72,9 +72,16 @@ Character Management at app side
 		- 會把這些指定的 prompts 的 text 也當作組合成提示詞的一部分
 
 抽象來說，需求就是為要可以：
-- 一般情況下讓 activity 只決定活動的內容描述，用 appearance gene
+- 一般情況下讓 activity 產生的提示詞只決定活動的內容描述，用 appearance generation 決定好固定的部分提示詞：例如人物外貌、服裝
+- 但未來會支援 activity 也會決定好其他部分 (例如服裝)，這時就要排除掉 appearance generation 已設定的部分
+	- 可能是直接包含在提示詞內
+	- 或從現有的 prompts 挑選
+	- 或只決定 category，從 category 中隨機挑選
 
-請先了解目前已經實作的部分，進行規劃
+因為這是在後台操作，請實作成方便我從後台控制、測試的方式
+
+請先了解目前已經實作的部分，進行規劃與安排需要的調整
+若有任何不清楚的部分，請提出討論
 
 
 
