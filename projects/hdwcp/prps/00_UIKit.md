@@ -9,17 +9,20 @@
 ## 需求
 請完成以下需求及目標：
 
-一、
-- 將所有 coffee script 改寫為 es6 javascript 並用 esbuild 的架構風格
-- 一些舊的 javascript class (大多數是為了Form 而設計)，可改寫為 stimulus 的 controller
-- icon 系統增加 lucide，舊版先不移除，但新的設計都改用 lucide
-- 導入 tom_select 來取代 select2 (目前新版本應該已經有了)
+一、使用技術
+- esbuild + tailwind + daisyui 為基底
+- icon 系統使用： lucide
+- 下拉選單套用 tom_select 
+- 可增加其他需要的 js 套件
 
 二、設計全新元件化 UI 組件
-請先掃描所有舊版本既有頁面，判斷出可抽出共用的 ui 元件，
+請先掃描所有既有頁面，判斷出可抽出共用的 ui 元件，
 UI 元件的設計不涉及業務邏輯，僅處理畫面顯示與操作互動行為
 
 設計與 UI 元件包括：
+
+### 基本常見：
+一般網站 app 常見的元件，例如
 1. Layout 共用的介面：包括左側的主選單(navigation)、上方的 topnavi、使用者個人選單等等
 2. 各種 input 元件：例如日期選單，下拉選單、選擇環境的下選單、輸入使用者ID的文字欄為等等
 3. 各頁面共用元件，例如：
@@ -29,6 +32,9 @@ UI 元件的設計不涉及業務邏輯，僅處理畫面顯示與操作互動�
 	3. 頁面動作選單：resource index 頁面中的「新增 resource」
 	4. 資料列選單：resource index 中 table row 對每筆資料的「瀏覽」、「編輯」、「更多動作」等
 	5. 資料搜尋列
+
+### 專案特定元件
+
 
 每個 UI 元件：
 - 若需要 javascript，來綁定行為，請為各自設計成 stimulus controller，並確保可以重複地被使用
