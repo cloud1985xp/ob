@@ -60,8 +60,12 @@ Character Management at app side
 	- 為避免一次太多張，一次全部生成會造成 llm 品質下降，這裡設定 batch_size 分批請 llm 生成
 - 將這些提示詞，依序呼叫 Xaifu.Generations.Processor 來生成多張圖片
 - 生成圖片時對於 appearance_generation 的整合也需要調整成：
-	- generation 上會有現有的 prompt inputs，會需要保留部分 prompt 內容來做為生圖的一部分
-		- 保的 prompt 對應的 prompt category 的 prompt category group 的 
+	- generation 上會有現有的 prompt inputs，會需要抽取部分 prompt 內容來做為生圖的一部分
+		- 抽取：依 prompts 對應的 prompt category 的 prompt category group 的 code 來判斷是否抽取來使用
+			- 預設是 "appearance" or "clothing"
+			- 可以透過 opts 傳入參數來決定要抽取哪些
+	- 用抽取的 prompts text + activity 傳入的 prompt  text 組成最終的 prompt 來生成圖片
+	- appearance_generation 實際有點像是
 
 決定服裝
 - 依活動限定
