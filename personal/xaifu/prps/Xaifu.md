@@ -18,6 +18,34 @@
 - (wip) 利用 LLM 自動幫 prompt 命名 / 翻譯
 - 用 llm 用一段描述，批次生成多組提示詞，編修確認後批次建立
 
+
+
+決定服裝
+- 依活動限定
+- 一活動生成
+- 可隨機
+
+再呼叫llm 生成分鏡提示詞
+執行生圖功能
+用 subject appearance generation
+取得 care group 為外觀的提示詞
+
+figure_collection 立繪圖片
+
+- schedule 設定
+	- 手動觸發 generate post 行為
+- 手動發文
+
+模擬時間到
+-> 依背景資訊 (時間、個性、興趣、最近紀錄)
+-> 向 llm 生成活動文  + 決定故事分鏡圖片數
+-> 將分鏡生成文生圖提示 -> 生成圖片
+
+
+調整 post 與 image
+
+# Character Part IV
+
 在 app/characters/:id 畫面中，加上：
 - 顯示 character 關聯的 subject，從點擊連結可以連到該 subject
 - sub 選單加上關聯 subject 的 collections 頁，
@@ -38,16 +66,10 @@
 在 app/characters/:id/activities 列表中
 對 activity 加上按鈕，可以手動觸發 GeneratePostWorker 的動作
 
+請實作 app/characters/:id/schedules 中實作 schedule 的基本 CRUD 功能
+- 可以新增/編輯 schedule，
+- 可以刪除 schedule
 
-請優化 Xaifu.Workers.GeneratePostWorker 和 Xaifu.Workers.GeneratePostImagesWorker 
-Worker 的設計只要單純負責 async job
-實作的工作邏輯，請拆放到 domain module 裡建立函式來處理
-worker 只要收到參數後，再呼叫對應 domain module 的方法執行來好
-這樣才能讓業務邏輯回歸到 domain module
-也方便測試
-
-請修改
-並將這個設計原則加到 guidelines 且確保 CLAUDE.md 會確保被參照到
 # Character Part III
 Character Activity/Post/Image Generation at app side
 
@@ -114,30 +136,18 @@ Character Activity/Post/Image Generation at app side
 若有任何不清楚的部分，請提出討論
 
 
+## 優化 
 
-決定服裝
-- 依活動限定
-- 一活動生成
-- 可隨機
+請優化 Xaifu.Workers.GeneratePostWorker 和 Xaifu.Workers.GeneratePostImagesWorker 
+Worker 的設計只要單純負責 async job
+實作的工作邏輯，請拆放到 domain module 裡建立函式來處理
+worker 只要收到參數後，再呼叫對應 domain module 的方法執行來好
+這樣才能讓業務邏輯回歸到 domain module
+也方便測試
 
-再呼叫llm 生成分鏡提示詞
-執行生圖功能
-用 subject appearance generation
-取得 care group 為外觀的提示詞
+請修改
+並將這個設計原則加到 guidelines 且確保 CLAUDE.md 會確保被參照到
 
-figure_collection 立繪圖片
-
-- schedule 設定
-	- 手動觸發 generate post 行為
-- 手動發文
-
-模擬時間到
--> 依背景資訊 (時間、個性、興趣、最近紀錄)
--> 向 llm 生成活動文  + 決定故事分鏡圖片數
--> 將分鏡生成文生圖提示 -> 生成圖片
-
-
-調整 post 與 image
 
 # Generation Images Management Mode
 
