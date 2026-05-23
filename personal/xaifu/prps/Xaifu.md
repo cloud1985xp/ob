@@ -23,11 +23,17 @@
 - sub 選單加上關聯 subject 的 collections 頁，
 	- 實作 CharacterLive.Collections 列出對應的 collections 清單，
 	- 每個點擊就連到該 collection
-	- 請重複使用 Collection Card
+	- 請和 SubjectLive.Show 裡的 collection 列表一樣，重複使用 Collection Card
 - sub 選單加上關聯 subject 的 generations 頁，
 	- 實作 CharacterLive.Generations 列出對應的 generations 清單，
 	- 每個點擊就連到該 generation
-	- 請複用 Subject Show 裡的 collection
+	- 請和 SubjectLive.Show 裡的 generation 列表一樣，重複使用 Generation  Card
+
+將 app/characters/:id 畫面中最上方的：基本資訊 + sub menu 抽成一個 component，
+並同樣加到個子 sub page，即 Posts, Activities, Schedules, Collections, Generations 頁，
+會需要：
+- 增加一個 Home 回到 character show 
+- 對當前正在瀏覽的項目加上 active 的樣式
 
 在 app/characters/:id/activities 列表中
 對 activity 加上按鈕，可以手動觸發 GeneratePostWorker 的動作
