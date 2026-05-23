@@ -18,8 +18,20 @@
 - (wip) 利用 LLM 自動幫 prompt 命名 / 翻譯
 - 用 llm 用一段描述，批次生成多組提示詞，編修確認後批次建立
 
+在 app/characters/:id 畫面中，加上：
+- 顯示 character 關聯的 subject，從點擊連結可以連到該 subject
+- sub 選單加上關聯 subject 的 collections 頁，
+	- 實作 CharacterLive.Collections 列出對應的 collections 清單，
+	- 每個點擊就連到該 collection
+	- 請重複使用 Collection Card
+- sub 選單加上關聯 subject 的 generations 頁，
+	- 實作 CharacterLive.Generations 列出對應的 generations 清單，
+	- 每個點擊就連到該 generation
+	- 請複用 Subject Show 裡的 collection
+
 在 app/characters/:id/activities 列表中
-對 activity 加上動作，可以手動觸發 GeneratePost 的
+對 activity 加上按鈕，可以手動觸發 GeneratePostWorker 的動作
+
 
 請優化 Xaifu.Workers.GeneratePostWorker 和 Xaifu.Workers.GeneratePostImagesWorker 
 Worker 的設計只要單純負責 async job
