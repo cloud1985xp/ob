@@ -30,6 +30,8 @@ Character Management at app side
 我想在後台 (app/characters/:id/activities) 實現手動觸發
 
 我想的流程大概是：
+
+一，建立活動
 表單中，輸入進行活動的基本資料，例如
 - activity_type
 - location
@@ -37,7 +39,15 @@ Character Management at app side
 - started_at
 (只有部分欄位必填)
 
-用活動類型限定提示詞
+建立活動後，用活動觸發 GeneratePost
+(但活動可能要自動標記成已結束，避免有副作用？)
+
+二、從活動生成 post 內文
+目前應該已經有實作
+
+三、從 post 內文生成圖片
+
+限定提示詞
 時間、天氣因素
 
 呼叫 llm 產生活動內容
