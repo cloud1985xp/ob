@@ -1,15 +1,15 @@
-我要為專案整理的 UI System，美化設計並使用 phoenix_storybook(https://github.com/phenixdigital/phoenix_storybook) 建立 demo page
+我要為專案整理的 UI System，美化樣式設計並使用 phoenix_storybook(https://github.com/phenixdigital/phoenix_storybook) 建立 demo page
 
-請幫我掃描現有功能下各種使用到的 UI。
-
-注意：
-有一部分的功能 (v3 layout) 已經是開始採用新前端版本
-沒有使用 v3 layout 的就是舊版本
+請幫我掃描現有功能下各頁面使用到的 UI 以及現有的 UI Components (lib/hdwcp_web/components/)，進行：
+- 整理歸納元件
+- 使用 ui-ux-pro-max 重新設計
+- 建立 storybook 
+- 整理 ui 相關規格文件在 ai_docs
 
 ## 需求
 請完成以下需求及目標：
 
-一、未來預計要摒棄舊的 sprocket，全面引入新版 (v) 的 js/css library
+一、
 - 將所有 coffee script 改寫為 es6 javascript 並用 esbuild 的架構風格
 - 一些舊的 javascript class (大多數是為了Form 而設計)，可改寫為 stimulus 的 controller
 - icon 系統增加 lucide，舊版先不移除，但新的設計都改用 lucide
