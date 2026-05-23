@@ -18,6 +18,13 @@
 - (wip) 利用 LLM 自動幫 prompt 命名 / 翻譯
 - 用 llm 用一段描述，批次生成多組提示詞，編修確認後批次建立
 
+請優化 Xaifu.Workers.GeneratePostWorker 和 Xaifu.Workers.GeneratePostImagesWorker 
+Worker 的設計只要單純負責 async job
+實作的工作邏輯，請拆放到 domain module 裡建立函式來處理
+worker 只要收到參數後，再呼叫對應 domain module 的方法執行來好
+這樣才能讓業務邏輯回歸到 domain module
+也方便測試
+請將這P
 # Character Part III
 Character Activity/Post/Image Generation at app side
 
