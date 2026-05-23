@@ -25,10 +25,12 @@ Character Management at app side
 可以手動觸發 character 的 activity 執行發文/生圖功能
 
 我想的流程大概是：
-表單中，輸入進行活動的基本資料
+表單中，輸入進行活動的基本資料，例如
 - activity_type
 - location
 - description
+- started_at
+(只有部分欄位必填)
 
 用活動類型限定提示詞
 時間、天氣因素
@@ -50,6 +52,9 @@ figure_collection 立繪圖片
 - schedule 設定
 	- 手動觸發 generate post 行為
 - 手動發文
+
+請先了解目前已經實作的部分，進行規劃
+
 
 模擬時間到
 -> 依背景資訊 (時間、個性、興趣、最近紀錄)
