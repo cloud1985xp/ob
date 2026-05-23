@@ -24,7 +24,9 @@ Worker 的設計只要單純負責 async job
 worker 只要收到參數後，再呼叫對應 domain module 的方法執行來好
 這樣才能讓業務邏輯回歸到 domain module
 也方便測試
-請將這P
+
+請修改
+並將這個設計原則加到 guidelines 且確保 CLAUDE.md 會確保被參照到
 # Character Part III
 Character Activity/Post/Image Generation at app side
 
