@@ -56,7 +56,12 @@ Character Management at app side
 	- 預設一個 range 的範圍，從 range 中隨機決定張數
 	- 有一個 mapping 表來控制不同 activity type 參照的 range 範圍，參照不到就用預設的 range
 	- 
-- 決定圖片張數後，會分批次呼叫 llm 來生成 
+- 決定圖片張數後，會分批次呼叫 llm 來產生以 activity 內容為基礎，生成圖片用提示詞 
+	- 為避免一次太多張，一次全部生成會造成 llm 品質下降，這裡設定 batch_size 分批請 llm 生成
+- 將這些提示詞，依序呼叫 Xaifu.Generations.Processor 來生成多張圖片
+- 生成圖片時對於 appearance_generation 的整合也需要調整成：
+	- generation 上會有現有的 prompt inputs，會需要保留部分 prompt 內容來做為生圖的一部分
+		- 保的 prompt 對應的 prompt category 的 prompt category group 的 
 
 決定服裝
 - 依活動限定
