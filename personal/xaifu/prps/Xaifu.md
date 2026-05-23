@@ -18,6 +18,9 @@
 - (wip) 利用 LLM 自動幫 prompt 命名 / 翻譯
 - 用 llm 用一段描述，批次生成多組提示詞，編修確認後批次建立
 
+在 app/characters/:id/activities 列表中
+對 activity 加上動作，可以手動觸發 GeneratePost 的
+
 請優化 Xaifu.Workers.GeneratePostWorker 和 Xaifu.Workers.GeneratePostImagesWorker 
 Worker 的設計只要單純負責 async job
 實作的工作邏輯，請拆放到 domain module 裡建立函式來處理
