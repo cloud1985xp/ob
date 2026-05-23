@@ -213,7 +213,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "projects/hdwcp/hdwcp.md",
+                "file": "personal/xaifu/prps/Xaifu.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -223,7 +223,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "hdwcp 的反向連結"
+              "title": "Xaifu 的反向連結"
             }
           },
           {
@@ -232,12 +232,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "projects/hdwcp/hdwcp.md",
+                "file": "personal/xaifu/prps/Xaifu.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "hdwcp 的對外連結"
+              "title": "Xaifu 的對外連結"
             }
           },
           {
@@ -275,13 +275,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "projects/hdwcp/hdwcp.md",
+                "file": "personal/xaifu/prps/Xaifu.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "hdwcp 的大綱"
+              "title": "Xaifu 的大綱"
             }
           }
         ]
@@ -404,10 +404,10 @@
       }
     ]
   },
-  "active": "218358426af90777",
+  "active": "6871642cf8b9702f",
   "lastOpenFiles": [
-    "projects/hdwcp/prps/00_UIKit.md",
     "projects/hdwcp/hdwcp.md",
+    "projects/hdwcp/prps/00_UIKit.md",
     "projects/nextrek/prps/V3 UI Kits.md",
     "projects/hdwcp/prps/04_General.md",
     "projects/hdwcp/prps/00_Todos.md",

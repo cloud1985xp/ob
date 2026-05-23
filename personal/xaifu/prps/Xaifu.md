@@ -73,7 +73,7 @@ text 就用原本的方式建立 prompts
 請規劃並實作
 且確保原本的功能不受影響
 
-## Character Part III
+# Character Part III
 Character Management at app side
 
 實作在 app side 後台觸發 activity 發文/生圖功能
@@ -106,7 +106,7 @@ figure_collection 立繪圖片
 
 
 調整 post 與 image
-## Character Part I
+# Character Part I
 
 修改 app/characters 功能
 這裡的定位比較像是 Character 的後台管理功能
@@ -139,7 +139,7 @@ app/characters 列表加上瀏覽的連結，進入 show 頁面
 	- schedules 管理：/app/characters/:id/schedules
 	- 上述三者都是獨立的網址路徑與 LiveView，只先做基本列表，詳細功能之後再定義實作 
 
-## Character Part II: Support Image on Characters
+# Character Part II: Support Image on Characters
 要對 Character 增加上傳/設定圖片的功能
 
 一、修改 Characters table 欄位：
@@ -389,7 +389,6 @@ FormComponent 的 category_select 元件
 	- [x] 用 workflow 篩選或排列
 
 - 批次建立 prompt
-	- 用 llm 用一段描述，批次生成多組提示詞，編修確認後批次建立
 	- [x] 直接輸入多行文字，每行是一個 prompt
 
 - [x] 把 尺寸移到 prompt level
