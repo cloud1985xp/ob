@@ -24,6 +24,11 @@ Character Management at app side
 實作在 app side 後台 character 的 activity 功能，
 可以手動觸發 character 的 activity 執行發文/生圖功能
 
+目前已有實作透過程透自動觸發 activity / post 的功能
+請參考 Xaifu.Agents.Agent (lib/xaifu/agents/agent.ex)
+
+我想在後台 (app/characters/:id/activities) 實現手動觸發
+
 我想的流程大概是：
 表單中，輸入進行活動的基本資料，例如
 - activity_type
