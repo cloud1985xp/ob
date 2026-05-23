@@ -65,7 +65,18 @@ Character Management at app side
 			- 預設是 "appearance" or "clothing"
 			- 可以透過 opts 傳入參數來決定要抽取哪些
 	- 用抽取的 prompts text + activity 傳入的 prompt  text 組成最終的 prompt 來生成圖片
-	- appearance_generation 實際有點像是
+- Processor 生成圖片時，也有可能在 opts 傳入 
+	- prompt categories
+		- 代表從這些 prompt categories 每一個的 prompts 隨機挑一個，也當作組合成提示的一部分
+	- prompts
+		- 會把這些指定的 prompts 的 text 也當作組合成提示詞的一部分
+
+抽象來說，需求就是為要可以：
+- 一般情況下讓 activity 只決定活動的內容描述，用 appearance gene
+
+請先了解目前已經實作的部分，進行規劃
+
+
 
 決定服裝
 - 依活動限定
@@ -82,9 +93,6 @@ figure_collection 立繪圖片
 - schedule 設定
 	- 手動觸發 generate post 行為
 - 手動發文
-
-請先了解目前已經實作的部分，進行規劃
-
 
 模擬時間到
 -> 依背景資訊 (時間、個性、興趣、最近紀錄)
