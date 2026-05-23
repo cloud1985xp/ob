@@ -1,3 +1,63 @@
+# TODO
+- 
+- collection 功能
+- 支援設定步數
+- 支援設定 lora
+- 手機版
+	- 閱讀
+	- 生圖
+	- app?
+
+- (wip) 圖生提示詞解析功能
+	- 輸入圖片網址、檔案或貼上
+	- 使用 grok API 取得提示詞
+	- 使用 comfyui 取得標籤
+	- 使用 grok API 過濾標籤：服裝顏色、場景
+	- 串預覽的功能流程
+
+- (wip) 利用 LLM 自動幫 prompt 命名 / 翻譯
+- 用 llm 用一段描述，批次生成多組提示詞，編修確認後批次建立
+
+# Character Part III
+Character Management at app side
+
+實作在 app side 後台 character 的 activity 功能，
+可以手動觸發 character 的 activity 執行發文/生圖功能
+
+我想的流程大概是：
+表單中，輸入進行活動的基本資料
+- activity_type
+- location
+- description
+
+用活動類型限定提示詞
+時間、天氣因素
+
+呼叫 llm 產生活動內容
+決定活動圖片數
+決定服裝
+- 依活動限定
+- 一活動生成
+- 可隨機
+
+再呼叫llm 生成分鏡提示詞
+執行生圖功能
+用 subject appearance generation
+取得 care group 為外觀的提示詞
+
+figure_collection 立繪圖片
+
+- schedule 設定
+	- 手動觸發 generate post 行為
+- 手動發文
+
+模擬時間到
+-> 依背景資訊 (時間、個性、興趣、最近紀錄)
+-> 向 llm 生成活動文  + 決定故事分鏡圖片數
+-> 將分鏡生成文生圖提示 -> 生成圖片
+
+
+調整 post 與 image
 
 # Generation Images Management Mode
 
@@ -73,39 +133,7 @@ text 就用原本的方式建立 prompts
 請規劃並實作
 且確保原本的功能不受影響
 
-# Character Part III
-Character Management at app side
 
-實作在 app side 後台觸發 activity 發文/生圖功能
-
-手動輸入活動
-用活動類型限定提示詞
-時間、天氣因素
-呼叫 llm 產生活動內容
-決定活動圖片數
-決定服裝
-- 依活動限定
-- 一活動生成
-- 可隨機
-
-再呼叫llm 生成分鏡提示詞
-執行生圖功能
-用 subject appearance generation
-取得 care group 為外觀的提示詞
-
-figure_collection 立繪圖片
-
-- schedule 設定
-	- 手動觸發 generate post 行為
-- 手動發文
-
-模擬時間到
--> 依背景資訊 (時間、個性、興趣、最近紀錄)
--> 向 llm 生成活動文  + 決定故事分鏡圖片數
--> 將分鏡生成文生圖提示 -> 生成圖片
-
-
-調整 post 與 image
 # Character Part I
 
 修改 app/characters 功能
@@ -360,24 +388,7 @@ collection_prompts
 FormComponent 的 category_select 元件
 在表單編輯時，不會正確地選中 current option，請檢查並修正
 
-# TODO
-- 
-- collection 功能
-- 支援設定步數
-- 支援設定 lora
-- 手機版
-	- 閱讀
-	- 生圖
-	- app?
 
-- (wip) 圖生提示詞解析功能
-	- 輸入圖片網址、檔案或貼上
-	- 使用 grok API 取得提示詞
-	- 使用 comfyui 取得標籤
-	- 使用 grok API 過濾標籤：服裝顏色、場景
-	- 串預覽的功能流程
-
-- (wip) 利用 LLM 自動幫 prompt 命名 / 翻譯
 - [x] 刪除 generated_image (同時要刪除圖片原檔與各 version 圖檔)
 - [x] 修正 Generation duplicate 的功能
 - Subject 優化
