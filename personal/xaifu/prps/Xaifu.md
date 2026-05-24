@@ -41,8 +41,12 @@ figure_collection 立繪圖片
 -> 向 llm 生成活動文  + 決定故事分鏡圖片數
 -> 將分鏡生成文生圖提示 -> 生成圖片
 
-
 調整 post 與 image
+
+# 更新 Social 功能
+
+請將現在前台(非 app/ 下)的功能，實作套用真實的資料
+目前做的版本都是用假的資 
 
 # Character Part IV
 
