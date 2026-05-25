@@ -43,6 +43,13 @@ figure_collection 立繪圖片
 
 調整 post 與 image
 
+# 對 prompt 增加 cover_image
+
+對 prompt 增加 cover_image 的關聯，關聯到 generated_image，允許 null
+在 prompt form 裡增加「編輯時」可以設定 cover_image 的欄位
+- 用 image select 
+- 選項是該 prompt 下關聯的最近 100筆 images + 目前的 cover_image(如果有的話)
+
 # 更新 Social 功能
 
 請將現在前台(非 app/ 下)的功能，實作套用真實的資料
