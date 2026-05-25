@@ -21,7 +21,7 @@ https://github.com/aktsk-pjt-ishin/tw-ishin-devops/blob/feature/ISHINTW-15490-pr
 
 名稱: tw-ishin-merging-analysis
 
-這次 merge 的程式碼，主要是以 shell script 為主。
+這個 repo 所 merge 的程式碼，主要是以 shell script 為主。
 - merge 後不需要執行額外的任務，例如Rake指令。
 - 一樣需要產生對應的Note
 - 一樣需要有自己的 Reference 資料做為 domain knowledge 與 iron rules
@@ -35,7 +35,12 @@ https://github.com/aktsk-pjt-ishin/tw-ishin-devops/blob/feature/ISHINTW-15490-pr
 - 將上游 branch merge 進工作 branch
 - 依 reference 中提的原則解衝突(如果有衝突的話)
 
-請幫我規劃這個 skill 的 schema 與整個資料結構
+若想要理解目前現有的 repo 內容，可參考
+> /Users/aaron.kuo/aktsk/ishin-tw/ishin-analysis
+
+請幫我規劃這個 skill 的 schema 與，整個資料結構
+讓 agent 可以用這個 skill 完成 ishin-analysis repo 的 up
+若有任何問題請與我討論
 
 
 ## PSD 字形大量轉換
