@@ -35,7 +35,7 @@ https://github.com/aktsk-pjt-ishin/tw-ishin-devops/blob/feature/ISHINTW-15490-pr
 - 將上游 branch merge 進工作 branch
 - 依 reference 中提的原則解衝突(如果有衝突的話)
 
-請幫我規劃
+請幫我規劃這個 skill 的 schema 與整個資料結構
 
 
 ## PSD 字形大量轉換
