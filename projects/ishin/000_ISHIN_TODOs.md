@@ -27,7 +27,13 @@ https://github.com/aktsk-pjt-ishin/tw-ishin-devops/blob/feature/ISHINTW-15490-pr
 - 一樣需要有自己的 Reference 資料做為 domain knowledge 與 iron rules
 
 大致流程：
-- 從 bas
+- 決定工作 branch 名(merge/{target_version})
+- 決定上游 remote 和 branch，預設 remote=jp branch=master
+- 決定本地 base branch，預設為 develop
+- 檢查目標工作 branch 是否存在，若不存在則從 base branch(develop) checkout merge/{target_version}
+- 若已存在，在工作 branch 進行 merge
+- 將上游 branch merge 進工作 branch
+- 依 reference 中提的原則解衝突(如果有衝突的話)
 
 
 
