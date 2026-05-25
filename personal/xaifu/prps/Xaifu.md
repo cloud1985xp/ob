@@ -50,6 +50,9 @@ figure_collection 立繪圖片
 - 用 image select 
 - 選項是該 prompt 下關聯的最近 100筆 images + 目前的 cover_image(如果有的話)
 
+Generation 增加 title，允許空值
+調整 Generation Card ，圖在上，資訊在下
+
 # 更新 Social 功能
 
 請將現在前台(非 app/ 下)的功能，實作套用真實的資料
