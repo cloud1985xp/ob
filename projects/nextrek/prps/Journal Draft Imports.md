@@ -5,13 +5,18 @@ tags:
 ---
 # 0526 修正
 
-資金帳戶頁 /accountings/draft_stages：
+修正以下問題：
+
+## 資金帳戶頁 (/accountings/draft_stages)
 - 請移除頁面上方的麵包屑
 
-上傳明細頁 /accountings/draft_stages/:id/import
+## 上傳明細頁 (/accountings/draft_stages/:id/import)
 - 當收付原因選擇「套用」時，要出現下方的 subject-selects 區塊讓使用者選擇
 	- 之前的修改(4f942465d4e05fcd1e1ee2530fdbdba4ddd93d47) 不正確
 - 表單最下方的「取消」按鈕，點擊的行為不正確，應該回到該資金帳戶 (/accountings/draft_stages/:id)
+
+## 資金帳戶/交易暫存區頁 (accountings/draft_stages/:id) 
+- 標題「交易暫存區」應該為 「交易暫存區 - {資金帳戶名稱}」
 - 
 
 # 0514 修正
