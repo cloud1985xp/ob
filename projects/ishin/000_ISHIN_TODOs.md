@@ -39,7 +39,7 @@ https://github.com/aktsk-pjt-ishin/tw-ishin-devops/blob/feature/ISHINTW-15490-pr
 > /Users/aaron.kuo/aktsk/ishin-tw/ishin-bots
 
 請幫我規劃這個 skill 的 schema 與，整個資料結構
-讓 agent 可以用這個 skill 完成 ishin-cookbooks repo 的 upstream code merge 工作
+讓 agent 可以用這個 skill 完成該 repo 的 upstream code merge 工作
 
 若有任何問題請與我討論
 
