@@ -36,7 +36,7 @@ https://github.com/aktsk-pjt-ishin/tw-ishin-devops/blob/feature/ISHINTW-15490-pr
 - 依 reference 中提的原則解衝突(如果有衝突的話)
 
 若想要理解目前現有的 repo 內容，可參考
-> /Users/aaron.kuo/aktsk/ishin-tw/ishin-cookbooks
+> /Users/aaron.kuo/aktsk/ishin-tw/ishin-bots
 
 請幫我規劃這個 skill 的 schema 與，整個資料結構
 讓 agent 可以用這個 skill 完成 ishin-cookbooks repo 的 upstream code merge 工作
