@@ -199,7 +199,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "personal/xaifu/prps/Xaifu.md",
+                "file": "projects/ishin/000_ISHIN_TODOs.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -209,7 +209,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Xaifu 的反向連結"
+              "title": "000_ISHIN_TODOs 的反向連結"
             }
           },
           {
@@ -218,12 +218,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "personal/xaifu/prps/Xaifu.md",
+                "file": "projects/ishin/000_ISHIN_TODOs.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Xaifu 的對外連結"
+              "title": "000_ISHIN_TODOs 的對外連結"
             }
           },
           {
@@ -261,13 +261,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "personal/xaifu/prps/Xaifu.md",
+                "file": "projects/ishin/000_ISHIN_TODOs.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Xaifu 的大綱"
+              "title": "000_ISHIN_TODOs 的大綱"
             }
           }
         ]
@@ -457,14 +457,14 @@
       }
     ]
   },
-  "active": "6871642cf8b9702f",
+  "active": "bad01f5166a8384c",
   "lastOpenFiles": [
-    "personal/xaifu/prps/Prompt Improvement.md",
-    "personal/xaifu/prps/Xaifu.md",
-    "projects/nextrek/prps/Journal Draft Imports.md",
-    "tech/tools/environment-setup.md",
-    "projects/hdwcp/prps/00_UIKit.md",
     "projects/ishin/ISHIN Engineer Agent.md",
+    "projects/hdwcp/prps/00_UIKit.md",
+    "tech/tools/environment-setup.md",
+    "personal/xaifu/prps/Xaifu.md",
+    "personal/xaifu/prps/Prompt Improvement.md",
+    "projects/nextrek/prps/Journal Draft Imports.md",
     "projects/ishin/000_ISHIN_TODOs.md",
     "projects/hdwcp/hdwcp.md",
     "projects/nextrek/prps/V3 UI Kits.md",
