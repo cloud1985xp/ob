@@ -3,6 +3,9 @@ tags:
   - nextrek
   - project
 ---
+# 0526 修正
+- 請移除
+
 # 0514 修正
 
 - 關閉 dark mode，即使用戶設定環境為 dark mode，不會有任何作用

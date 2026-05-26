@@ -199,7 +199,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "projects/ishin/000_ISHIN_TODOs.md",
+                "file": "projects/nextrek/prps/Journal Draft Imports.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -209,7 +209,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "000_ISHIN_TODOs 的反向連結"
+              "title": "Journal Draft Imports 的反向連結"
             }
           },
           {
@@ -218,12 +218,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "projects/ishin/000_ISHIN_TODOs.md",
+                "file": "projects/nextrek/prps/Journal Draft Imports.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "000_ISHIN_TODOs 的對外連結"
+              "title": "Journal Draft Imports 的對外連結"
             }
           },
           {
@@ -261,13 +261,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "projects/ishin/000_ISHIN_TODOs.md",
+                "file": "projects/nextrek/prps/Journal Draft Imports.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "000_ISHIN_TODOs 的大綱"
+              "title": "Journal Draft Imports 的大綱"
             }
           }
         ]
@@ -457,15 +457,15 @@
       }
     ]
   },
-  "active": "bad01f5166a8384c",
+  "active": "035c9fd5bfbf6395",
   "lastOpenFiles": [
-    "projects/ishin/ISHIN Engineer Agent.md",
-    "projects/hdwcp/prps/00_UIKit.md",
-    "tech/tools/environment-setup.md",
     "personal/xaifu/prps/Xaifu.md",
+    "tech/tools/environment-setup.md",
+    "projects/hdwcp/prps/00_UIKit.md",
+    "projects/ishin/000_ISHIN_TODOs.md",
+    "projects/ishin/ISHIN Engineer Agent.md",
     "personal/xaifu/prps/Prompt Improvement.md",
     "projects/nextrek/prps/Journal Draft Imports.md",
-    "projects/ishin/000_ISHIN_TODOs.md",
     "projects/hdwcp/hdwcp.md",
     "projects/nextrek/prps/V3 UI Kits.md",
     "projects/hdwcp/prps/04_General.md",
