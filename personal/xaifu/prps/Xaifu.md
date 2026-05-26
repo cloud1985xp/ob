@@ -53,6 +53,13 @@ figure_collection 立繪圖片
 Generation 增加 title，允許空值
 調整 Generation Card ，圖在上，資訊在下
 
+# chat 對話時觸發生圖
+
+先隨機，搭配服裝
+之後可以用條件來解鎖
+或從 prompt 裡來選擇項目解鎖
+
+
 # 更新 Social 功能
 
 請將現在前台(非 app/ 下)的功能，實作套用真實的資料
