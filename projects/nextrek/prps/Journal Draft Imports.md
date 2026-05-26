@@ -14,10 +14,11 @@ tags:
 - 當收付原因選擇「套用」時，要出現下方的 subject-selects 區塊讓使用者選擇
 	- 之前的修改(4f942465d4e05fcd1e1ee2530fdbdba4ddd93d47) 不正確
 - 表單最下方的「取消」按鈕，點擊的行為不正確，應該回到該資金帳戶 (/accountings/draft_stages/:id)
+- 上傳檔案的 dropzone 裡的 preview container 的內容應該要置中，現在是被設為：`grid grid-cols-2 gap-2`
 
 ## 資金帳戶/交易暫存區頁 (accountings/draft_stages/:id) 
 - 標題「交易暫存區」應該為 「交易暫存區 - {資金帳戶名稱}」
-- 
+- 分頁(pagination) 的樣式仍有問題，active 的那個項目的樣式不正確，請確保符合 daisyui 的樣式
 
 # 0514 修正
 
