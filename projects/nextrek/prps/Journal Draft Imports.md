@@ -3,6 +3,16 @@ tags:
   - nextrek
   - project
 ---
+# 0529 修正
+## 上傳明細頁 (/accountings/draft_stages/:id/import)
+
+上傳表單中的「套用收付原因」選項行為仍然不正確
+下方的「收款原因」
+
+- 當收付原因選擇「套用」時，要出現下方的 subject-selects 區塊讓使用者選擇
+	- 之前的修改(4f942465d4e05fcd1e1ee2530fdbdba4ddd93d47) 不正確
+
+
 # 0526 修正
 
 修正以下問題：
