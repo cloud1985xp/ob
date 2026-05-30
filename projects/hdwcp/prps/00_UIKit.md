@@ -10,7 +10,7 @@ DealerComponent .name
 即 render location, city, number 時用 span 元素包起來+ class
 然後依用戶的偏好設定在外在層容器套用 class 後，影響 dealer name 的樣式進而控制是否顯示 location, city number 等元素
 
-另外還有參數可以控制 render
+另外還有參數可以控制 render的結果是否包含 link 可以連接到 dealer show 的畫面
 
 主要用途會套用在資料列table row裡的 dealer 欄
 
