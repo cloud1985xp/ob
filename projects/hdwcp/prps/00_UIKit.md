@@ -6,7 +6,13 @@ DealerComponent .name
 可傳入參數決定是否要 render
 可以經由用戶偏好設定自訂是否要顯示
 
-用戶自訂的部分，我偏向透過 css 去控制顯示ㄧ
+用戶自訂的部分，我偏向透過 css 去控制顯示隱藏
+即 render location, city, number 時用 span 元素包起來+ class
+然後依用戶的偏好設定在外在層容器套用 class 後，影響 dealer name 的樣式進而控制是否顯示 location, city number 等元素
+
+另外還有參數可以控制 render
+
+主要用途會套用在資料列table row裡的 dealer 欄
 
 我要為專案整理的 UI System，美化樣式設計並使用 phoenix_storybook(https://github.com/phenixdigital/phoenix_storybook) 建立 demo page
 
