@@ -28,7 +28,15 @@ tags:
 
 
 修正 /accountings/draft_stages 的暫存區列表 (DraftStagesPresenter)
-從原本只撈 gateway type 是 bank 的 資金帳戶 (Accountings::Account)
+從原本只撈 gateway kind 是 bank 的 資金帳戶 (Accountings::Account)
+改成撈全部類型的資金帳戶，但要依以下邏輯區分是否列為己隱藏
+- 若有 accountings_account_draft_stage 資料且被設定成隱藏，列為隱藏
+- 若沒有 accountings_account_draft_stage 資料，則依 gateway kind
+	- 若 gateway kind 不是 bank，就列為隱藏
+
+換句話說，沒有 accountings_account_draft_stage 資料，
+預設就只有 gateway kind 是 bank 會在正式列表，其他 kind 都視為隱藏
+但若有 accountings_account_draft_stage 資料，代表有被調整過設定，就以 accountings_account_draft_stage 的設定為準
 
 # 0526 修正
 
