@@ -1,3 +1,13 @@
+
+建立 Dealer Name 元件
+DealerComponent .name
+會 render dealer 的 地區+城市+編號+名稱
+但前三個是
+可傳入參數決定是否要 render
+可以經由用戶偏好設定自訂是否要顯示
+
+用戶自訂的部分，我偏向透過 css 去控制顯示ㄧ
+
 我要為專案整理的 UI System，美化樣式設計並使用 phoenix_storybook(https://github.com/phenixdigital/phoenix_storybook) 建立 demo page
 
 請幫我掃描現有功能下各頁面使用到的 UI 以及現有的 UI Components (lib/hdwcp_web/components/)，進行：

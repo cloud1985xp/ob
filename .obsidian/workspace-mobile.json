@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "personal/xaifu/prps/Xaifu.md",
+                "file": "projects/hdwcp/prps/00_UIKit.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Xaifu"
+              "title": "00_UIKit"
             }
           }
         ]
@@ -112,7 +112,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "personal/xaifu/prps/Xaifu.md",
+            "file": "projects/hdwcp/prps/00_UIKit.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -171,6 +171,7 @@
   },
   "active": "03c56d140a7add22",
   "lastOpenFiles": [
+    "personal/xaifu/prps/Xaifu.md",
     "/projects/nextrek/prps/Journal Draft Imports.md",
     "/projects/nextrek/prps",
     "/projects/nextrek",
