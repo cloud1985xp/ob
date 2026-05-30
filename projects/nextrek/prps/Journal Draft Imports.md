@@ -19,6 +19,9 @@ tags:
 - 當收付原因選擇「套用」時，要出現下方的 subject-selects 區塊讓使用者選擇
 	- 之前的修改(4f942465d4e05fcd1e1ee2530fdbdba4ddd93d47) 不正確
 
+請修改資料列的上傳附件功能 (dropzone_upload_controller)
+- 已有 dropzone_controller，是否能直接調整改用 dropzone_controller 或抽出共用的部分
+- 上傳完檔案，原本資料列的
 
 # 0526 修正
 
