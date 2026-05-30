@@ -199,7 +199,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "projects/nextrek/prps/Journal Draft Imports.md",
+                "file": "projects/hdwcp/prps/00_UIKit.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -209,7 +209,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Journal Draft Imports 的反向連結"
+              "title": "00_UIKit 的反向連結"
             }
           },
           {
@@ -218,12 +218,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "projects/nextrek/prps/Journal Draft Imports.md",
+                "file": "projects/hdwcp/prps/00_UIKit.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Journal Draft Imports 的對外連結"
+              "title": "00_UIKit 的對外連結"
             }
           },
           {
@@ -261,13 +261,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "projects/nextrek/prps/Journal Draft Imports.md",
+                "file": "projects/hdwcp/prps/00_UIKit.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Journal Draft Imports 的大綱"
+              "title": "00_UIKit 的大綱"
             }
           }
         ]
@@ -457,11 +457,11 @@
       }
     ]
   },
-  "active": "035c9fd5bfbf6395",
+  "active": "930cc4c4f2794f2c",
   "lastOpenFiles": [
-    "personal/xaifu/prps/Xaifu.md",
-    "projects/nextrek/prps/Journal Draft Imports.md",
     "tech/tools/environment-setup.md",
+    "projects/nextrek/prps/Journal Draft Imports.md",
+    "personal/xaifu/prps/Xaifu.md",
     "projects/hdwcp/prps/00_UIKit.md",
     "projects/ishin/000_ISHIN_TODOs.md",
     "projects/ishin/ISHIN Engineer Agent.md",

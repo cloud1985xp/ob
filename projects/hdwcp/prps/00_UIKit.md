@@ -1,16 +1,17 @@
 
-建立 Dealer Name 元件
-DealerComponent .name
+## 建立 Dealer Name 元件
+ex: HdwcpWeb.Components.UI.Dealer.name (或建議命名方式)
+
 會 render dealer 的 地區+城市+編號+名稱
-但前三個是
-可傳入參數決定是否要 render
-可以經由用戶偏好設定自訂是否要顯示
+但前三項(location, city, number) 是：
+- 可傳入參數決定是否要 render
+- 可以經由用戶偏好設定自訂是否要顯示
 
 用戶自訂的部分，我偏向透過 css 去控制顯示隱藏
-即 render location, city, number 時用 span 元素包起來+ class
-然後依用戶的偏好設定在外在層容器套用 class 後，影響 dealer name 的樣式進而控制是否顯示 location, city number 等元素
+即 component 依然會 render location, city, number ，產生時會用 span 元素包起來 + 加上 class
+然後整個頁面(全域)依用戶的偏好設定，在外層容器套用對應的 class ，來影響 dealer name component 內的元素樣式，進而控制是否顯示 location, city number 等元素
 
-另外還有參數可以控制 render
+另外還有參數可以控制 render 
 
 主要用途會套用在資料列table row裡的 dealer 欄
 
