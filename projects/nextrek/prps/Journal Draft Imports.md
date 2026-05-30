@@ -20,8 +20,11 @@ tags:
 	- 之前的修改(4f942465d4e05fcd1e1ee2530fdbdba4ddd93d47) 不正確
 
 請修改資料列的上傳附件功能 (dropzone_upload_controller)
-- 已有 dropzone_controller，是否能直接調整改用 dropzone_controller 或抽出共用的部分
-- 上傳完檔案，原本資料列的
+- 目前已有 dropzone_controller，應該有共同類似的部分，是否可以抽出共用的部分做繼承
+- 將 dropzone_uploader 改名叫 attachments_upload_controller
+- 上傳完檔案，原本資料列的「上傳附件」按鈕，要變成顯示「已上傳 n 個附件」
+- 上傳完檔案，再次點擊「已上傳 n 個附件」跳出來的 modal 裡的 dropzone 要仍顯示已上傳的檔案資訊，而且可以刪除任一個已上傳的附件
+可以參考 http://localhost:5173/accountings/journal_draft 裡的相關模擬畫面
 
 # 0526 修正
 
