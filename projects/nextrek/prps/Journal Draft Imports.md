@@ -26,6 +26,10 @@ tags:
 - 上傳完檔案，再次點擊「已上傳 n 個附件」跳出來的 modal 裡的 dropzone 要仍顯示已上傳的檔案資訊，而且可以刪除任一個已上傳的附件
 可以參考 http://localhost:5173/accountings/journal_draft 裡的相關模擬畫面
 
+
+修正 /accountings/draft_stages 的暫存區列表 (DraftStagesPresenter)
+從原本只撈 gateway type 是 bank 的 資金帳戶 (Accountings::Account)
+
 # 0526 修正
 
 修正以下問題：
