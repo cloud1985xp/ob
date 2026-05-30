@@ -11,9 +11,10 @@ ex: HdwcpWeb.Components.UI.Dealer.name (或建議命名方式)
 即 component 依然會 render location, city, number ，產生時會用 span 元素包起來 + 加上 class
 然後整個頁面(全域)依用戶的偏好設定，在外層容器套用對應的 class ，來影響 dealer name component 內的元素樣式，進而控制是否顯示 location, city number 等元素
 
-另外還有參數可以控制 render 
+另外還有參數可以控制 render 時，是否要加上 link 連結到 dealer show 的頁面
 
-主要用途會套用在資料列table row裡的 dealer 欄
+這個元件主要用途，是套用在資料列table row裡的 dealer 欄
+請先規劃設計這個元件，之後再陸續套用
 
 我要為專案整理的 UI System，美化樣式設計並使用 phoenix_storybook(https://github.com/phenixdigital/phoenix_storybook) 建立 demo page
 
