@@ -38,6 +38,15 @@ tags:
 預設就只有 gateway kind 是 bank 會在正式列表，其他 kind 都視為隱藏
 但若有 accountings_account_draft_stage 資料，代表有被調整過設定，就以 accountings_account_draft_stage 的設定為準
 
+上傳明細頁 (ex: /accountings/draft_stages/:id/import)
+在選擇 銀行 / 機構時，若選擇的是「銀行明細」或「第三方金流」
+檔案來源會是下拉選單供選擇
+
+問題：
+檔案來源的選單旁應該要出現「下載路徑及說明」的連結
+(樣式可參考 http://localhost:5173/accountings/journal_draft_upload)
+並且連結對象
+
 # 0526 修正
 
 修正以下問題：
