@@ -8,6 +8,12 @@
 
 NK Engineer Workflow
 
+## Refine CLAUDE.md
+
+請整理 CLAUDE.md
+
+依以下原則
+一、將內容分類，太過繁瑣的細節，匯整成 ai_docs/
 ## Refactor Planning
 請幫我檢視整個專案，將程式碼重構、簡化及優化
 先理解整個專案架構與功能需求後，整理需要重構優化處理的部分
