@@ -1,3 +1,6 @@
+請更新 shippings 下的所有功能
+參DD
+
 
 請更新 shippings 下的 batches 功能
 參考 ai_docs/guidelines/form_ui.md 
