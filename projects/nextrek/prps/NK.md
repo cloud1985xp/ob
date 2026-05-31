@@ -13,7 +13,23 @@ NK Engineer Workflow
 請整理 CLAUDE.md
 
 依以下原則
-一、將內容分類，太過繁瑣的細節，匯整成 ai_docs/
+一、保留核心綱要
+CLAUDE.md  只保留核心綱要
+將內容分類，太過繁瑣的細節，匯整成放在 ai_docs/ 下的 guidelines 文件，
+讓 CLAUDE.md 引入參照就好
+例如
+- 工作流程
+- 詳細的 ruby / rails 開發原則、程式碼規範
+- 詳細的 e2e 測試指引
+
+二、避免 hardcode 會因開發者環境不同的值
+例如本地開發伺服器用的 port、登入帳號等
+原說明參照 CONFIG.md 裡的設定，而非強用寫死在 CLAUDE.md 裡的值
+
+三、整理包括 ai_docs 下的內容，避免重複
+若有內容重複，將內容整合，並可再用 reference 的方式引入參考
+
+
 ## Refactor Planning
 請幫我檢視整個專案，將程式碼重構、簡化及優化
 先理解整個專案架構與功能需求後，整理需要重構優化處理的部分
