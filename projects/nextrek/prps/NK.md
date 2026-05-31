@@ -24,7 +24,7 @@ CLAUDE.md  只保留核心綱要
 
 二、避免 hardcode 會因開發者環境不同的值
 例如本地開發伺服器用的 port、登入帳號等
-原說明參照 CONFIG.md 裡的設定，而非強用寫死在 CLAUDE.md 裡的值
+因說明參照 CONFIG.md 裡的設定，而非強用寫死在 CLAUDE.md 裡的值
 
 三、整理包括 ai_docs 下的內容，避免重複
 若有內容重複，將內容整合，並可再用 reference 的方式引入參考
