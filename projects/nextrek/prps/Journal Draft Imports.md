@@ -45,7 +45,9 @@ tags:
 問題：
 檔案來源的選單旁應該要出現「下載路徑及說明」的連結
 (樣式可參考 http://localhost:5173/accountings/journal_draft_upload)
-並且連結對象
+並且連結要依選項切換變動連到不同的目標 url
+這份選項 -> 目標 url 的對應現在已經有實作並 render 在 html 中
+但點擊選項 切換 顯示這個行為S
 
 # 0526 修正
 
