@@ -14,7 +14,16 @@
 - 輸出列印 pdf 檔
 - 海外出貨的打包管理
 
-請詳細理解舊版本的程式碼，規劃成符合新版本架構、風格與規則的
+請牨詳細理解舊版本的程式碼，業務邏輯和功能
+規劃成符合新版本規則與風格的架構
+尤其：
+- 將可共用的 ui 製作成 component (以及 stimulus controller，如果有的話)
+	- 例如 step by step 的 form 
+- 盡量利用現有的 ui component 來實作畫面
+	- 若有需要可以建立新的 component，並加到 storybook 與更新文件
+
+有任何問題請我詳細討論。
+確認後再開始實作
 
 
 請更新 shippings 下的 batches 功能
