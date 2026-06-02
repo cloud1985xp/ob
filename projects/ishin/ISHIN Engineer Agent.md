@@ -9,6 +9,107 @@ TODO:
 - 增強 debug knowledge 能力
 	- 可能要參考最近的 程式 變動
 
+
+增加新的 skill: sprint-meeting
+我要用這個 skill 來進行 task planning
+來安排團隊的 next sprint 的工作方向與項目
+讓 agent 可以協助我與團隊擬定計畫
+
+包括：
+1. 確認接下來的 sprint 編號(ex: Sprint 74)、日期(預設長度是隔日開始的 2週)
+2. 目前正在處理的 version merge 有哪些
+	- 各別的版本，在接下來的 sprint 日期範圍+1週內，有什麼重大 milestone 要達成
+		- 收集進工作計畫
+		- 建立至 ishin-server github issue
+3. 檢查下 sprint 範圍內，是否有要處理的 CS GDPR 安件
+4. 檢查下個 sprint 範圍內，是否有重要需要 scale 的 event
+
+
+in agent-plugins
+增加 monthly GCP cost report Skill
+我需要在每個月初(例如六月)，檢視上個月份(例如五月)的 gcp 帳單
+並且再跟前一個月(例如四月)比較各項費用的變化量，以及判斷變化量是否合理
+綜合一個摘要報告
+帳單包括多個專案
+- ishin
+- ishin-tw-dev
+- ishin-tool
+- rosetta
+
+
+# 改良 version merge Agent
+我要強化 version merge agent 的工作流
+讓 version merge 時，可以支援同 repo 但處理多個版本
+而且可以使用 git worktree 來建立目標工作路徑
+
+在處理 version merge 工作時，有可能同一個 repo (ex: ishin-server) 在進行多個版本
+例如同時處理 v6.4.0 與 v6.4.5，所以：
+
+version_merge_targets 裡要變成可以定義兩組 ishin-server repo merge 工作的內容
+例如：
+
+```
+version_merge_targets:
+  - name: ishin-server
+    work_path: /Users/aaron.kuo/aktsk/ishin-tw/ishin-server-develop
+    upstream_remote: jp
+    upstream_branch: v6.4.0
+    tw_base: develop
+    tw_branch: merge/v6.4.0-gl
+    target_version: v6.4.0
+    forward_merge_branches: [gogeta]
+  - name: ishin-server
+    worktree_path: /Users/aaron.kuo/aktsk/ishin-tw/ishin-server-worktree
+    upstream_remote: jp
+    upstream_branch: pilaf
+    tw_base: merge/v6.4.0-gl
+    tw_branch: merge/v6.4.5-gl
+    target_version: v6.4.5
+    forward_merge_branches: [krillin]
+```
+
+並且加上：
+一、可設定 tw_base branch
+用來表示這個 version merge 在 tw 本地側的 base branch
+例如 v6.4.0 是基於 develop，
+所以一開始在 checkout 建立工作 branch 時，要從 develop checkout 出 merge/v6.4.0-gl
+而上述的例子 v6.4.5 是基於 merge/v6.4.0-gl checkout 出 merge/v6.4.5-gl
+
+- agent 每次開始 merge upstream version 前，會先檢查 base branch 有沒有新內容，有的話會先將 base branch 先 merge 進工作 branch，解衝突，再開始 (呼叫 potara skill) 進行 version merge
+- base branch 有可能會變動，例如過了一個月，merge/v6.4.0-gl 已完成 merge 進 develop branch後，v6.4.5 的 base branch 就會被改成 develop，那 agent 開始 merge version 前，就變成檢查 develop(更改後的 base branch) 是否有新內容
+- 只有一開始是從 base branch checkout 出 version merge 工作用的 branch，後續就是一直檢查 base branch 有無新內容要 merge 進 工作 branch
+
+二、支援用 worktree 模式
+我希望在  version_merge_targets 裡，可以設定 worktree_path 來啟用 worktree 模式
+當該次 version merge target 有設定 worktree_path 時，
+agent 就會用 worktree 的模式來建立/決定該次 version merge 的工作空間
+
+決定目標路徑： {worktree_path}/{target_version} 
+例如：/Users/aaron.kuo/aktsk/ishin-tw/ishin-server-worktree/v6.4.5
+
+agent 工作時先檢查 worktree 的工作路徑是否存在
+若不存在，要先建立 worktree 工作路徑
+從 {tw_base} branch checkout 建立 {tw_branch} 在 worktree 目標工作路徑
+
+若已存在，就直接到 worktree 工作路徑下繼續 merge 工作
+
+- work_path 和 worktree_path 只會設定其中一項
+
+請幫我更新 version merge agent 的 schema，加上上述的行為能力
+且要確保原本的既有能力仍正確運行
+若有任何疑問或建議請和我討論確認
+
+我注意到一件事
+同個 repo 的多個 version merge 可能會有相依性
+例如 v6.4.0 會是 v6.4.5 的 base branch，所以 merge 工作必須要有序順性
+例如先處理 v6.4.0 後再處理 v6.4.5 (要merge base)
+所以在做 agent dispatch 時，同個 repo 的多個 version_merge_targets
+- 要依照 version_merge_targets 裡的順序
+- 不能平行 dispatch (如果未來使用平行的方式委派工作給 agents 的話)
+這部分可能要紀錄在 orchestrator 的行為裡
+
+# 區分 version-merge and tooling
+
 我想將工作項目(task domain) `server` , `version-merge` 做進一步補充
 
 一、server -> tooling、tool development

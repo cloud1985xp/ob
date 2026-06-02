@@ -1,21 +1,87 @@
+
+# 修正 FullTranslation 裡如何決定 Term.translation_state
+
+Term.translation_state，增加一種 enum 值為 :all_formatted
+
+若執行翻譯沒有得到結果，應設為 :untranslated
+若執行翻譯有結果，要看每個語言是在哪個stage 完成翻譯的
+
+一般狀況下(沒有 segments)
+若所有語言都是在 canonical stage 完成，設為 :all_existed
+若有任何語言是在 model stage 完成，設為 :auto_translated
+若所有語言都是在 pattern stage 完成，設為 :all_formatted
+其他情況設為 :partially_existed
+
+
+如果是有 segments，先用以下規則決定該筆單語言 parent 整體的代表 stage
+- 若所有 segments 都是在 canonical stage 翻譯完成，視為 canonical stage
+- 若有任一 segment 是在 model stage 翻譯完成，視為 model_stage
+- 其他情況則視為 pattern stage
+	- 等於沒有任何經過 model stage，但也不全是 canonical stage，
+
+用上述規則，來決定 FullTranslation 在得到翻譯結果，如果決定 translation_state 寫回 term
+
 # 整合 Miles Package 與 Rosetta TranslationBatch
 
-原本的 Miles Packages module 中 #process 與 #process_ai_translation
-實作了舊版的處理「文字轉換」、「查找 db 中既有翻譯」、「(分開地)執行 ai 翻譯」
-
-此次修改是要將它兩個動作合併，並改成用 Rosetta TransaltionBatch / TranslatorV2 來完整
-
-預計新增 Packages.process_full 方法來實現
-- 呼叫 Rosetta，傳入 namespace + property + strings (id + content) 
-- 建立 TranslationBatch 並啟動
-- 等候 batch 執行完成，得到結果
-
-首先 Rosetta 端覺得也要做出以下對應修正
-
+一、優化 TranslationWorkerV2
 TranslationWorkerV2 裡有許多處理的邏輯，
 是不是應該要拆出到另外的 module, ex: Rosetta.Translations.Batches
 Worker 自身應該只要負責讓包裝 async process (retryable) 的角色，
 而出的 module 可以單獨被執行運作
+
+
+# 修正 Translations 和 Translations.Batches 用法
+目前啟動點 Translations.enqueue_v2_batch 的行為
+是傳入 translation source，對它的 source_strings 建立成 batch 然後啟動(enqueue job) worker
+
+但我需要的 TranslationBatch 功能是傳入 namespace + property + 要翻譯的 strings
+這些 string 通常是新要翻譯的資料，而非現有的 source_string
+
+或許要改成
+Rosetta.Translations.Batches 有
+create
+- 傳入 namespace + property + strings
+- 用 namespace + property 尋找 translation source，若沒有則 return :error
+- 傳入的 strings 每筆有 id(來源的 identifier) + content (要翻譯的內容)
+來建立：TranslationBatch + TranslationBatchString
+
+process (= 現在的 run)
+- 傳入 batch_id
+- 進行 TranslationBatch 的實際工作
+	- 檢查狀態、resume、執行 translation、persistent strings 等等
+
+enqueue
+- 傳入 batch id
+- 建立 oban worker job
+	- job 裡呼叫 process(run)
+
+當是要翻譯 source_strings 裡的 content，再包一個 function 是
+- 傳 translation source (maybe 加上 query scope 條件)
+	- 取出該 translation source 的 source_strings
+	- 轉成 id + string
+- 呼叫 create batch / run batch 來實現
+
+二、整合 Miles
+原本的 Miles Packages module 中 #process 與 #process_ai_translation
+實作了舊版的處理「文字轉換」、「查找 db 中既有翻譯」、「(分開地)執行 ai 翻譯」
+
+此次修改是要將它兩個動作合併，並改成用 Rosetta Transaltion.Batches 來啟動
+TranslationBatch 與 TranslatorV2 來完整整個「轉換+翻譯」的操作
+
+預計新增 Packages.process_full 方法來實現
+- 取出需要處理的 term，整理成 strings (id + content)
+- 呼叫 Rosetta API 提供呼叫 Batches 的方法，
+	- 傳入 namespace + property + strings (id + content) 
+- 建立 TranslationBatch 並啟動
+- 等候 batch 執行完成，得到結果
+	- 將結果寫回對應的 term 的 translations
+		- 寫回時，若回傳的翻譯資料，是有經過 segmentation
+
+
+首先 Rosetta 端覺得也要做出以下對應修正
+
+> 詳見 github issue 上
+
 
 而 Miles.Packages.process_full 就直接呼叫 module 並等候完成
 Miles 端的 async 管理則由它自己的 worker 來啟動
