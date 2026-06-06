@@ -3,18 +3,31 @@
 
 請先詳細理解目前專案下的變動內容 (base on develop branch)
 這是多個開發項目下產生的變動
-我想將它們重新整理 commit，並盡量讓 commit 能依序有乾淨完整的相依關係
+我想將它們重新整理 branch 與 commit，
+盡量讓 commit 能依序有乾淨完整的相依關係
 
 這篇變動主要分成三個種區塊
 
 一、基本工作環境
 主要是改良 AI Agent 開發流程、導入 Tidewave 與 e2e 測試的基礎建設
-請先將這部分的調整逐一 commit
+請先將這部分的調整逐一 commit 現有 branch (feature/v3-base)
 
-二、建立 UI 元件庫
-主要是導入 ViewComponent 實作各種 ui 元件
-整合對應的 stimulus js，並用 Lookbook 建立 demo site
-請將這部分的變動，基於 (一)
+二、建立 v3 前端 stack 與 UI 元件庫
+主要完整化 v3 的前端 stack (esbuild + tailwindcss + daisyui)
+以及導入 ViewComponent 實作各種 ui 元件與整合對應的 stimulus js，
+並用 Lookbook 建立 demo site
+請將這部分的變動，基於 (一) checkout 成一條新的 branch (feature/v3-uikit)
+並逐一 commit 變動
+
+三、實作新版本的 journal import 功能
+新版本的 journal import 加上了資金帳戶暫存區的概念
+並用基於 v3 ui 元件來實作整個功能，並加上 feature/e2@ 測試
+請將這部分的變動，基於 (二) checkout 成另一條新的 branch (feature/v3-journal-import)
+並逐一 commit 變動
+
+我希望這三條 branch 能各自包含對應的變動
+並且讓後續 ui
+
 
 我要 migrate 整個專案的UI , Frontend 程式到新版本的前端技術 Stack。
 使用 esbuild + stimulus + tailwindcss + daisyui ，搭配 ViewComponent
