@@ -8,8 +8,9 @@
 
 這些變動基本分成三個種區塊
 
-一、基本工作環境改AD
+一、基本工作環境改良
 主要是改良 AI Agent 開發流程、導入 Tidewave 與 e2e 測試的基礎建設
+還有改進在 development 環境下的開發與測試，seed data 等
 請先將這部分的調整逐一 commit 現有 branch (feature/v3-base)
 
 二、建立 v3 前端 stack 與 UI 元件庫
@@ -31,9 +32,9 @@
 並且讓後續 ui 元件的擴充能基於(二)的branch (feature/v3-uikit) 做開發
 而盡量不會直接影響到 (三) 的運作
 
-同理若有 ai agent 的改良也可以基於(一) branch 做更新
+同理若有接下來還有與開發流程、 AI Agent 協作的改良也可以基於(一) branch 做更新
 
-請詳細規劃理解後，擬定計畫
+請詳細理解目前的實作後，再擬定計畫
 且務必確保不會改動到目前已實作的程式碼 (整個過程只有執行 commit/branch 的整理)
 也就是 (三) feature/v3-journal-import 的最終內容，應該要跟現在的變動內容完全一樣
 
