@@ -1,14 +1,14 @@
 
-整理變動與 commits
+# 整理 Commits 與 Branch
 
 請先詳細理解目前專案下的變動內容 (base on develop branch)
-這是多個開發項目下產生的變動
+這是多個開發調整過程中產生的變動
 我想將它們重新整理 branch 與 commit，
 盡量讓 commit 能依序有乾淨完整的相依關係
 
-這篇變動主要分成三個種區塊
+這些變動基本分成三個種區塊
 
-一、基本工作環境
+一、基本工作環境改AD
 主要是改良 AI Agent 開發流程、導入 Tidewave 與 e2e 測試的基礎建設
 請先將這部分的調整逐一 commit 現有 branch (feature/v3-base)
 
@@ -25,8 +25,19 @@
 請將這部分的變動，基於 (二) checkout 成另一條新的 branch (feature/v3-journal-import)
 並逐一 commit 變動
 
+若有發現不在上述三種類型的變動，請提出來確認討論
+
 我希望這三條 branch 能各自包含對應的變動
-並且讓後續 ui
+並且讓後續 ui 元件的擴充能基於(二)的branch (feature/v3-uikit) 做開發
+而盡量不會直接影響到 (三) 的運作
+
+同理若有 ai agent 的改良也可以基於(一) branch 做更新
+
+請詳細規劃理解後，擬定計畫
+且務必確保不會改動到目前已實作的程式碼 (整個過程只有執行 commit/branch 的整理)
+也就是 (三) feature/v3-journal-import 的最終內容，應該要跟現在的變動內容完全一樣
+
+若有任何問題或建議，請提出與我討論確認
 
 
 我要 migrate 整個專案的UI , Frontend 程式到新版本的前端技術 Stack。
