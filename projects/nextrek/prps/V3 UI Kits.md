@@ -6,9 +6,10 @@
 對 ui component 相關的修改務必拆成獨立的 commit，讓我可以 pick 回 feature/v3-uikit 的 branch 裡
 
 請檢查當下 branch (feature/v3-journal-import base on feature/v3-uikit)實作的功能
-裡用到的 contact select input field 與 tag select input field
-要正確地 migrate 成使用 UI Component 裡的 Contact Select 與  Tag Select Component
-若有需要調整 component 的用法，請規劃調整，確保 journal import 的功能維持正確運作
+資料列(row, row_template) 裡的 attachment  input field 
+請將它也 migrate 在 UI Form Component，讓其他地方的表單未來也可以使用
+並將它加到 lookbook 中
+並且務必確保 journal import 的原本功能維持正確運作
 對 ui component 相關的修改務必拆成獨立的 commit，讓我可以 pick 回 feature/v3-uikit 的 branch 裡
 # 整理 Commits 與 Branch
 
