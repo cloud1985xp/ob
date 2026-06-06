@@ -127,7 +127,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -200,7 +200,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "projects/hdwcp/prps/03_Shppings.md",
+                "file": "projects/nextrek/prps/V3 UI Kits.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -210,7 +210,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "03_Shppings 的反向連結"
+              "title": "V3 UI Kits 的反向連結"
             }
           },
           {
@@ -219,12 +219,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "projects/hdwcp/prps/03_Shppings.md",
+                "file": "projects/nextrek/prps/V3 UI Kits.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "03_Shppings 的對外連結"
+              "title": "V3 UI Kits 的對外連結"
             }
           },
           {
@@ -262,13 +262,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "projects/hdwcp/prps/03_Shppings.md",
+                "file": "projects/nextrek/prps/V3 UI Kits.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "03_Shppings 的大綱"
+              "title": "V3 UI Kits 的大綱"
             }
           }
         ]
@@ -392,12 +392,12 @@
                 }
               }
             ],
-            "currentTab": 3
+            "currentTab": 2
           }
         ],
         "direction": "vertical",
-        "x": 448,
-        "y": 76,
+        "x": 541,
+        "y": 135,
         "width": 1024,
         "height": 800,
         "maximize": false,
@@ -472,12 +472,13 @@
       }
     ]
   },
-  "active": "517a1bd30e9de021",
+  "active": "19e92f2c5d5d5211",
   "lastOpenFiles": [
-    "projects/hdwcp/prps/04_General.md",
-    "projects/hdwcp/prps/00_UIKit.md",
-    "tech/tools/environment-setup.md",
     "projects/nextrek/prps/NK.md",
+    "tech/tools/environment-setup.md",
+    "projects/hdwcp/prps/00_UIKit.md",
+    "projects/hdwcp/prps/03_Shppings.md",
+    "projects/hdwcp/prps/04_General.md",
     "projects/nextrek/prps/Journal Draft Imports.md",
     "personal/xaifu/prps/Xaifu.md",
     "projects/ishin/000_ISHIN_TODOs.md",

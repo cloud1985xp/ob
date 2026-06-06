@@ -1,4 +1,21 @@
 
+整理變動與 commits
+
+請先詳細理解目前專案下的變動內容 (base on develop branch)
+這是多個開發項目下產生的變動
+我想將它們重新整理 commit，並盡量讓 commit 能依序有乾淨完整的相依關係
+
+這篇變動主要分成三個種區塊
+
+一、基本工作環境
+主要是改良 AI Agent 開發流程、導入 Tidewave 與 e2e 測試的基礎建設
+請先將這部分的調整逐一 commit
+
+二、建立 UI 元件庫
+主要是導入 ViewComponent 實作各種 ui 元件
+整合對應的 stimulus js，並用 Lookbook 建立 demo site
+請將這部分的變動，基於 (一)
+
 我要 migrate 整個專案的UI , Frontend 程式到新版本的前端技術 Stack。
 使用 esbuild + stimulus + tailwindcss + daisyui ，搭配 ViewComponent
 
