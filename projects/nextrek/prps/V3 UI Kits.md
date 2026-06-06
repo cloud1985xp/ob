@@ -1,4 +1,8 @@
 
+請檢查當下 branch (feature/v3-journal-import base on feature/v3-uikit)實作的功能
+裡用到的 contact select input field 與 tag select input field
+要正確地 migrate 成使用 UI Component 裡的 Contact Select 與  Tag Select Component
+若有需要調整 component 的用法，請規劃調整，確
 # 整理 Commits 與 Branch
 
 請先詳細理解目前專案下的變動內容 (base on develop branch)
