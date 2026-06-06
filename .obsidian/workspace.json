@@ -200,7 +200,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "projects/nextrek/prps/V3 UI Kits.md",
+                "file": "tech/tools/environment-setup.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -210,7 +210,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "V3 UI Kits 的反向連結"
+              "title": "environment-setup 的反向連結"
             }
           },
           {
@@ -219,12 +219,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "projects/nextrek/prps/V3 UI Kits.md",
+                "file": "tech/tools/environment-setup.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "V3 UI Kits 的對外連結"
+              "title": "environment-setup 的對外連結"
             }
           },
           {
@@ -262,13 +262,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "projects/nextrek/prps/V3 UI Kits.md",
+                "file": "tech/tools/environment-setup.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "V3 UI Kits 的大綱"
+              "title": "environment-setup 的大綱"
             }
           }
         ]
@@ -472,8 +472,9 @@
       }
     ]
   },
-  "active": "19e92f2c5d5d5211",
+  "active": "52ecf23b2b4dbada",
   "lastOpenFiles": [
+    "projects/nextrek/prps/V3 UI Kits.md",
     "projects/nextrek/prps/NK.md",
     "tech/tools/environment-setup.md",
     "projects/hdwcp/prps/00_UIKit.md",
@@ -485,7 +486,6 @@
     "projects/ishin/ISHIN Engineer Agent.md",
     "personal/xaifu/prps/Prompt Improvement.md",
     "projects/hdwcp/hdwcp.md",
-    "projects/nextrek/prps/V3 UI Kits.md",
     "projects/hdwcp/prps/00_Todos.md",
     "projects/nextrek/prps/建立 e2e.md",
     "projects/venux/prps/Venus.md",
