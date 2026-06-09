@@ -1,3 +1,186 @@
+# TODO
+- 
+- collection 功能
+- 支援設定步數
+- 支援設定 lora
+- 手機版
+	- 閱讀
+	- 生圖
+	- app?
+
+- (wip) 圖生提示詞解析功能
+	- 輸入圖片網址、檔案或貼上
+	- 使用 grok API 取得提示詞
+	- 使用 comfyui 取得標籤
+	- 使用 grok API 過濾標籤：服裝顏色、場景
+	- 串預覽的功能流程
+
+- (wip) 利用 LLM 自動幫 prompt 命名 / 翻譯
+- 用 llm 用一段描述，批次生成多組提示詞，編修確認後批次建立
+
+
+Social Post 優化
+服裝可變化
+- 依活動限定
+- 一活動生成
+- 可隨機
+
+再呼叫llm 生成分鏡提示詞
+執行生圖功能
+用 subject appearance generation
+取得 care group 為外觀的提示詞
+
+figure_collection 立繪圖片
+
+- schedule 設定
+	- 手動觸發 generate post 行為
+- 手動發文
+
+模擬時間到
+-> 依背景資訊 (時間、個性、興趣、最近紀錄)
+-> 向 llm 生成活動文  + 決定故事分鏡圖片數
+-> 將分鏡生成文生圖提示 -> 生成圖片
+
+調整 post 與 image
+
+- character form 要可以刪除 illustration、hero_section
+
+# 對 prompt 增加 cover_image
+
+對 prompt 增加 cover_image 的關聯，關聯到 generated_image，允許 null
+在 prompt form 裡增加「編輯時」可以設定 cover_image 的欄位
+- 用 image select 
+- 選項是該 prompt 下關聯的最近 100筆 images + 目前的 cover_image(如果有的話)
+
+Generation 增加 title，允許空值
+調整 Generation Card ，圖在上，資訊在下
+
+# chat 對話時觸發生圖
+
+先隨機，搭配服裝
+之後可以用條件來解鎖
+或從 prompt 裡來選擇項目解鎖
+
+
+# 更新 Social 功能
+
+請將現在前台(非 app/ 下)的功能，實作套用真實的資料
+目前做的版本都是用假的資料
+請實作成真的從資料庫取得資料，以及實作對應真實的功能
+
+請先詳細了解目前已做的頁面內容，分析如何串接真實資料後，包括
+- 撈取真的 character，使用 character 的資料與 avatar
+- 瀏覽 character，真的撈取對應的 post 和 post 的 images
+- 串接 chat 功能，並檢查 chat 功能是否真確完整
+
+分析了解後並提出開發計畫，
+若有任何問題與建議請提出與我討論
+確認之後再開始進行
+
+# Character Part IV
+
+在 app/characters/:id 畫面中，加上：
+- 顯示 character 關聯的 subject，從點擊連結可以連到該 subject
+- sub 選單加上關聯 subject 的 collections 頁，
+	- 實作 CharacterLive.Collections 列出對應的 collections 清單，
+	- 每個點擊就連到該 collection
+	- 請和 SubjectLive.Show 裡的 collection 列表一樣，重複使用 Collection Card
+- sub 選單加上關聯 subject 的 generations 頁，
+	- 實作 CharacterLive.Generations 列出對應的 generations 清單，
+	- 每個點擊就連到該 generation
+	- 請和 SubjectLive.Show 裡的 generation 列表一樣，重複使用 Generation  Card
+
+將 app/characters/:id 畫面中最上方的：基本資訊 + sub menu 抽成一個 component，
+並同樣加到個子 sub page，即 Posts, Activities, Schedules, Collections, Generations 頁，
+會需要：
+- 增加一個 Home 回到 character show 
+- 對當前正在瀏覽的項目加上 active 的樣式
+
+在 app/characters/:id/activities 列表中
+對 activity 加上按鈕，可以手動觸發 GeneratePostWorker 的動作
+
+請實作 app/characters/:id/schedules 中實作 schedule 的基本 CRUD 功能
+- 可以新增/編輯 schedule，
+- 可以刪除 schedule
+
+# Character Part III
+Character Activity/Post/Image Generation at app side
+
+實作在 app side 後台 character 的 activity 功能，
+可以手動觸發 character 的 activity 執行發文/生圖功能
+
+目前已有實作透過程透自動觸發 activity / post 的功能
+請參考 Xaifu.Agents.Agent (lib/xaifu/agents/agent.ex)
+
+我想在後台 (app/characters/:id/activities) 實現手動觸發
+
+我想的流程大概是：
+
+一，建立活動
+表單中，輸入進行活動的基本資料，例如
+- activity_type
+- location
+- description
+- started_at
+(只有部分欄位必填)
+
+建立活動後，用活動觸發 GeneratePost
+(但活動可能要自動標記成已結束，避免有副作用？)
+
+二、從活動生成 post 內文
+目前應該已經有實作
+
+三、從 post 內文生成圖片
+這部分應該是最需要調校的部分
+我希望未來能透過一些參數設定來有能力約束
+
+目標要可以：
+- 一篇 po 文以有多張 image，用關聯的方式關聯 generated_image
+- 可將現在的單張圖片改成用關聯的方式指向 generated_image 作為 post 主圖
+- 生圖的時候，要先決定要生成幾張圖片
+	- 預設一個 range 的範圍，從 range 中隨機決定張數
+	- 有一個 mapping 表來控制不同 activity type 參照的 range 範圍，參照不到就用預設的 range
+	- 
+- 決定圖片張數後，會分批次呼叫 llm 來產生以 activity 內容為基礎，生成圖片用提示詞 
+	- 為避免一次太多張，一次全部生成會造成 llm 品質下降，這裡設定 batch_size 分批請 llm 生成
+- 將這些提示詞，依序呼叫 Xaifu.Generations.Processor 來生成多張圖片
+- 生成圖片時對於 appearance_generation 的整合也需要調整成：
+	- generation 上會有現有的 prompt inputs，會需要抽取部分 prompt 內容來做為生圖的一部分
+		- 抽取：依 prompts 對應的 prompt category 的 prompt category group 的 code 來判斷是否抽取來使用
+			- 預設是 "appearance" or "clothing"
+			- 可以透過 opts 傳入參數來決定要抽取哪些
+	- 用抽取的 prompts text + activity 傳入的 prompt  text 組成最終的 prompt 來生成圖片
+- Processor 生成圖片時，也有可能在 opts 傳入 
+	- prompt categories
+		- 代表從這些 prompt categories 每一個的 prompts 隨機挑一個，也當作組合成提示的一部分
+	- prompts
+		- 會把這些指定的 prompts 的 text 也當作組合成提示詞的一部分
+
+抽象來說，需求就是為要可以：
+- 一般情況下讓 activity 產生的提示詞只決定活動的內容描述，用 appearance generation 決定好固定的部分提示詞：例如人物外貌、服裝
+- 但未來會支援 activity 也會決定好其他部分 (例如服裝)，這時就要排除掉 appearance generation 已設定的部分
+	- 可能是直接包含在提示詞內
+	- 或從現有的 prompts 挑選
+	- 或只決定 category，從 category 中隨機挑選
+
+因為這是在後台操作，請實作成方便我從後台控制、測試的方式
+
+請先了解目前已經實作的部分，進行規劃與安排需要的調整
+若有任何不清楚的部分，請提出討論
+
+
+## 優化 
+
+請優化 Xaifu.Workers.GeneratePostWorker 和 Xaifu.Workers.GeneratePostImagesWorker 
+Worker 的設計只要單純負責 async job
+實作的工作邏輯，請拆放到 domain module 裡建立函式來處理
+worker 只要收到參數後，再呼叫對應 domain module 的方法執行來好
+這樣才能讓業務邏輯回歸到 domain module
+也方便測試
+
+請修改
+並將這個設計原則加到 guidelines 且確保 CLAUDE.md 會確保被參照到
+
 
 # Generation Images Management Mode
 
@@ -73,40 +256,8 @@ text 就用原本的方式建立 prompts
 請規劃並實作
 且確保原本的功能不受影響
 
-## Character Part III
-Character Management at app side
 
-實作在 app side 後台觸發 activity 發文/生圖功能
-
-手動輸入活動
-用活動類型限定提示詞
-時間、天氣因素
-呼叫 llm 產生活動內容
-決定活動圖片數
-決定服裝
-- 依活動限定
-- 一活動生成
-- 可隨機
-
-再呼叫llm 生成分鏡提示詞
-執行生圖功能
-用 subject appearance generation
-取得 care group 為外觀的提示詞
-
-figure_collection 立繪圖片
-
-- schedule 設定
-	- 手動觸發 generate post 行為
-- 手動發文
-
-模擬時間到
--> 依背景資訊 (時間、個性、興趣、最近紀錄)
--> 向 llm 生成活動文  + 決定故事分鏡圖片數
--> 將分鏡生成文生圖提示 -> 生成圖片
-
-
-調整 post 與 image
-## Character Part I
+# Character Part I
 
 修改 app/characters 功能
 這裡的定位比較像是 Character 的後台管理功能
@@ -139,7 +290,7 @@ app/characters 列表加上瀏覽的連結，進入 show 頁面
 	- schedules 管理：/app/characters/:id/schedules
 	- 上述三者都是獨立的網址路徑與 LiveView，只先做基本列表，詳細功能之後再定義實作 
 
-## Character Part II: Support Image on Characters
+# Character Part II: Support Image on Characters
 要對 Character 增加上傳/設定圖片的功能
 
 一、修改 Characters table 欄位：
@@ -360,24 +511,7 @@ collection_prompts
 FormComponent 的 category_select 元件
 在表單編輯時，不會正確地選中 current option，請檢查並修正
 
-# TODO
-- 
-- collection 功能
-- 支援設定步數
-- 支援設定 lora
-- 手機版
-	- 閱讀
-	- 生圖
-	- app?
 
-- (wip) 圖生提示詞解析功能
-	- 輸入圖片網址、檔案或貼上
-	- 使用 grok API 取得提示詞
-	- 使用 comfyui 取得標籤
-	- 使用 grok API 過濾標籤：服裝顏色、場景
-	- 串預覽的功能流程
-
-- (wip) 利用 LLM 自動幫 prompt 命名 / 翻譯
 - [x] 刪除 generated_image (同時要刪除圖片原檔與各 version 圖檔)
 - [x] 修正 Generation duplicate 的功能
 - Subject 優化
@@ -389,7 +523,6 @@ FormComponent 的 category_select 元件
 	- [x] 用 workflow 篩選或排列
 
 - 批次建立 prompt
-	- 用 llm 用一段描述，批次生成多組提示詞，編修確認後批次建立
 	- [x] 直接輸入多行文字，每行是一個 prompt
 
 - [x] 把 尺寸移到 prompt level

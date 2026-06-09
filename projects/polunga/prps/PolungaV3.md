@@ -1,3 +1,55 @@
+
+# 重整 v3 UI Branches
+我要整理目前開發的變動的進行 branch 拆分與 commit
+主要分成以下部分。
+
+一、新版本 v3 fronted 基礎建設
+branch: feature/rails8-fronted-base (現在的 branch)
+
+內容包括新版本前端的基礎配置更新，
+包括使用：tailwindcss + daisyUI + stimulus controller、更新 js library(例如 toast、tom-select)
+以及導入 ViewComponent 與整合 SimpleForm
+並且對 AI Agent 開發測試整合 tidewave 與 使用 playwright-cli SKILL、e2e 測試
+另有一些是刪除不再使用的功能
+
+二、實作各種 view compnoent 並導入 lookbook
+branch: feature/rails8-fronted-uikit
+實作各種 UI Component 元件、包括對應的 stimulus controller or js library 
+更新 kaminari 分頁元件樣式
+並建立 lookbook 做為 UIKit demo site
+
+三、套用新版 UI/Fronted Stack 至實際功能
+將 v3 的 fronted stack 套用至實際的功能，並也實作對應功能所需的 stimulus controller 或 js library
+第三部分可以再依以下分類分成多個 branch 
+- v3 application layout migration，branch: feature/rails8-fronted-migration-base
+- 套用 admin side 相關功能，branch: feature/rails8-fronted-migration-admin
+- 套用 app side (非 admin side)，branch: (branch: feature/rails8-fronted-migration-app)
+  但以下功能頁面先排除，仍在修改確認中
+	- /operations/ 路徑下的頁面
+	- /campaigns/ 路徑下的頁面
+	- AnnouncementsController 相關功能
+	- BannersController 相關功能
+
+請比較與bese Branch (feature/upgrade-rails) 的差異詳細理解上述的改動內容。
+若有不再上述描述的範圍內，也請進行分析與分類。
+若無法辨別分類，請先與我確認。
+若完全與開發無關，的 untracked 變動，可以忽略(保留檔案)
+確認分析之後進行 Commit 與 branch 的拆分，請讓各 branch/commit 有清楚乾淨的相依
+
+照理最後的結果跟現有的內容要完全一樣，不去修改任何程式變動。
+
+若有任何建議或問題，請提出討論
+
+
+
+
+# 修正以下 v3 ui / component 的問題：
+
+- v3 TableComponent 的標頭 sticky 效果
+	- 請修正啟用 sticky 的效果，目前 sticky 的效果不正確，
+	- 調整成可以用參數控制是否要套用 sticky，預設為關閉
+- v3 的 sidebar menu, 在 collapse 收起的狀態下，menu item 的 submenu 會無法使用，應該要轉換成 hover 時會 popup submenu 在右方的行為
+
 # Polunga v3 UI/UX Design
 
 我調整 layout (v3) 使用的前端 stack

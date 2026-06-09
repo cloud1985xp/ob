@@ -12,6 +12,48 @@ https://github.com/aktsk-pjt-ishin/tw-ishin-devops/blob/feature/ISHINTW-15490-pr
 
 # 新增 Card PromoPage 功能
 
+請參考以下作法：
+
+將 card_promo 的 vue app 移到 app/javascript/packages/ 下，未來這裡專門放 vuejs 製作的 app
+即：app/javascript/packages/card_promo/App.vue ..等檔案
+表示 packages 下未來可能還會有其他用 vue js 開發的 app 元件
+
+對 esbuild.config.mjs 中的打包行為，實現類似 package.js 中這樣的設定
+
+```
+{
+  "scripts": {
+    "build": "esbuild app/javascript/application.js app/javascript/packages/card_promo/main.js --bundle --outdir=app/assets/builds --loader:.png=file --loader:.jpg=file --loader:.svg=file --asset-names=shared_assets/[name]-[hash] --public-path=$ASSET_HOST"
+  }
+}
+```
+
+ASSET_HOST 是為了未來引入 cdn 設定 cdn 的 hostname
+
+然後在 rails view 的頁面，用 content_for 的方式來嵌入 page specific 的 js/css 編輯結果
+
+ex: application.html layout
+```
+# 依然只放 global build
+
+<%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+<%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
+# 加上 page specific content_for 的內容
+```
+
+ex: card_promos/show.html.erb
+```
+<% content_for :page_specific_assets do %>
+  <%= javascript_include_tag "packages/vue_app/main", defer: true %>
+  <%= stylesheet_link_tag "packages/vue_app/main" %>
+<% end %>
+
+<div id="vue-root"></div>
+```
+
+上述這樣的作法，是否可行？請詳細評估
+
 ##需求
 整體功能如下：
 - 使用者輸入
@@ -186,12 +228,104 @@ end
 任何疑問或建議也請提出跟我討論討論
 
 
+# Potara
+origin/main
+
+## Skill of Merging Server Bots
+
+我要在 potara plugin 中新增一個新的 still
+請參考波特裡的合併 server cookbooks 的 skill (tw-ishin-merging-server-cookbooks) 與合併 analysis code (tw-ishin-merging-server-analysis) 的 skill
+製作另一個類似也是在進行 merge git repo 上游版本的skill
+大致流程會和 merge-server-analyisis 一樣，但更精簡。
+
+名稱: tw-ishin-merging-hubots
+
+這個 repo 所 merge 的程式碼，主要是以 type scripts 為主。
+- merge 後不需要執行額外的任務，例如Rake指令。
+- 一樣需要產生對應的Note
+- 一樣需要有自己的 Reference 資料做為 domain knowledge 與 iron rules
+
+大致流程：
+- 決定工作 branch 名(merge/{target_version})
+- 決定上游 remote 和 branch，預設 remote=jp branch=master
+- 決定本地 base branch，預設為 develop
+- 檢查目標工作 branch 是否存在，若不存在則從 base branch(develop) checkout merge/{target_version}
+- 若已存在，在工作 branch 進行 merge
+- 將上游 branch merge 進工作 branch
+- 依 reference 中提的原則解衝突(如果有衝突的話)
+
+若想要理解目前現有的 repo 內容，可參考
+> /Users/aaron.kuo/aktsk/ishin-tw/ishin-bots
+
+請幫我規劃這個 skill 的 schema 與，整個資料結構
+讓 agent 可以用這個 skill 完成該 repo 的 upstream code merge 工作
+
+若有任何問題請與我討論
+
+## Skill of Merging Server Cookbooks
+
+我要在 potara plugin 中新增一個新的 still
+請參考波特裡的合併 server code 的 skill (tw-ishin-merging-server-code) 與合併 analysis code (tw-ishin-merging-server-analysis) 的 skill
+製作另一個類似也是在進行 merge git repo 上游版本的skill
+大致流程會和 merge-server-analyisis 一樣，比 merge-server-code 精簡。
+
+名稱: tw-ishin-merging-cookbooks
+
+這個 repo 所 merge 的程式碼，主要是以 ruby + shell scripts 為主。
+- merge 後不需要執行額外的任務，例如Rake指令。
+- 一樣需要產生對應的Note
+- 一樣需要有自己的 Reference 資料做為 domain knowledge 與 iron rules
+
+大致流程：
+- 決定工作 branch 名(merge/{target_version})
+- 決定上游 remote 和 branch，預設 remote=jp branch=master
+- 決定本地 base branch，預設為 develop
+- 檢查目標工作 branch 是否存在，若不存在則從 base branch(develop) checkout merge/{target_version}
+- 若已存在，在工作 branch 進行 merge
+- 將上游 branch merge 進工作 branch
+- 依 reference 中提的原則解衝突(如果有衝突的話)
+
+若想要理解目前現有的 repo 內容，可參考
+> /Users/aaron.kuo/aktsk/ishin-tw/ishin-cookbooks
+
+請幫我規劃這個 skill 的 schema 與，整個資料結構
+讓 agent 可以用這個 skill 完成 ishin-cookbooks repo 的 upstream code merge 工作
+
+若有任何問題請與我討論
+
+## Skill of Merging Server Analysis
+
+我要在 potara plugin 中新增一個新的 still
+請參考波特裡的合併 server code 的 skill (tw-ishin-merging-server-code)
+製作另一個類似也是在進行 merge git repo 上游版本的skill
+大致流程一樣，但比較精簡。
+
+名稱: tw-ishin-merging-analysis
+
+這個 repo 所 merge 的程式碼，主要是以 shell script 為主。
+- merge 後不需要執行額外的任務，例如Rake指令。
+- 一樣需要產生對應的Note
+- 一樣需要有自己的 Reference 資料做為 domain knowledge 與 iron rules
+
+大致流程：
+- 決定工作 branch 名(merge/{target_version})
+- 決定上游 remote 和 branch，預設 remote=jp branch=master
+- 決定本地 base branch，預設為 develop
+- 檢查目標工作 branch 是否存在，若不存在則從 base branch(develop) checkout merge/{target_version}
+- 若已存在，在工作 branch 進行 merge
+- 將上游 branch merge 進工作 branch
+- 依 reference 中提的原則解衝突(如果有衝突的話)
+
+若想要理解目前現有的 repo 內容，可參考
+> /Users/aaron.kuo/aktsk/ishin-tw/ishin-analysis
+
+請幫我規劃這個 skill 的 schema 與，整個資料結構
+讓 agent 可以用這個 skill 完成 ishin-analysis repo 的 upstream code merge 工作
+
+若有任何問題請與我討論
 
 
-
-
-
-PSD 字形大量轉換
+## PSD 字形大量轉換
 https://github.com/psd-tools/psd-tools
 https://psd-tools.readthedocs.io/en/latest/
 

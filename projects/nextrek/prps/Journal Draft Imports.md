@@ -3,6 +3,71 @@ tags:
   - nextrek
   - project
 ---
+# 0529 修正
+## 上傳明細頁 (/accountings/draft_stages/:id/import)
+
+上傳表單中的「套用收付原因」選項行為仍然不正確
+下方的「收款原因」和「付款原因」欄位，要隨著「套用收付原因」選項切換
+- 當選擇「不套用」(預設)時，下方的「收款原因」和「付款原因」欄位要被隱藏
+- 當選擇「套用」時，下方的「收款原因」和「付款原因」欄位要出現
+
+請參考使用現有的 simple_toggle_controller 來實現
+這個 js controller 提供基本的綁定點擊觸發「顯示」或「隱藏」指定對象元素的行為
+若這個 js controller 無法實現上述需求，請優化加強這個 controller 來達成
+但保持這個 controller 通用性，讓其他情景也能用這個 js 來控制類似的行為
+
+- 當收付原因選擇「套用」時，要出現下方的 subject-selects 區塊讓使用者選擇
+	- 之前的修改(4f942465d4e05fcd1e1ee2530fdbdba4ddd93d47) 不正確
+
+請修改資料列的上傳附件功能 (dropzone_upload_controller)
+- 目前已有 dropzone_controller，應該有共同類似的部分，是否可以抽出共用的部分做繼承
+- 將 dropzone_uploader 改名叫 attachments_upload_controller
+- 上傳完檔案，原本資料列的「上傳附件」按鈕，要變成顯示「已上傳 n 個附件」
+- 上傳完檔案，再次點擊「已上傳 n 個附件」跳出來的 modal 裡的 dropzone 要仍顯示已上傳的檔案資訊，而且可以刪除任一個已上傳的附件
+可以參考 http://localhost:5173/accountings/journal_draft 裡的相關模擬畫面
+
+
+修正 /accountings/draft_stages 的暫存區列表 (DraftStagesPresenter)
+從原本只撈 gateway kind 是 bank 的 資金帳戶 (Accountings::Account)
+改成撈全部類型的資金帳戶，但要依以下邏輯區分是否列為己隱藏
+- 若有 accountings_account_draft_stage 資料且被設定成隱藏，列為隱藏
+- 若沒有 accountings_account_draft_stage 資料，則依 gateway kind
+	- 若 gateway kind 不是 bank，就列為隱藏
+
+換句話說，沒有 accountings_account_draft_stage 資料，
+預設就只有 gateway kind 是 bank 會在正式列表，其他 kind 都視為隱藏
+但若有 accountings_account_draft_stage 資料，代表有被調整過設定，就以 accountings_account_draft_stage 的設定為準
+
+上傳明細頁 (ex: /accountings/draft_stages/:id/import)
+在選擇 銀行 / 機構時，若選擇的是「銀行明細」或「第三方金流」
+檔案來源會是下拉選單供選擇
+
+問題與需求：
+檔案來源的選單旁應該要出現「下載路徑及說明」的連結
+(樣式可參考 http://localhost:5173/accountings/journal_draft_upload)
+並且連結要依選項切換變動連到不同的目標 url
+這份選項 -> 目標 url 的對應現在已經有實作並 render 在 html 中
+
+但點擊選項 切換 顯示這個行為並未套用
+請檢查並考慮用 simple_toggle_controller 來實現這個行為
+
+# 0526 修正
+
+修正以下問題：
+
+## 資金帳戶頁 (/accountings/draft_stages)
+- 請移除頁面上方的麵包屑
+
+## 上傳明細頁 (/accountings/draft_stages/:id/import)
+- 當收付原因選擇「套用」時，要出現下方的 subject-selects 區塊讓使用者選擇
+	- 之前的修改(4f942465d4e05fcd1e1ee2530fdbdba4ddd93d47) 不正確
+- 表單最下方的「取消」按鈕，點擊的行為不正確，應該回到該資金帳戶 (/accountings/draft_stages/:id)
+- 上傳檔案的 dropzone 裡的 preview container 的內容應該要置中，現在是被設為：`grid grid-cols-2 gap-2`
+
+## 資金帳戶/交易暫存區頁 (accountings/draft_stages/:id) 
+- 標題「交易暫存區」應該為 「交易暫存區 - {資金帳戶名稱}」
+- 分頁(pagination) 的樣式仍有問題，active 的那個項目的樣式不正確，請確保符合 daisyui 的樣式
+
 # 0514 修正
 
 - 關閉 dark mode，即使用戶設定環境為 dark mode，不會有任何作用

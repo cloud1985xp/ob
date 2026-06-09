@@ -25,16 +25,107 @@ TODO:
 4. 檢查下個 sprint 範圍內，是否有重要需要 scale 的 event
 
 
+我想優化 collect-tasks skill 中從 custom markdown todo 抓取任務的功能
+可以在 markdown 中有一個區塊是定義排程式的工作
+讓每次在進行 collect-tasks 時會去檢查當天有沒有符合排程設定的任務項目要進行
+例如每個月的第一天(workday)，執行某項任務(例如 gcp cost report)
+
+請將這個機制加進 collect-tasks skill，
+並在目前的 custom_todo_path file( ~/Documents/today-todo.md) 加上排程任務的範例
+
+# 解決 version merger 上遊更新問題
+
+version merger 的上遊 branch (upstream_branch)，有可能是指向 branch 或 tag name
+而且 tag 也有可能被更新(指向更新的 commit)，目前檢查 upstream 的變動，似乎不會追蹤到更動後的 tag，請檢查並修正對應的步驟，讓：
+- orchestrator 在檢查 no-ops 前，能先確保 upstream 是最新的
+- agent 自己單獨在執行時，能先確保 upstream 是最新的
+
+# 優化 Tool Engineer
+
+我要確保 Tool Engineer Agent
+在收到 dispatch task 會依循以下的行為：
+
+當工作任務來源是 github issue 且 label 有 `feature` 時
+先用 gh cli 從 github 上取得 task 的需求內容時，
+- 先查看本地對該 issue 的 history 紀錄，了解目前對該 issue 處理的狀況
+	- 最後處理的時間
+	- 是否已建立 pr
+- 查看 issue 與 pr(如果已建立) 自上次處理之後的 comments 討論，
+	- 若沒有 history 與 pr 紀錄，就從 issue 取得所有內容
+- 從上述取得的內容得知 task 資訊，包括
+	- base branch
+	- 需求與目標
+	- issue 的 labels 是否有 `epic`
+
+從 task 對應的 repo 路徑
+- 從 base branch 建立 worktree 作為工作空間
+- 進到 worktree 工作空間
+	- 載入該工作空間下的 CLAUDE.md 在該專案下進行開發
+	- 如果 labels 包含 `epic` 時，agent 必須使用 `/brainstorming` skill 進行開發
+	- 若沒有，則主動依需求內容判斷是否要用 `plan mode` 
+
+當工作任務來源不是 github issue 時，則先暫停，詢問 user 該如何處理
+
+請將上述行為更新到 tool-engineer agent ，如果需要的話，也更新對應的 knowledge
+
+
+
 in agent-plugins
-增加 monthly GCP cost report Skill
-我需要在每個月初(例如六月)，檢視上個月份(例如五月)的 gcp 帳單
+
+# 增加 monthly GCP cost report Skill
+
+我需要在每個月初(例如六月)時執行，
+檢視上個月份(例如五月)的 gcp 帳單
 並且再跟前一個月(例如四月)比較各項費用的變化量，以及判斷變化量是否合理
-綜合一個摘要報告
-帳單包括多個專案
-- ishin
+綜合成一個摘要報告
+
+可將每個月的處理結果，存成 history data，方便每個月與之前的資料做比較
+
+帳單會包括多個專案(project id)
+- ishin-168508
 - ishin-tw-dev
-- ishin-tool
-- rosetta
+- ishin-tool-165703
+- rosetta-284004
+
+每個專案各自做與前一個月的分析比較與摘要報告
+
+除此之外
+要對 ishin-168508 專案的 BigQuery 用量做進一步的檢查
+
+包括：
+一、從帳單資料
+統計每日的費用，是否有特別異常的變化
+
+二、直接從 BigQuery JOBS_BY_PROJECT 檢查用量
+參考以下 SQL
+```
+SELECT ROUND(SUM(total_bytes_processed)/1024/1024/1024, 2) AS processed_GB,
+
+ROUND((SUM(total_bytes_processed)/1024/1024/1024/1024)*5, 2) AS USD,
+
+SUM(total_bytes_processed) AS total_bytes, COUNT(*) AS total_queries
+
+FROM `region-us`.INFORMATION_SCHEMA.JOBS_BY_PROJECT
+
+WHERE
+DATE(creation_time) BETWEEN "2026-04-01" AND "2026-04-30"
+AND project_id = 'ishin-168508'
+
+GROUP BY user_email
+ORDER BY total_bytes desc
+```
+
+來統計每個 user 的使用量
+並比較過去(最多三個月)的紀錄，看使用量是否有異狀
+
+請先評估所需的工具指令，例如 gcloud、bq 是否能完成上述目標
+並規劃將整個流程製作成一個 skill： gcp-cost-report
+
+
+從 BigQuery JOBS_BY_PROJECT 的部分
+除了專案 ishin-168508 之外
+請也加上 project_id = "ishin-tool-165703" 
+
 
 
 # 改良 version merge Agent

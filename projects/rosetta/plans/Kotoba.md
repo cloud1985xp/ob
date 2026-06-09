@@ -1,4 +1,43 @@
 
+# 調整 Miles Package 顯示畫面
+
+我想調整 package 的 state =  `processed` 和 `transferred` 的顯示
+- 原本的 transferred 狀態顯示的格式，抽出來變成另一個功能，叫 preview
+- 在 package header 上加一個 preview 的選項，用來瀏覽 preview 的版本
+- 將原本的 transferred 改成跟 processed 用同一個顯示 格式
+	- 只是 processed 下方仍然會有「將資料送入詞庫」，但 transferred 狀態則沒有
+- 將 transferred 與 processed 共用的這個格式：
+	- id 欄，每列資料的 id 下加一個 icon 用來表示 translation_state
+		- untranslated，用 「？」icon
+		- all_existed，用「打勾」的 icon
+		- all_formatted，用 「圓圈」的 icon
+		- auto_translated ，用「翻譯」的 icon
+		- partially_existed，用「帶有圓圈的打勾」的 icon
+	- 在 table 上方加上圖示的說明
+
+# 調整 Miles Package 在輸出 worksheet 的內容
+
+目前在輸出 worksheet 時有分三種版本
+
+- 一般(no version)
+- 完整版含自動翻譯：version = translated
+- 完整版僅原文：version = source_only
+
+可參考
+> apps/miles/lib/miles_web/controllers/package_html/package_header.html.heex
+> apps/miles/lib/miles_web/controllers/package_worksheet_controller.ex
+> Packages.build_worksheets, filtered_content at apps/miles/lib/miles/packages.ex
+
+請調整成依 terms 的 translation_state 來篩選，改為：
+- 一般(no version): 輸出 translation_state 為 :untranslated, :partially_existed, :auto_translated, :all_formatted (= 僅 :all_existed 除外)
+- 精簡版: version = simple, 輸出 translation_state 為 :auto_translated
+- 完整版: version = full, 輸出全部 state
+- 完整版僅原文: version = source_only，輸出全部 state，但內容不需有翻譯(把翻譯資料用空白代替)
+
+先請詳細理解現有作法，再做出調整
+
+
+
 # 修正 FullTranslation 裡如何決定 Term.translation_state
 
 Term.translation_state，增加一種 enum 值為 :all_formatted
