@@ -17,6 +17,9 @@ tags:
 ## 修正交易暫存區
 在交易暫存區 (ex: /accountings/draft_stages/:id)，draft stage list 列出目前的 journal draft，每筆資料列，需進行以下修整：
 
+- 資料列中的附件上傳元件，在上傳附件成功後，再次點開上傳附件(跳出 modal)，dropzone 會顯示目前已上傳的檔案，但已上傳的檔案的檔名沒有正確顯示，請修正
+
+
 - 請將 subject_menu_input migrate 成使用 Ui::Forms::SubjectMenuComponent
 	- 務必確認 migrate 成 SubjectMenuComponent 而原本的功能行為不被破壞
 	- 如果 SubjectMenuComponent 需要做調整才能整合成 subject_menu_input 的行為，請將對應的修改內容分成獨立的 commit
