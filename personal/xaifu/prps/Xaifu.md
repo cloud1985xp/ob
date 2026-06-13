@@ -66,14 +66,19 @@ Generation 增加 title，允許空值
 
 從 /characters/:id  畫面的 tab 選單增加「Collection」功能
 會進到 /characters/:id/collection 獨立頁面
-頁面中會列出該 Character 的 Subject 的 collection 清單
+頁面中會列出該 Character 的 Subject 的 collection 清單 (collection index)
 點選 collection 可以進入瀏覽該 collection 下的 image (/characters/:character_id/collection/:collection_id)
 
 並實作符合以下需求
 - 瀏覽 collection 的 image 時，使用跟 character gallery 一樣的 image gallery
 	- 一樣的 mobile first 介面
-- collection 功能，一樣有 tab 選單，可以回到 character 的 post、gallery、
-
+- collection 功能，一樣有 tab 選單，可以回到 character 的 post、gallery、about 等頁面
+	- 將這個 tab 選單拆成 component，同樣也加到 post、gallery、about 等頁面可以切換
+		- 可將 about 也拆成獨立的頁面來實現目標
+- collection index 頁的 collection 清單：
+	- 一樣 mobile view 用直列、desktop 用 grid
+	- 每個 collection 顯示項目，做成 community 下的 collection card 元件
+		- 可參考 XaifuWeb.CollectionComponents 的作法來決定 cover image 和顯示的內容資訊
 # 更新 Community 下 Character Gallery 功能
 
 請更新實作 Community 下 Character Gallery 的功能
