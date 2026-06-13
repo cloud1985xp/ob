@@ -13,8 +13,10 @@ tags:
 ## 修正交易暫存區
 在交易暫存區 (ex: /accountings/draft_stages/:id)，draft stage list 列出目前的 journal draft，每筆資料列，需進行以下修整：
 
-- 請將 subject_menu_input migrate 成用 V3::SubjectMenuComponent
-- ，若該筆 journal draft 已經有 subject_id / menu id，那在收付原因(subject menu)的選單
+- 請將 subject_menu_input migrate 成使用 Ui::Forms::SubjectMenuComponent
+	- 務必確認 migrate 成 SubjectMenuComponent 而原本的功能行為不被破壞
+	- 如果 SubjectMenuComponent 需要做調整才能整合成 subject_menu_input 的行為，請將對應的修改內容分成獨立的 commit
+- 若該筆 journal draft 已經有 subject_id / menu id，那在 SubjectMenuComponent 應要也要讓對應的選項顯示成正被選擇的狀態
 
 
 # 0529 修正
