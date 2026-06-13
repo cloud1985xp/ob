@@ -126,8 +126,7 @@
               "title": "建立 e2e"
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "vertical"
@@ -200,7 +199,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "tech/tools/environment-setup.md",
+                "file": "projects/nextrek/prps/Journal Draft Imports.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -210,7 +209,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "environment-setup 的反向連結"
+              "title": "Journal Draft Imports 的反向連結"
             }
           },
           {
@@ -219,12 +218,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "tech/tools/environment-setup.md",
+                "file": "projects/nextrek/prps/Journal Draft Imports.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "environment-setup 的對外連結"
+              "title": "Journal Draft Imports 的對外連結"
             }
           },
           {
@@ -262,13 +261,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "tech/tools/environment-setup.md",
+                "file": "projects/nextrek/prps/Journal Draft Imports.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "environment-setup 的大綱"
+              "title": "Journal Draft Imports 的大綱"
             }
           }
         ]
@@ -472,11 +471,11 @@
       }
     ]
   },
-  "active": "52ecf23b2b4dbada",
+  "active": "035c9fd5bfbf6395",
   "lastOpenFiles": [
     "projects/nextrek/prps/V3 UI Kits.md",
-    "projects/nextrek/prps/NK.md",
     "tech/tools/environment-setup.md",
+    "projects/nextrek/prps/NK.md",
     "projects/hdwcp/prps/00_UIKit.md",
     "projects/hdwcp/prps/03_Shppings.md",
     "projects/hdwcp/prps/04_General.md",

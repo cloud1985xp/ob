@@ -3,6 +3,12 @@ tags:
   - nextrek
   - project
 ---
+# 0613 修正
+
+修正草稿區(DraftStage)上傳功能 (/accountings/draft_stages/:id/import)
+
+
+
 # 0529 修正
 ## 上傳明細頁 (/accountings/draft_stages/:id/import)
 
