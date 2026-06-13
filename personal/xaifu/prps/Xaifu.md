@@ -71,7 +71,11 @@ Generation 增加 title，允許空值
 - 從 character 關聯的 subject，讀取關聯的 generated images
 - 用 infinite scroll 來列出 images
 - 請依照 social ui design 設計原則，製作 mobile first 的頁面
-- 
+	- mobile 介面，圖片垂直排列，附合螢幕寬度
+	- desktop 介面，圖片 grid 排列，可以點擊放大，類似 ImageGallery component，請盡量嚐試共用 ImageGallery，但若有需要，可獨立實作 social 介面版的 ImageGallery
+- 可調整排序：
+	- 以新增時間，由新到舊
+	- 以 likes 數，由多到少
 
 # 更新 Social 功能
 
