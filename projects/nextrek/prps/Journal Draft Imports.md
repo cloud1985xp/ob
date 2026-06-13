@@ -5,7 +5,10 @@ tags:
 ---
 # 0613 修正
 
-修正草稿區(DraftStage)上傳功能 (/accountings/draft_stages/:id/import)
+## 修正 DraftStage 上傳明細功能 (/accountings/draft_stages/:id/import)
+
+若執行上傳時，因為驗証等原因失敗，應重新 render 上傳畫面
+並維持原本送出時的選項，如「選擇銀行／機構，並上傳檔案」、「檔案來源」、「套用收付原因」等，相關設定應保留。
 
 
 
