@@ -62,15 +62,15 @@ Generation 增加 title，允許空值
 或從 prompt 裡來選擇項目解鎖
 
 
-# 更新 Social 下 Character Gallery 功能
+# 更新 Community 下 Character Gallery 功能
 
-請更新實作 Character Gallery 的功能
-當從 /characters/:id  畫面「Gallery」點擊時，進入 Gallery 功能
+請更新實作 Community 下 Character Gallery 的功能
+即從 /characters/:id  畫面「Gallery」點擊時進入的 Gallery 功能
 
 - 將 Gallery 做成獨立的頁面，例如 /characters/:id/gallery
-- 從 character 關聯的 subject，讀取關聯的 generated images
+- 從 character 關聯的 subject，讀取該 Subject 關聯的 generated images
 - 用 infinite scroll 來列出 images
-- 請依照 social ui design 設計原則，製作 mobile first 的頁面
+- 請依照 communitry ui design 設計原則，製作 mobile first 的頁面
 	- mobile 介面，圖片垂直排列，附合螢幕寬度
 	- desktop 介面，圖片 grid 排列，可以點擊放大，類似 ImageGallery component，請盡量嚐試共用 ImageGallery，但若有需要，可獨立實作 social 介面版的 ImageGallery
 - 可調整排序：
