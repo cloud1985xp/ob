@@ -62,6 +62,18 @@ Generation 增加 title，允許空值
 或從 prompt 裡來選擇項目解鎖
 
 
+# 更新 Community 下 Character Collection 功能
+
+從 /characters/:id  畫面的 tab 選單增加「Collection」功能
+會進到 /characters/:id/collection 獨立頁面
+頁面中會列出該 Character 的 Subject 的 collection 清單
+點選 collection 可以進入瀏覽該 collection 下的 image (/characters/:character_id/collection/:collection_id)
+
+並實作符合以下需求
+- 瀏覽 collection 的 image 時，使用跟 character gallery 一樣的 image gallery
+	- 一樣的 mobile first 介面
+- collection 功能，一樣有 tab 選單，可以回到 character 的 post、gallery、
+
 # 更新 Community 下 Character Gallery 功能
 
 請更新實作 Community 下 Character Gallery 的功能
