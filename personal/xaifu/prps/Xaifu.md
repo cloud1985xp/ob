@@ -62,6 +62,12 @@ Generation 增加 title，允許空值
 或從 prompt 裡來選擇項目解鎖
 
 
+# 更新 Social 下 Character Gallery 功能
+
+請更新實作以下功能
+
+- 從
+
 # 更新 Social 功能
 
 請將現在前台(非 app/ 下)的功能，實作套用真實的資料
