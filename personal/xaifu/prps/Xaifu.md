@@ -64,9 +64,14 @@ Generation 增加 title，允許空值
 
 # 更新 Social 下 Character Gallery 功能
 
-請更新實作以下功能
+請更新實作 Character Gallery 的功能
+當從 /characters/:id  畫面「Gallery」點擊時，進入 Gallery 功能
 
-- 從
+- 將 Gallery 做成獨立的頁面，例如 /characters/:id/gallery
+- 從 character 關聯的 subject，讀取關聯的 generated images
+- 用 infinite scroll 來列出 images
+- 請依照 social ui design 設計原則，製作 mobile first 的頁面
+- 
 
 # 更新 Social 功能
 
