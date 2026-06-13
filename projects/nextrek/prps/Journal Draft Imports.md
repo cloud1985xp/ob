@@ -10,6 +10,11 @@ tags:
 若執行上傳時，因為驗証等原因失敗，應重新 render 上傳畫面
 並維持原本送出時的選項，如「選擇銀行／機構，並上傳檔案」、「檔案來源」、「套用收付原因」等，相關設定應保留。
 
+## 修正交易暫存區
+在交易暫存區 (ex: /accountings/draft_stages/:id)，draft stage list 列出目前的 journal draft，每筆資料列，需進行以下修整：
+
+- 請將 subject_menu_input migrate 成用 V3::SubjectMenuComponent
+- ，若該筆 journal draft 已經有 subject_id / menu id，那在收付原因(subject menu)的選單
 
 
 # 0529 修正

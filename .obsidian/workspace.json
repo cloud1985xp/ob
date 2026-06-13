@@ -199,7 +199,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "personal/xaifu/prps/Xaifu.md",
+                "file": "projects/nextrek/prps/Journal Draft Imports.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -209,7 +209,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Xaifu 的反向連結"
+              "title": "Journal Draft Imports 的反向連結"
             }
           },
           {
@@ -218,12 +218,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "personal/xaifu/prps/Xaifu.md",
+                "file": "projects/nextrek/prps/Journal Draft Imports.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Xaifu 的對外連結"
+              "title": "Journal Draft Imports 的對外連結"
             }
           },
           {
@@ -261,13 +261,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "personal/xaifu/prps/Xaifu.md",
+                "file": "projects/nextrek/prps/Journal Draft Imports.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Xaifu 的大綱"
+              "title": "Journal Draft Imports 的大綱"
             }
           }
         ]
@@ -471,8 +471,9 @@
       }
     ]
   },
-  "active": "6871642cf8b9702f",
+  "active": "035c9fd5bfbf6395",
   "lastOpenFiles": [
+    "personal/xaifu/prps/Xaifu.md",
     "projects/nextrek/prps/Journal Draft Imports.md",
     "projects/nextrek/prps/V3 UI Kits.md",
     "tech/tools/environment-setup.md",
@@ -480,7 +481,6 @@
     "projects/hdwcp/prps/00_UIKit.md",
     "projects/hdwcp/prps/03_Shppings.md",
     "projects/hdwcp/prps/04_General.md",
-    "personal/xaifu/prps/Xaifu.md",
     "projects/ishin/000_ISHIN_TODOs.md",
     "projects/ishin/ISHIN Engineer Agent.md",
     "personal/xaifu/prps/Prompt Improvement.md",
