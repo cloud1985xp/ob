@@ -15,6 +15,13 @@ tags:
 並維持原本送出時的選項，如「選擇銀行／機構，並上傳檔案」、「檔案來源」、「套用收付原因」等，相關設定應保留。
 
 ## 修正交易暫存區
+在交易暫存區 (ex: /accountings/draft_stages/:id)，draft stage list 進入列表後，先切換篩選「收款」或「付款」，再執行單筆的建立 或 勾選多筆進行一次建立
+會出現錯誤
+>Can't verify CSRF token authenticity.
+
+若不切換篩選(維持在不限)的情況，則不會發生
+請找出問題原因並修正
+
 在交易暫存區 (ex: /accountings/draft_stages/:id)，draft stage list 列出目前的 journal draft，每筆資料列，需進行以下修整：
 
 資料列中的金額欄位，請 migrate 成使用 Ui::Forms::NumericInputComponent 元件，
