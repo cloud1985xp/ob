@@ -5,6 +5,11 @@ tags:
 ---
 # 0613 修正
 
+## 修正暫存區首頁
+
+在暫存區首頁 (/accountings/draft_stages)
+已隱藏的
+
 ## 修正 DraftStage 上傳明細功能 
 
 資金帳戶的上傳區(ex: /accountings/draft_stages/:id/import)
