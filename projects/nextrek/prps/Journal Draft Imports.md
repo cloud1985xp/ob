@@ -33,7 +33,7 @@ tags:
 所以也請檢查 NumericInput(與 numeric_input_controller) 的功能實作，
 要可以用 data attribute 的方式去關閉負數輸入，若有關閉負數輸入，當使用者在欄位輸入負數 (帶有 - 符號)時，會自動把 「-」符號去掉
 
-X請將對 NumericInput (Component 和 stimulus controller js) 的修改拆成獨立的 commit
+若有對 NumericInput (Component 和 stimulus controller js) 做調整，請對應的修改內容拆成獨立的 commit
 
 如果在有篩選(收款或付款) 的情況下，進行「單筆建立」或「多筆一次建立」後
 畫面上會將建立的資料消除、並補上接續的資料列(如果有的話)，但應該要維持是篩選目標(收款或付款)的範圍；目前它看起來是會回到不限的範圍
