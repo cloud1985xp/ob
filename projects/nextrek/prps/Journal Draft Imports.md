@@ -3,6 +3,65 @@ tags:
   - nextrek
   - project
 ---
+# 0613 修正
+
+## 修正暫存區首頁
+
+在暫存區首頁 (/accountings/draft_stages)
+已隱藏的
+
+## 修正 DraftStage 上傳明細功能 
+
+資金帳戶的上傳區(ex: /accountings/draft_stages/:id/import)
+右側「已上傳筆數」顯示數字與實際不符。
+「已上傳筆數」要反映「進入中的該資金帳戶」歷史累計上傳筆數（含已成立交易），在不同帳戶(資金帳戶)會是顯示不同數字，請檢查並修正/實作其計算方式
+
+上傳明細表單中，若選擇套用「收付原因」
+出現的「收款原因」欄位的選單，應只顯示「收款」類的選項
+同理，出現的「付款原因」欄位的選單，應只顯示「收款」類的選項
+
+若執行上傳時，因為驗証等原因失敗，應重新 render 上傳畫面
+並維持原本送出時的選項，如「選擇銀行／機構，並上傳檔案」、「檔案來源」、「套用收付原因」等，相關設定應保留。
+
+
+
+## 修正交易暫存區
+
+在交易暫存區 (ex: /accountings/draft_stages/:id)，draft stage list 列出目前的 journal draft，每筆資料列，會有交易手續費(fee) 欄位，請對它也套用 NumericInputComponent
+
+並且手續費必須限制不能輸入負數，
+所以也請檢查 NumericInput(與 numeric_input_controller) 的功能實作，
+要可以用 data attribute 的方式去關閉負數輸入，若有關閉負數輸入，當使用者在欄位輸入負數 (帶有 - 符號)時，會自動把 「-」符號去掉
+
+若有對 NumericInput (Component 和 stimulus controller js) 做調整，請對應的修改內容拆成獨立的 commit
+
+如果在有篩選(收款或付款) 的情況下，進行「單筆建立」或「多筆一次建立」後
+畫面上會將建立的資料消除、並補上接續的資料列(如果有的話)，但應該要維持是篩選目標(收款或付款)的範圍；目前它看起來是會回到不限的範圍
+請檢查問題原因並修正
+
+在交易暫存區 (ex: /accountings/draft_stages/:id)，draft stage list 進入列表後，先切換篩選「收款」或「付款」，再執行單筆的建立 或 勾選多筆進行一次建立
+會出現錯誤
+>Can't verify CSRF token authenticity.
+
+若不切換篩選(維持在不限)的情況，則不會發生
+請找出問題原因並修正
+
+在交易暫存區 (ex: /accountings/draft_stages/:id)，draft stage list 列出目前的 journal draft，每筆資料列，需進行以下修整：
+
+資料列中的金額欄位，請 migrate 成使用 Ui::Forms::NumericInputComponent 元件，
+- 務必確認 migrate 成 NumericInputComponent 而原本的功能行為不被破壞
+- 並確保有整合 numeric_input_controller.js 的行為
+- 如果 NumericInputComponent 需要做調整才能整合成 numeric_input 的行為，請將對應的修改內容分成獨立的 commit
+
+- 資料列中的附件上傳元件，在上傳附件成功後，再次點開上傳附件(跳出 modal)，dropzone 會顯示目前已上傳的檔案，但已上傳的檔案的檔名沒有正確顯示，請修正
+
+
+- 請將 subject_menu_input migrate 成使用 Ui::Forms::SubjectMenuComponent
+	- 務必確認 migrate 成 SubjectMenuComponent 而原本的功能行為不被破壞
+	- 如果 SubjectMenuComponent 需要做調整才能整合成 subject_menu_input 的行為，請將對應的修改內容分成獨立的 commit
+- 若該筆 journal draft 已經有 subject_id / menu id，那在 SubjectMenuComponent 應要也要讓對應的選項顯示成正被選擇的狀態
+
+
 # 0529 修正
 ## 上傳明細頁 (/accountings/draft_stages/:id/import)
 
