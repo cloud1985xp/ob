@@ -319,11 +319,11 @@
           }
         ],
         "direction": "vertical",
-        "x": 580,
-        "y": 30,
-        "width": 760,
-        "height": 1010,
-        "maximize": true,
+        "x": 696,
+        "y": 210,
+        "width": 1864,
+        "height": 1050,
+        "maximize": false,
         "zoom": 0
       },
       {
@@ -395,8 +395,8 @@
           }
         ],
         "direction": "vertical",
-        "x": 541,
-        "y": 135,
+        "x": 927,
+        "y": 286,
         "width": 1024,
         "height": 800,
         "maximize": false,
@@ -462,11 +462,11 @@
           }
         ],
         "direction": "vertical",
-        "x": 782,
-        "y": 128,
-        "width": 760,
-        "height": 1010,
-        "maximize": true,
+        "x": 696,
+        "y": 210,
+        "width": 1864,
+        "height": 1050,
+        "maximize": false,
         "zoom": 0
       }
     ]
