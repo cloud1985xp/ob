@@ -323,7 +323,7 @@
         "y": 210,
         "width": 1864,
         "height": 1050,
-        "maximize": false,
+        "maximize": true,
         "zoom": 0
       },
       {
@@ -395,8 +395,8 @@
           }
         ],
         "direction": "vertical",
-        "x": 927,
-        "y": 286,
+        "x": 541,
+        "y": 135,
         "width": 1024,
         "height": 800,
         "maximize": false,
@@ -466,7 +466,7 @@
         "y": 210,
         "width": 1864,
         "height": 1050,
-        "maximize": false,
+        "maximize": true,
         "zoom": 0
       }
     ]
