@@ -4,9 +4,12 @@ tags:
   - project
 ---
 # 0621 修正
-## 上傳明細頁 (/accountings/draft_stages/:id/import)
+## 調整資金帳戶/交易暫存區頁 (accountings/draft_stages/:id) 
 
-請修改資料列的日期輸入欄位(dealt_on, audited_on)
+請修改資料列的日期輸入欄位(dealt_on, audited_on)，將 date-pick migrate 成使用 UI::Forms::DatePickerComponent 元件，並且：
+- 維持原本資料列中的 date-pick 操作行為正常運作
+- 若有需要調整 UI::Forms::DatePickerComponent 元件(包括 date_pick_controller JS)，請拆成獨立的 commit
+- 請檢查 date-pick 跳出的日曆選單的樣式顯示正常
 
 # 0529 修正
 ## 上傳明細頁 (/accountings/draft_stages/:id/import)
