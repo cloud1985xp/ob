@@ -3,8 +3,15 @@ tags:
   - nextrek
   - project
 ---
+# 0621 修正
+## 上傳明細頁 (/accountings/draft_stages/:id/import)
+
+請修改資料列的日期輸入欄位(dealt_on, audited_on)
+
 # 0529 修正
 ## 上傳明細頁 (/accountings/draft_stages/:id/import)
+
+請修改資料列的日期輸入欄位(dealt_on, audited_on)
 
 上傳表單中的「套用收付原因」選項行為仍然不正確
 下方的「收款原因」和「付款原因」欄位，要隨著「套用收付原因」選項切換
