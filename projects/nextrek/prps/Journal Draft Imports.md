@@ -4,6 +4,12 @@ tags:
   - project
 ---
 # 0621 修正
+
+## 上傳明細頁 (/accountings/draft_stages/:id/import)
+
+上傳表單裡的上傳檔案預覽區塊，要放在 dropzone 上傳區的下方，而非裡面
+上傳檔案預覽的元素和內容，要靠左對齊
+
 ## 調整資金帳戶/交易暫存區頁 (accountings/draft_stages/:id) 
 
 請修改資料列的日期輸入欄位(dealt_on, audited_on)，將 date-pick migrate 成使用 UI::Forms::DatePickerComponent 元件，並且：
@@ -14,6 +20,7 @@ tags:
 請修改資料列中的「附註(remark)」欄位，限制可輸入文字的長度為 300 字
 # 0529 修正
 ## 上傳明細頁 (/accountings/draft_stages/:id/import)
+
 
 請修改資料列的日期輸入欄位(dealt_on, audited_on)
 
