@@ -11,6 +11,7 @@ tags:
 - 若有需要調整 UI::Forms::DatePickerComponent 元件(包括 date_pick_controller JS)，請拆成獨立的 commit
 - 請檢查 date-pick 跳出的日曆選單的樣式顯示正常
 
+請修改資料列中的「附註(remark)」欄位，限制可輸入文字的長度為 300 字
 # 0529 修正
 ## 上傳明細頁 (/accountings/draft_stages/:id/import)
 
