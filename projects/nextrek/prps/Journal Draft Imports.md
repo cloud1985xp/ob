@@ -5,6 +5,8 @@ tags:
 ---
 # 0621 修正
 
+交易匯入總覽頁(/accountings/draft_stages)的「最新上傳」區塊裡列出的資金帳戶的上傳資料數，與下方「進入資金帳戶暫存區」區塊的資料筆數，與實際進入該暫存區之後的筆數不相同
+
 ## 上傳明細頁 (/accountings/draft_stages/:id/import)
 
 上傳表單裡的上傳檔案預覽區塊，要放在 dropzone 上傳區的下方，而非裡面
