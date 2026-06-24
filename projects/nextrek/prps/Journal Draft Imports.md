@@ -3,9 +3,9 @@ tags:
   - nextrek
   - project
 ---
-0624 修正
+# 0624 修正
 
-優化 SubjectMenu Component
+## 優化 SubjectMenu Component
 
 在上傳明細頁 (/accountings/draft_stages/:id/import) 中
 頁面裡(包括資料列 與 selection bar) 的 SubjectMenu，做為「收付原因」下拉選單，位於畫面底部時，仍往下展開，導致選項被 viewport 遮住、無法選取。 
@@ -18,7 +18,8 @@ tags:
 - 「收付原因」下拉選單該，依據觸發點與 viewport 邊界的可用空間，自動判斷向上或向下展開： 
 - 下方空間足夠 → 向下展開 - 下方空間不足、上方空間足夠 → 向上展開 - selection bar 因為固定在畫面底部，其「收付原因」下拉預設就該向上展開
 
-另請參考舊版本的 subject menu，
+另請參考舊版本的 subject menu，如首頁 (/dashboard) 的 journal form 裡，
+將舊版本 subject menu 的樣式：第一層選項會有左邊線顏色的樣式，migrate 至 v3 SubjectMenu Component 中
 
 # 0621 修正
 
