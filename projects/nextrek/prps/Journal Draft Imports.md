@@ -21,7 +21,7 @@ http://localhost:5173/accountings/journal_draft
 
 JournalDraftsController#load_draft_data 的作法
 但請不要完全照抄，實作時考慮效能與優良的程式架構來作整合&改寫
-但行為仍
+但查詢行為仍維持一致
 
 上傳明細頁 (/accountings/draft_stages/:id/import) 裡的 selection bar
 裡面的「對象」點擊展開的容器，若按下 「x」關閉會變成送出 request
