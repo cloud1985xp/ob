@@ -12,10 +12,10 @@ tags:
 已匯入批次：{N} 批（每個資金帳戶上限：5 批） 
 ```
 
-用該資金帳戶擁有的 Accountings::Import 資料量來計算
+N = 用該資金帳戶現有的 Accountings::Import 資料量來計算
 
-並確保
-上傳資料在建立
+並確保:
+上傳產生的 journal drafts 資料在建立成 journal 或被刪除，要檢查來源的 import 是否
 
 上傳明細頁 (/accountings/draft_stages/:id/) 裡的 selection bar
 
