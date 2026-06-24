@@ -5,7 +5,18 @@ tags:
 ---
 # 0624 修正
 
-上傳明細頁 (/accountings/draft_stages/:id/import) 裡的 selection bar
+上傳明細頁 (/accountings/draft_stages/:id/import)
+右方的「上傳檔案說明」的第2項「已上傳筆數：」調整內容如下：
+
+```
+已匯入批次：{N} 批（每個資金帳戶上限：5 批） 
+```
+
+N 用該資金帳戶擁有的 
+
+上傳明細頁 (/accountings/draft_stages/:id/) 裡的 selection bar
+
+
 當收付原因 / 對象 / 標籤 / 營業稅 / 附註 / 手續費 / 憑證日期欄位，套用完後，已選擇/輸入的資料應該要被清空還原
 
 上傳明細頁 (/accountings/draft_stages/:id/import) 裡的「篩選」操作與功能
