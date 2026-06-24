@@ -12,7 +12,10 @@ tags:
 已匯入批次：{N} 批（每個資金帳戶上限：5 批） 
 ```
 
-N 用該資金帳戶擁有的 
+用該資金帳戶擁有的 Accountings::Import 資料量來計算
+
+並確保
+上傳資料在建立
 
 上傳明細頁 (/accountings/draft_stages/:id/) 裡的 selection bar
 
