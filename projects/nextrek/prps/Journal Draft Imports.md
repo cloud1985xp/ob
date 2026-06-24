@@ -5,6 +5,16 @@ tags:
 ---
 # 0624 修正
 
+上傳明細頁 (/accountings/draft_stages/:id/import) 裡的「篩選」操作與功能
+請參考
+http://localhost:5173/accountings/journal_draft
+來實作：
+
+- 套用「搜尋附註內文字」作為條件時，旁邊要出現目前輸入的文字條件
+- 套用「收付日期」作為條件時：
+	- 要出現 datepickr 供選擇 (請使用現有的元件)
+	- 
+
 上傳明細頁 (/accountings/draft_stages/:id/import) 裡的 selection bar
 裡面的「對象」點擊展開的容器，若按下 「x」關閉會變成送出 request
 應該要正確關閉展開的元素材對(像「標籤」或「收付原因」的行為就是正確的)，請修正
