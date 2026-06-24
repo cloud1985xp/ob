@@ -5,6 +5,9 @@ tags:
 ---
 # 0624 修正
 
+上傳明細頁 (/accountings/draft_stages/:id/import) 裡的 selection bar
+當收付原因 / 對象 / 標籤 / 營業稅 / 附註 / 手續費 / 憑證日期欄位，套用完後，已選擇/輸入的資料應該要被清空還原
+
 上傳明細頁 (/accountings/draft_stages/:id/import) 裡的「篩選」操作與功能
 請參考
 http://localhost:5173/accountings/journal_draft
