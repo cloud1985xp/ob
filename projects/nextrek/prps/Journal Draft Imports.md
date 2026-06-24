@@ -10,10 +10,18 @@ tags:
 http://localhost:5173/accountings/journal_draft
 來實作：
 
-- 套用「搜尋附註內文字」作為條件時，旁邊要出現目前輸入的文字條件
+- 「搜尋附註內文字」和「收付日期」篩選條件欄位，在 blur 時就會觸發套用篩選動作
+- 套用「搜尋附註內文字」作為條件時，旁邊要出現目前輸入的文字條件內容
 - 套用「收付日期」作為條件時：
 	- 要出現 datepickr 供選擇 (請使用現有的元件)
-	- 
+	- 套用條件後，旁邊要出現目前輸入的日期條件內容
+- 旁邊出現的條件內容，按下「x」就會刪除條件 (更新篩選結果)
+
+篩選的查詢，請參考舊版
+
+JournalDraftsController#load_draft_data 的作法
+但請不要完全照抄，實作時考慮效能與優良的程式架構來作整合&改寫
+但行為仍
 
 上傳明細頁 (/accountings/draft_stages/:id/import) 裡的 selection bar
 裡面的「對象」點擊展開的容器，若按下 「x」關閉會變成送出 request
