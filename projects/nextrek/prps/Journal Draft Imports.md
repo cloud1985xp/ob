@@ -5,6 +5,10 @@ tags:
 ---
 # 0624 修正
 
+上傳明細頁 (/accountings/draft_stages/:id/import) 裡的 selection bar
+裡面的「對象」點擊展開的容器，若按下 「x」關閉會變成送出 request
+應該要正確關閉展開的元素材對(像「標籤」或「收付原因」的行為就是正確的)，請修正
+
 ## 優化 SubjectMenu Component
 
 在上傳明細頁 (/accountings/draft_stages/:id/import) 中
