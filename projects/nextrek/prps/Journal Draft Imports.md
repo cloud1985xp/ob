@@ -9,6 +9,9 @@ tags:
 裡面的「對象」點擊展開的容器，若按下 「x」關閉會變成送出 request
 應該要正確關閉展開的元素材對(像「標籤」或「收付原因」的行為就是正確的)，請修正
 
+上傳明細頁 (/accountings/draft_stages/:id/import) 裡的 selection bar 的展開
+會超出 main content area (main 元素或 .content-wrapper) 的整體寬度
+應要讓寬度在 main content area 內，但高度、距離視窗下方的位置不變
 ## 優化 SubjectMenu Component
 
 在上傳明細頁 (/accountings/draft_stages/:id/import) 中
