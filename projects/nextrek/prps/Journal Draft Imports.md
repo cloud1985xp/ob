@@ -3,6 +3,10 @@ tags:
   - nextrek
   - project
 ---
+# 0625 修正
+請優化修正 ContactSelectComponent 與 TagSelectComponent
+兩者有大部分共用的行為，差別僅在於可允許輸入的資料量 ContactSelect 
+
 # 0624 修正
 
 上傳明細頁 (/accountings/draft_stages/:id/import)
