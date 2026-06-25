@@ -5,15 +5,23 @@ tags:
 ---
 # 0625 修正
 請優化修正 ContactSelectComponent 與 TagSelectComponent
-兩者有大部分共用的行為，差別僅在於可允許輸入/選擇的資料量(max_tags) ：
+包括對應的 js：
+- app/javascript/controllers/tag_select_controller.js
+- app/javascript/controllers/contact_select_controller.js
+- app/javascript/controllers/tom_select_base_controller.js
+
+兩者有大部分共同的行為，差別僅在於可允許輸入/選擇的資料量(max_tags) ：
 ContactSelect 通常為 1，而 TagSelect 上限為 5
 
-- 允許用從剪貼簿貼上的方式輸入，但剪貼簿複製時：
-	- 可能會是複製多行的內容(例如從 excel 多個儲存格)，要把每行內容都視為獨立的 item，來比對候選清單中符合的資料
-	- 可能複製的內容是用 tab (\t) 來區分多筆 item，貼上輸入時要拆分成多個 item，來比對候選清單中符合的資料
-	- 但上述仍受 max_tags 限制，即若拆分後有超過 max_tag 上限數量時，超過的部分就自動捨去
-	- 但若 max_tags 為1，貼上後(多餘的會捨去)的內容不會自動變成 tag，會仍維持在輸入狀態，用該文字篩選候選清單後，讓使用者選擇
-	- 在啟用 api search 模式的情況下，貼上的多個 tag 可能不在目前的候選清單中，所以會需要將所有輸入的資料當搜尋字串，用 「,」合併當參數送給 api。
+主要修正針對「從剪貼簿貼上的方式輸入」，
+當剪貼簿複製時：
+- 可能會是從來源複製多行的內容(例如從 excel 多個儲存格)，要把每行內容都視為獨立的 字串，來比對候選清單中符合的 item
+- 可能複製的內容是用 tab (\t) 來區分多筆字串，貼上輸入時要拆分成多個字串，來比對候選清單中符合的 item
+- 但上述仍受 max_tags 限制，即若拆分後有超過 max_tag 上限數量時，超過的部分就自動捨去
+- 但若 max_tags 為1，貼上後(多餘的會捨去)的內容不會自動變成 item，會仍維持在輸入狀態，用該文字篩選候選清單後，讓使用者選擇
+- 在啟用 api search 模式的情況下，因為貼上的多個字串可能不在目前的候選清單中，所以會需要將所有輸入的資料當搜尋字串，用 「,」合併當參數送給 api，取得符合的候選清單，再變成選取的 item。
+
+
 
 # 0624 修正
 
