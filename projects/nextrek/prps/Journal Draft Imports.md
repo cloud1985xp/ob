@@ -5,7 +5,14 @@ tags:
 ---
 # 0625 修正
 請優化修正 ContactSelectComponent 與 TagSelectComponent
-兩者有大部分共用的行為，差別僅在於可允許輸入的資料量 ContactSelect 
+兩者有大部分共用的行為，差別僅在於可允許輸入/選擇的資料量(max_tags) ：
+ContactSelect 通常為 1，而 TagSelect 上限為 5
+
+- 允許用從剪貼簿貼上的方式輸入，但剪貼簿複製時：
+	- 可能會是複製多行的內容，要把每行內容都視為獨立的 tag
+	- 可能複製的內容是用 tab (\t) 來區分多個 tag，貼上輸入時要拆分成多個 tag
+- 但上述仍受 max_tags 限制，即若拆分後有超過 max_tag 上限數量時，超過的部分就自動捨去
+- 
 
 # 0624 修正
 
