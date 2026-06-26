@@ -9,6 +9,7 @@ TODO:
 - 增強 debug knowledge 能力
 	- 可能要參考最近的 程式 變動
 
+<<<<<<< HEAD
 
 增加新的 skill: sprint-meeting
 我要用這個 skill 來進行 task planning
@@ -259,6 +260,8 @@ agent 工作時先檢查 worktree 的工作路徑是否存在
 
 # 區分 version-merge and tooling
 
+=======
+>>>>>>> origin/main
 我想將工作項目(task domain) `server` , `version-merge` 做進一步補充
 
 一、server -> tooling、tool development

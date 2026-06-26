@@ -1,3 +1,4 @@
+
 Operation Issue Difference Show 頁面(ex: /operations/355/issues/7510/difference) 
 中所 render 的 presenter:
 > app/views/operation_issue_differences/_presenter.html.erb

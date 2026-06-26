@@ -422,13 +422,6 @@ SessionManagerPlugin
 
 [Install the Session Manager plugin for the AWS CLI - AWS Systems Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html)
 
-```
-curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/mac/session-manager-plugin.pkg" -o "session-manager-plugin.pkg"
-
-sudo installer -pkg session-manager-plugin.pkg -target /
-sudo ln -s /usr/local/sessionmanagerplugin/bin/session-manager-plugin /usr/local/bin/session-manager-plugin
-```
-
 ## Google Cloud CLI
 
 Download sdk

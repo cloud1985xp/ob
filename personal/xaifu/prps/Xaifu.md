@@ -62,38 +62,6 @@ Generation 增加 title，允許空值
 或從 prompt 裡來選擇項目解鎖
 
 
-# 更新 Community 下 Character Collection 功能
-
-從 /characters/:id  畫面的 tab 選單增加「Collection」功能
-會進到 /characters/:id/collection 獨立頁面
-頁面中會列出該 Character 的 Subject 的 collection 清單 (collection index)
-點選 collection 可以進入瀏覽該 collection 下的 image (/characters/:character_id/collection/:collection_id)
-
-並實作符合以下需求
-- 瀏覽 collection 的 image 時，使用跟 character gallery 一樣的 image gallery
-	- 一樣的 mobile first 介面
-- collection 功能，一樣有 tab 選單，可以回到 character 的 post、gallery、about 等頁面
-	- 將這個 tab 選單拆成 component，同樣也加到 post、gallery、about 等頁面可以切換
-		- 可將 about 也拆成獨立的頁面來實現目標
-- collection index 頁的 collection 清單：
-	- 一樣 mobile view 用直列、desktop 用 grid
-	- 每個 collection 顯示項目，做成 community 下的 collection card 元件
-		- 可參考 XaifuWeb.CollectionComponents 的作法來決定 cover image 和顯示的內容資訊
-# 更新 Community 下 Character Gallery 功能
-
-請更新實作 Community 下 Character Gallery 的功能
-即從 /characters/:id  畫面「Gallery」點擊時進入的 Gallery 功能
-
-- 將 Gallery 做成獨立的頁面，例如 /characters/:id/gallery
-- 從 character 關聯的 subject，讀取該 Subject 關聯的 generated images
-- 用 infinite scroll 來列出 images
-- 請依照 communitry ui design 設計原則，製作 mobile first 的頁面
-	- mobile 介面，圖片垂直排列，附合螢幕寬度
-	- desktop 介面，圖片 grid 排列，可以點擊放大，類似 ImageGallery component，請盡量嚐試共用 ImageGallery，但若有需要，可獨立實作 social 介面版的 ImageGallery
-- 可調整排序：
-	- 以新增時間，由新到舊
-	- 以 likes 數，由多到少
-
 # 更新 Social 功能
 
 請將現在前台(非 app/ 下)的功能，實作套用真實的資料

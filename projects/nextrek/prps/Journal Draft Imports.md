@@ -3,67 +3,118 @@ tags:
   - nextrek
   - project
 ---
-# 0613 修正
+# 0625 修正
+請優化修正 ContactSelectComponent 與 TagSelectComponent
+包括對應的 js：
+- app/javascript/controllers/tag_select_controller.js
+- app/javascript/controllers/contact_select_controller.js
+- app/javascript/controllers/tom_select_base_controller.js
 
-## 修正暫存區首頁
+目前主要使用在新版交易匯入功能的資金帳戶/交易暫存區頁 (accountings/draft_stages/:id)
+裡的標籤輸入與對象輸入的欄位中(未來也會在其他輸入表單中使用)
 
-在暫存區首頁 (/accountings/draft_stages)
-已隱藏的
+兩者有大部分有著共同的行為，差別僅在於可允許輸入/選擇的資料量(max_tags) ：
+ContactSelect 通常為 1，而 TagSelect 上限為 5
 
-## 修正 DraftStage 上傳明細功能 
+主要修正針對「從剪貼簿貼上的方式輸入」，
+當剪貼簿複製時：
+- 可能會是從來源複製多行的內容(例如從 excel 多個儲存格)，要把每行內容都視為獨立的 字串，來比對候選清單中符合的 item
+- 可能複製的內容是用 tab (\t) 來區分多筆字串，貼上輸入時要拆分成多個字串，來比對候選清單中符合的 item
+- 但上述仍受 max_tags 限制，即若拆分後有超過 max_tag 上限數量時，超過的部分就自動捨去
+- 但若 max_tags 為1，貼上後(多餘的會捨去)的內容不會自動變成 item，會仍維持在輸入狀態，用該文字篩選候選清單後，讓使用者選擇
+- 在啟用 api search 模式的情況下，因為貼上的多個字串有可能不在目前的候選清單中，所以會需要將所有輸入的字串，用 「,」合併後當參數送給 api，取得符合的候選清單，再變成選取的 item。
 
-資金帳戶的上傳區(ex: /accountings/draft_stages/:id/import)
-右側「已上傳筆數」顯示數字與實際不符。
-「已上傳筆數」要反映「進入中的該資金帳戶」歷史累計上傳筆數（含已成立交易），在不同帳戶(資金帳戶)會是顯示不同數字，請檢查並修正/實作其計算方式
+請修正符合上述的使用操作情況，並盡量簡化對的 js 修改，降低程式複雜度
+若有任何問題或建議，請與我討論
 
-上傳明細表單中，若選擇套用「收付原因」
-出現的「收款原因」欄位的選單，應只顯示「收款」類的選項
-同理，出現的「付款原因」欄位的選單，應只顯示「收款」類的選項
+# 0624 修正
 
-若執行上傳時，因為驗証等原因失敗，應重新 render 上傳畫面
-並維持原本送出時的選項，如「選擇銀行／機構，並上傳檔案」、「檔案來源」、「套用收付原因」等，相關設定應保留。
+上傳明細頁 (/accountings/draft_stages/:id/import)
+右方的「上傳檔案說明」的第2項「已上傳筆數：」調整內容如下：
 
+```
+已匯入批次：{N} 批（每個資金帳戶上限：5 批） 
+```
 
+N = 用該資金帳戶現有的 Accountings::Import 資料量來計算
 
-## 修正交易暫存區
+並確保:
+上傳產生的 journal drafts 資料在建立成 journal 或被刪除，要檢查來源的 import 是否
 
-在交易暫存區 (ex: /accountings/draft_stages/:id)，draft stage list 列出目前的 journal draft，每筆資料列，會有交易手續費(fee) 欄位，請對它也套用 NumericInputComponent
-
-並且手續費必須限制不能輸入負數，
-所以也請檢查 NumericInput(與 numeric_input_controller) 的功能實作，
-要可以用 data attribute 的方式去關閉負數輸入，若有關閉負數輸入，當使用者在欄位輸入負數 (帶有 - 符號)時，會自動把 「-」符號去掉
-
-若有對 NumericInput (Component 和 stimulus controller js) 做調整，請對應的修改內容拆成獨立的 commit
-
-如果在有篩選(收款或付款) 的情況下，進行「單筆建立」或「多筆一次建立」後
-畫面上會將建立的資料消除、並補上接續的資料列(如果有的話)，但應該要維持是篩選目標(收款或付款)的範圍；目前它看起來是會回到不限的範圍
-請檢查問題原因並修正
-
-在交易暫存區 (ex: /accountings/draft_stages/:id)，draft stage list 進入列表後，先切換篩選「收款」或「付款」，再執行單筆的建立 或 勾選多筆進行一次建立
-會出現錯誤
->Can't verify CSRF token authenticity.
-
-若不切換篩選(維持在不限)的情況，則不會發生
-請找出問題原因並修正
-
-在交易暫存區 (ex: /accountings/draft_stages/:id)，draft stage list 列出目前的 journal draft，每筆資料列，需進行以下修整：
-
-資料列中的金額欄位，請 migrate 成使用 Ui::Forms::NumericInputComponent 元件，
-- 務必確認 migrate 成 NumericInputComponent 而原本的功能行為不被破壞
-- 並確保有整合 numeric_input_controller.js 的行為
-- 如果 NumericInputComponent 需要做調整才能整合成 numeric_input 的行為，請將對應的修改內容分成獨立的 commit
-
-- 資料列中的附件上傳元件，在上傳附件成功後，再次點開上傳附件(跳出 modal)，dropzone 會顯示目前已上傳的檔案，但已上傳的檔案的檔名沒有正確顯示，請修正
+上傳明細頁 (/accountings/draft_stages/:id/) 裡的 selection bar
 
 
-- 請將 subject_menu_input migrate 成使用 Ui::Forms::SubjectMenuComponent
-	- 務必確認 migrate 成 SubjectMenuComponent 而原本的功能行為不被破壞
-	- 如果 SubjectMenuComponent 需要做調整才能整合成 subject_menu_input 的行為，請將對應的修改內容分成獨立的 commit
-- 若該筆 journal draft 已經有 subject_id / menu id，那在 SubjectMenuComponent 應要也要讓對應的選項顯示成正被選擇的狀態
+當收付原因 / 對象 / 標籤 / 營業稅 / 附註 / 手續費 / 憑證日期欄位，套用完後，已選擇/輸入的資料應該要被清空還原
 
+上傳明細頁 (/accountings/draft_stages/:id/import) 裡的「篩選」操作與功能
+請參考
+http://localhost:5173/accountings/journal_draft
+來實作：
 
+- 「搜尋附註內文字」和「收付日期」篩選條件欄位，在 blur 時就會觸發套用篩選動作
+- 套用「搜尋附註內文字」作為條件時，旁邊要出現目前輸入的文字條件內容
+- 套用「收付日期」作為條件時：
+	- 要出現 datepickr 供選擇 (請使用現有的元件)
+	- 套用條件後，旁邊要出現目前輸入的日期條件內容
+- 旁邊出現的條件內容，按下「x」就會刪除條件 (更新篩選結果)
+
+篩選的查詢，請參考舊版
+
+JournalDraftsController#load_draft_data 的作法
+但請不要完全照抄，實作時考慮效能與優良的程式架構來作整合&改寫
+但查詢行為仍維持一致
+
+上傳明細頁 (/accountings/draft_stages/:id/import) 裡的 selection bar
+裡面的「對象」點擊展開的容器，若按下 「x」關閉會變成送出 request
+應該要正確關閉展開的元素材對(像「標籤」或「收付原因」的行為就是正確的)，請修正
+
+上傳明細頁 (/accountings/draft_stages/:id/import) 裡的 selection bar 的展開
+會超出 main content area (main 元素或 .content-wrapper) 的整體寬度
+應要讓寬度在 main content area 內，但高度、距離視窗下方的位置不變
+## 優化 SubjectMenu Component
+
+在上傳明細頁 (/accountings/draft_stages/:id/import) 中
+頁面裡(包括資料列 與 selection bar) 的 SubjectMenu，做為「收付原因」下拉選單，位於畫面底部時，仍往下展開，導致選項被 viewport 遮住、無法選取。 
+
+問題情境： 
+1. 單筆列的「收付原因」下拉選單：當該列位在畫面底部時，點開下拉只看得到前幾個選項，下方選項被截斷 
+2. selection bar（貼在畫面底部）的「一次套用收付原因」下拉選單：點開後下拉超出畫面底部，大部分選項看不到、選不到 
+
+預期行為： 
+- 「收付原因」下拉選單該，依據觸發點與 viewport 邊界的可用空間，自動判斷向上或向下展開： 
+- 下方空間足夠 → 向下展開 - 下方空間不足、上方空間足夠 → 向上展開 - selection bar 因為固定在畫面底部，其「收付原因」下拉預設就該向上展開
+
+另請參考舊版本的 subject menu，如首頁 (/dashboard) 的 journal form 裡，
+將舊版本 subject menu 的樣式：第一層選項會有左邊線顏色的樣式，migrate 至 v3 SubjectMenu Component 中
+
+# 0621 修正
+
+交易匯入總覽頁(/accountings/draft_stages)的「最新上傳」區塊裡列出的資金帳戶的上傳資料數，與下方「所有暫存區」資金帳戶清單的資料筆數不一致，請修正：
+
+- 應為一致的數字，請確認使用一致的資料來源，原為 draft_stage 上的快取數字
+- 請確認在交易暫存區頁 (accountings/draft_stages/:id) 的各種操作，有確實正確地更新快取數字，包括
+	- 對單筆資料做建立或刪除
+	- 對多筆選取的資料批次建立或刪除
+- 該數字的定義為該資金帳所有所有 draft_journals 資料，未被處理(未完成建立或刪除)的資料總數
+
+## 上傳明細頁 (/accountings/draft_stages/:id/import)
+
+上傳表單裡的上傳檔案預覽區塊，要放在 dropzone 上傳區的下方，而非裡面
+上傳檔案預覽的元素和內容，要靠左對齊
+
+## 調整資金帳戶/交易暫存區頁 (accountings/draft_stages/:id) 
+
+請修改資料列的日期輸入欄位(dealt_on, audited_on)，將 date-pick migrate 成使用 UI::Forms::DatePickerComponent 元件，並且：
+- 維持原本資料列中的 date-pick 操作行為正常運作
+- 若有需要調整 UI::Forms::DatePickerComponent 元件(包括 date_pick_controller JS)，請拆成獨立的 commit
+- 請檢查 date-pick 跳出的日曆選單的樣式顯示正常
+
+請修改資料列中的「附註(remark)」欄位，限制可輸入文字的長度為 300 字
 # 0529 修正
 ## 上傳明細頁 (/accountings/draft_stages/:id/import)
+
+
+請修改資料列的日期輸入欄位(dealt_on, audited_on)
 
 上傳表單中的「套用收付原因」選項行為仍然不正確
 下方的「收款原因」和「付款原因」欄位，要隨著「套用收付原因」選項切換
@@ -84,31 +135,6 @@ tags:
 - 上傳完檔案，原本資料列的「上傳附件」按鈕，要變成顯示「已上傳 n 個附件」
 - 上傳完檔案，再次點擊「已上傳 n 個附件」跳出來的 modal 裡的 dropzone 要仍顯示已上傳的檔案資訊，而且可以刪除任一個已上傳的附件
 可以參考 http://localhost:5173/accountings/journal_draft 裡的相關模擬畫面
-
-
-修正 /accountings/draft_stages 的暫存區列表 (DraftStagesPresenter)
-從原本只撈 gateway kind 是 bank 的 資金帳戶 (Accountings::Account)
-改成撈全部類型的資金帳戶，但要依以下邏輯區分是否列為己隱藏
-- 若有 accountings_account_draft_stage 資料且被設定成隱藏，列為隱藏
-- 若沒有 accountings_account_draft_stage 資料，則依 gateway kind
-	- 若 gateway kind 不是 bank，就列為隱藏
-
-換句話說，沒有 accountings_account_draft_stage 資料，
-預設就只有 gateway kind 是 bank 會在正式列表，其他 kind 都視為隱藏
-但若有 accountings_account_draft_stage 資料，代表有被調整過設定，就以 accountings_account_draft_stage 的設定為準
-
-上傳明細頁 (ex: /accountings/draft_stages/:id/import)
-在選擇 銀行 / 機構時，若選擇的是「銀行明細」或「第三方金流」
-檔案來源會是下拉選單供選擇
-
-問題與需求：
-檔案來源的選單旁應該要出現「下載路徑及說明」的連結
-(樣式可參考 http://localhost:5173/accountings/journal_draft_upload)
-並且連結要依選項切換變動連到不同的目標 url
-這份選項 -> 目標 url 的對應現在已經有實作並 render 在 html 中
-
-但點擊選項 切換 顯示這個行為並未套用
-請檢查並考慮用 simple_toggle_controller 來實現這個行為
 
 # 0526 修正
 

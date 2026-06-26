@@ -1,31 +1,3 @@
-請參照 ../hdwcp 專案下的即有舊版程式碼 (rails 版本)
-改寫成現在專案的 elixir/phoenix 版本
-
-主要目標是完成 shippings 下的出貨作業(batches)管理，包括
-- 建立批次出貨作業
-- 對出貨內容做 step by step 管理
-	- 設定出貨訂單
-	- 設定出貨明細項目
-	- 編列出貨編號
-	- 更新貨運資訊
-	- 輸出並完成作業
-確保這些功能正確地被 migrate 成新版本
-
-可以先僅理解規劃，但延後處理的部分：
-- 輸出列印 pdf 檔
-- 海外出貨的打包管理
-
-請先詳細理解舊版本的程式碼，業務邏輯和功能
-規劃成符合新版本規則與風格的架構
-尤其：
-- 將可共用的 ui 製作成 component (以及 stimulus controller，如果有的話)
-	- 例如 step by step 的 form 
-- 盡量利用現有的 ui component 來實作畫面
-	- 若有需要可以建立新的 component，並加到 storybook 與更新文件
-
-有任何問題請我詳細討論。
-確認後再開始實作
-
 
 請更新 shippings 下的 batches 功能
 參考 ai_docs/guidelines/form_ui.md 
