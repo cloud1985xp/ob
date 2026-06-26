@@ -1,3 +1,39 @@
+Operation Issue Difference Show 頁面(ex: /operations/355/issues/7510/difference) 
+中所 render 的 presenter:
+> app/views/operation_issue_differences/_presenter.html.erb
+
+原本畫面中的 tab 選單有 "editor" 項目，連到 edit 畫面  (ex: operations/355/issues/7510/difference/edit)
+但因為 migrate 成 tab component 而消失了
+請調整 tab component 讓它仍可以支援看似 tab item 但實際是連到獨立畫面的選項
+然後把 editor 的連結加回來
+
+調整 operation issues 頁面，例如：/operations/385/issues
+在 operations/index.html.erb 頁面中的 issue 清單，應該要和 operations/list.html.erb 中一樣：
+- column toggler 與 expand 的功能，放到 card toolbar 的位置
+- description 與 resources 欄的 expand 展開/收合效果
+- 但不需要 filter
+
+若可以的話，將兩個 view 共用的 issues list 抽成 partial
+
+調整 operation_issue_lists 頁面 (位於 app/views/operation_issues/list.html.erb) 的內容排版與 UI
+
+description 欄的資料，樣式 v3-expandable 請調整以下效果
+- 當展開時有簡單的動畫對顯示內容做展開/收合
+- 收合狀態下，內容會有漸層的半透明覆蓋讓內容向下漸漸隱去的效果
+
+將 filter 
+> app/views/operation_issues/_filter.html.erb
+
+的樣式與排版做美化
+這個 filter 會有多個查詢條件
+我想將「送出」與「 clear」 的選項安排在右側，僅佔適合內容的最小寬度，剩餘的空間都給左側的條件欄位，並請美化各個輸入欄位的樣式，包括
+- 文字輸入
+- 開始 - 結束時間的條件輸入
+
+- 將 column-toggler 的項目，移到 CardComponent 的 title 右方 toolbar，做成一個可以展開下拉選單的按鈕，用設定的圖示來代表
+- 按鈕展開下拉選單後，選單列出各個 column toggler
+
+
 
 # 重整 v3 UI Branches
 我要整理目前開發的變動的進行 branch 拆分與 commit

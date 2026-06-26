@@ -25,6 +25,64 @@ TODO:
 4. 檢查下個 sprint 範圍內，是否有重要需要 scale 的 event
 
 
+# Report Server Diff
+
+請用在 server 分類目錄下的 server-engineer-assistant plugin 下建立一個新的 skill: `tw-ishin-generating-server-diff`
+
+用述是為了對指定的 ishin-server repo branch 進行 git diff 並將結果產生 diff report
+實際情境會是直接在專案目錄下，運行這個 skill
+專案目錄位置，例如：/Users/aaron.kuo/aktsk/ishin-tw/ishin-server
+
+關鍵參數為:
+- target branch，例如 merge/v4.6.0-gl ，預設為 develop
+- base branch，例如 merge/v6.2.0-gl ，預設為 master
+
+比較 diff 行為包括
+
+- 先用 git diff --name-only 找出 diff 檔案清單
+- 用以下參考規則對 diff 檔案目錄作 priority 分類
+
+包括：
+
+| Prioity | Directories                                                        | explain? | Remark                           |
+| ------- | ------------------------------------------------------------------ | -------- | -------------------------------- |
+| -1      | db/fixtures, config/globalization                                  | no       | 可完全忽略                            |
+| 1       | apps/models, apps/controllers, db/migrations, config/jp, config/gl | yes      | 主程式、主設定和 migration               |
+| 2       | config                                                             | yes      | 其他 config                        |
+| 3       | apps/views,                                                        | no       | view                             |
+| 4       | lib/tasks, db, .github                                             | yes      | github workflows, task 與其他 db 檔案 |
+| 5       | lib/check_masters, admin/, admin_lib, admin_init_lib, app/assets   | no       | admin 與 check_master tool 相關     |
+| 6       | spec                                                               | no       | spec                             |
+| 7       | 其他檔案                                                               | no       |                                  |
+將上述規則製作成可維護的 skill reference，讓未來可以持續調整更新
+
+依 priority 分類後
+將各 diff 檔案，製作成一個 html 網頁，可以像 github 一樣瀏覽 diff 樣式
+可以將需要的 diff 樣式頁面產生製作成 script 
+頁面樣式要可以：
+
+- 用 priority 先分類，每個分類要簡述包含的檔案(即上述 reference 的目錄規則)
+- 瀏覽 priority 分類，會顯示 file 的 differences，分類下也會展開 file 清單，點擊指定的 file 會移動頁面捲軸到該 file 的 diff 顯示區塊
+
+建議可將 diff 分類結果先存到一個暫存目錄
+再將該目錄路徑當作參數傳給 script 寫好的程式來生成 html 網頁
+這樣我們可以用同一份結果來不斷測試 網頁生成的效果，後續討論與修改
+
+此外，對 explain = yes 的分類，請分析理解這些程式碼的變動內容，產生程式變動的報告：
+- 先將相關的變動程式內容分組，
+- 依分組產生分析報告
+- 將報告的路徑當作生成 html 的參數，當執行生成 html 網頁時，將對應的報告內容也放進生成的 html 網頁中
+	- 允許不給報告路徑的參數，即略過嵌入報告的部分
+
+
+請詳細理解需求，製定實作計劃
+並用 /skill-creator ，將這個 skill 建立出來
+若有任何不確定的問題或建議，請提出討論
+
+
+
+# Collect-Scheduled Task
+
 我想優化 collect-tasks skill 中從 custom markdown todo 抓取任務的功能
 可以在 markdown 中有一個區塊是定義排程式的工作
 讓每次在進行 collect-tasks 時會去檢查當天有沒有符合排程設定的任務項目要進行
