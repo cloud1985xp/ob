@@ -4,7 +4,7 @@ tags:
   - project
 ---
 # 0627
-
+參考 `_row.html` 裡的金額、手續費輸入欄位
 
 # 0625 修正
 請優化修正 ContactSelectComponent 與 TagSelectComponent
