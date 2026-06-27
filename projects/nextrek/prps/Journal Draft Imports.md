@@ -4,6 +4,15 @@ tags:
   - project
 ---
 # 0627
+
+調整在資金帳戶暫存區頁 (ex: /accountings/draft_stages/:id) 裡的篩選功能
+在「新增篩選條件」裡的收付日期，要改成用 date range 的型式
+點擊輸入欄位要出現 date range picker (datepickr 應該有支援)
+需確認/修改 server 端執行的 query 可以接收 date range 傳來的參數做條件查詢
+但要確保不破壞原本既有的 query 功能
+
+選擇後一樣會在「篩選」旁邊顯示目前的條件內容，例如：「收付日期: 2026-06-03 - 2026-07-07」
+
 在資金帳戶暫存區頁 (ex: /accountings/draft_stages/:id) 裡
 參考 `_row.html` 裡的金額(amount)、手續費(fee)輸入欄位
 將  `_selection_bar.html.erb` 裡的 amount, fee 欄位
