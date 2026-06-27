@@ -4,7 +4,14 @@ tags:
   - project
 ---
 # 0627
-參考 `_row.html` 裡的金額、手續費輸入欄位
+在資金帳戶暫存區頁 (ex: /accountings/draft_stages/:id) 裡
+參考 `_row.html` 裡的金額(amount)、手續費(fee)輸入欄位
+將  `_selection_bar.html.erb` 裡的 amount, fee 欄位
+也採用同樣的 Ui::Forms 的 Component，且：
+- 套用一樣的 maxlength 設定 
+- 維持 selection bar 原本的外觀樣式
+- 不需要 prefix
+- 不要影響原本的功能
 
 # 0625 修正
 請優化修正 ContactSelectComponent 與 TagSelectComponent
