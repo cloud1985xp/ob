@@ -3,6 +3,11 @@ tags:
   - nextrek
   - project
 ---
+# 0701
+## 增加資金帳戶匯入批次上限
+為了要限制在上傳時
+
+
 # 0627
 
 調整在資金帳戶暫存區頁 (ex: /accountings/draft_stages/:id) 裡的篩選功能
