@@ -8,11 +8,16 @@ tags:
 為了要限制在資金帳戶暫存區進行上傳時(ex: /accountings/draft_stages/:id/import)
 當使用者送出上傳表單時，進行檢查，目前已經存在且仍在作業中的的上傳批次(Accountings::Import) 數，不得超過5筆：
 
-- 若作業中的批次已有5筆，無法上傳，並出現訊息「已達上傳批次上限 5 批，請將先前批次資料建成交易或刪除」
-- 需要對 import 的增加一個 pending_count 欄位來代表它還有多少 journal_drafts 仍未處理
+- 若作業中的批次已有5筆，會阻止進行上傳，並出現訊息「已達上傳批次上限 5 批，請將先前批次資料建成交易或刪除」的錯誤訊息 (用現有元件整點 toast 訊息效果)
+- 需要對 import (Accountings::Import class) 增加一個 pending_count 欄位來代表它還有多少 journal_drafts 仍未處理
 	- 若 pending_count 大於 0 即代表該批 import 仍在作業中
 - 在資金帳戶暫存區 (/accountings/draft_stages/:id) 對資料列 (journal_draft) 作操作時，包括單筆的建立/刪除、選取多筆的建立/刪除，在執行完動作時都要更新對應 import 的 pending_count
+- 注意.. 
+	- 只有 import 的 state 是 completed 才列入有效的 import，也就是必須是有效的 import 才算入上限5筆的檢查
+	- 目前 import has_many details 但 always 只取用第一筆 detail
 
+請先了解並檢查現有相關的架構和程式，評估規劃作法
+若有任何問題或建議請先提出討論
 
 # 0627
 
