@@ -68,6 +68,19 @@ tags:
 
 header component 的 page action
 應該要和 header 標題並排在右側，內容靠右、靠下對齊
+
+## 調整 Selection Bar
+
+將「已選寫 n 筆」左方的 checkbox，改成用 close 的圖示
+點擊後的行為不變(取消已選項的資料列、清除關閉 selection bar)
+樣式請參考以下 html
+
+```
+<button type="button" data-action="unselect-all" class="btn btn-ghost btn-sm text-content-3 hover:text-base-content aspect-square p-0 hover:bg-transparent" data-aria-label-key="btn_unselect_all" aria-label="取消勾選">
+            <i class="lucide icon-x"></i>
+          </button>
+```
+
 # 0701
 ## 增加資金帳戶匯入批次上限
 為了要限制在資金帳戶暫存區進行上傳時(ex: /accountings/draft_stages/:id/import)
