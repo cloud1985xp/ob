@@ -11,18 +11,23 @@ tags:
 - 依作業中的 import 分批處理 journal drafts
 - 一進入畫面預設先用最新的 import 來取出
 - 在 header 下方，增加一列作為 import 批次的區塊：
-	- 用下拉選單 (dropdown)，
+	- 批次選單，用下拉選單 (dropdown)，
 		- 每個選項的格式：「 {icon} + {上傳日期} 上傳（{pending count} 筆）」:
 			- icon 用 lucide 的 `layers` 圖示
 			- 文字例如：2026-05-14 上傳（8 筆）
 		- 列出所作業中 import 作為選項，點擊後切換成目標批次
 			- 選項從舊到新排序
 			- 當前的選項有 active 效果
-	- dropdown 選單未展開的狀態，是顯示當前的選項，
-	- dropdown 選單後方有一個垃圾桶的圖示，點擊會跳出 SweetAlert 供確認
-		- 確認會將該筆 import 與其相關的 import detail 和 journal drafts 全數刪除
-		- 
-	- 
+	- 批次選單未展開的狀態，是顯示當前的選項，
+	- 批次選單後方有一個垃圾桶的圖示，用來將當前的 import 整批刪除
+		- 點擊會跳出 SweetAlert 供確認
+			- sweet alert title：確認刪除 
+			- sweet alert content：確定要刪除整批資料嗎？此操作無法復原。
+		- 確認後送出，
+			- 會將該筆 import 與其相關的 import detail 和 journal drafts 全數刪除
+			- 並導回 (redirect) draft_stages#show 畫面
+- 改為依 import 批次後，原本的篩選 (query)，也要以該批次為條件範圍下做篩選
+- 
 
 
 # 0701
