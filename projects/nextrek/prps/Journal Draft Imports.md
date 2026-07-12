@@ -27,7 +27,14 @@ tags:
 			- 會將該筆 import 與其相關的 import detail 和 journal drafts 全數刪除
 			- 並導回 (redirect) draft_stages#show 畫面
 - 改為依 import 批次後，原本的篩選 (query)，也要以該批次為條件範圍下做篩選
-- 
+- 若當下已經沒有任何作業中的 import 時，
+	- 批次選單改成
+		- 顯示文字：請點擊「上傳明細」上傳資料
+		- 文字前方一樣有 layers icon
+		- 不需要有垃圾桶圖示
+	- list 的內容顯示空狀態：
+		- 顯示文字：資料都已經建立成交易，前往 交易明細 查看 或 上傳明細 處理下一批資料
+			- 「交易明細」可點擊，
 
 
 # 0701
