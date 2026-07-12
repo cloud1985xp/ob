@@ -4,7 +4,7 @@ tags:
   - project
 ---
 # 0712
-暫存區的草稿操作改成以「Import 批次」來處理
+## 暫存區的草稿操作改成以「Import 批次」來處理
 
 進入到資金帳戶暫存區 (draft_stages#show) 時
 列出的草稿資料 (journal_drafts) 改以匯入批次 (import) 來處理：
@@ -32,9 +32,12 @@ tags:
 		- 顯示文字：請點擊「上傳明細」上傳資料
 		- 文字前方一樣有 layers icon
 		- 不需要有垃圾桶圖示
-	- list 的內容顯示空狀態：
+	- list 的內容顯示空狀態 (blank state)：
 		- 顯示文字：資料都已經建立成交易，前往 交易明細 查看 或 上傳明細 處理下一批資料
-			- 「交易明細」可點擊，
+			- 「交易明細」可點擊，連到 accountings_journals_path?query[account_id]={該資金帳戶 id}
+			- 「上傳明細」可點擊，連到 accountings_draft_stage_import_path(當下的 draft_stage)
+	- 註：blank_state 還有其他版本，之後會實作，請保留未來修改維護的彈性
+		- 例如當有輸入篩選條件下的空狀態，會顯示成不同的文案
 
 
 # 0701
