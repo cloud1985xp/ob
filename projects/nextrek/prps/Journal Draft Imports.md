@@ -47,9 +47,9 @@ tags:
 放在 selection bar 的「一次建立」按鈕左方，用一個垃圾桶的圖示按鈕表示，
 - 白底圓型的按鈕，邊線與圖示用淡灰色，hover 時邊線與圖示變成紅色
 - 搬移後，將「其他功能」按鈕移除
-- import 批次下拉選單右方的「刪除批次」的按鈕也用同一個刪除按鈕樣式
+- 同時 import 批次選單右方的「刪除批次」的按鈕也套用同樣的刪除按鈕樣式
 
-參考以下 html
+可參考以下 html
 
 ```
 <div class="tooltip tooltip-bottom" data-tip-key="btn_delete_batch" data-tip="全部刪除">
@@ -60,11 +60,11 @@ tags:
 ```
 
 二、將「上傳明細」按鈕，移到 header 的 page action
-用 page action 來實現「上傳明細」的按鈕
+改成用 page action 來放置「上傳明細」的按鈕
 
-三、調整 import 批次選單的位置
+三、調整 import 批次選單(含刪除批次)的位置
 目前是放在 header 下方，但被包進了 rounded-box 區塊內
-我要它樣式上是在 box 區塊的上方，不需要被 box 背景包住
+我要它在樣式上是顯示成 box 區塊的上方，不需要被 box 背景包住
 
 # 0701
 ## 增加資金帳戶匯入批次上限
