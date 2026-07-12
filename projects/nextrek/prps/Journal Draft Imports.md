@@ -10,9 +10,16 @@ tags:
 列出的草稿資料 (journal_drafts) 改以匯入批次 (import) 來處理：
 - 依作業中的 import 分批處理 journal drafts
 - 一進入畫面預設先用最新的 import 來取出
-- 在 header 下方，增加一列作為 import 批次的選擇：
+- 在 header 下方，增加一列作為 import 批次的區塊：
 	- 用下拉選單 (dropdown)，
-		- 列出其他作業中的 import 批次清單，點擊後切換成目標批次
+		- 每個選項的格式：「 {icon} + {上傳日期} 上傳（{pending count} 筆）」:
+			- icon 用 lucide 的 `layers` 圖示
+			- 文字例如：2026-05-14 上傳（8 筆）
+		- 列出所作業中 import 作為選項，點擊後切換成目標批次
+			- 從舊到新排序
+			- 當前的選項有 active 效果
+		- 
+			- 前方加上
 	- 
 
 
