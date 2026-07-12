@@ -16,10 +16,12 @@ tags:
 			- icon 用 lucide 的 `layers` 圖示
 			- 文字例如：2026-05-14 上傳（8 筆）
 		- 列出所作業中 import 作為選項，點擊後切換成目標批次
-			- 從舊到新排序
+			- 選項從舊到新排序
 			- 當前的選項有 active 效果
+	- dropdown 選單未展開的狀態，是顯示當前的選項，
+	- dropdown 選單後方有一個垃圾桶的圖示，點擊會跳出 SweetAlert 供確認
+		- 確認會將該筆 import 與其相關的 import detail 和 journal drafts 全數刪除
 		- 
-			- 前方加上
 	- 
 
 
