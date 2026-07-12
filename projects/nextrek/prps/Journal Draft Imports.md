@@ -66,10 +66,8 @@ tags:
 目前是放在 header 下方，但被包進了 rounded-box 區塊內
 我要它在樣式上是顯示成 box 區塊的上方，不需要被 box 背景包住
 
-切換 Import 批次的下拉選單的樣式(未展開的狀態)
-請改成和 list 中「新增篩選條件」一樣
-- 白底、灰邊線
-- hover 時背景變成淡灰色
+header component 的 page action
+應該要和 header 標題並排在右側，內容靠右、靠下對齊
 # 0701
 ## 增加資金帳戶匯入批次上限
 為了要限制在資金帳戶暫存區進行上傳時(ex: /accountings/draft_stages/:id/import)
