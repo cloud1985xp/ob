@@ -3,6 +3,19 @@ tags:
   - nextrek
   - project
 ---
+# 0712
+暫存區的草稿操作改成以「Import 批次」來處理
+
+進入到資金帳戶暫存區 (draft_stages#show) 時
+列出的草稿資料 (journal_drafts) 改以匯入批次 (import) 來處理：
+- 依作業中的 import 分批處理 journal drafts
+- 一進入畫面預設先用最新的 import 來取出
+- 在 header 下方，增加一列作為 import 批次的選擇：
+	- 用下拉選單 (dropdown)，
+		- 列出其他作業中的 import 批次清單，點擊後切換成目標批次
+	- 
+
+
 # 0701
 ## 增加資金帳戶匯入批次上限
 為了要限制在資金帳戶暫存區進行上傳時(ex: /accountings/draft_stages/:id/import)
