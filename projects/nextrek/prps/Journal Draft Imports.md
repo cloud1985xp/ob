@@ -8,7 +8,9 @@ tags:
 ## 實作 form unload blocking 的功能
 
 我要實作一個可以共用的 form unload blocking 機制
-- 
+- 用 stimulus controller 實作
+- 為這個 controller 做合適的命名
+- 當對應
 
 
 # 0712
