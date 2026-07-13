@@ -3,6 +3,123 @@ tags:
   - nextrek
   - project
 ---
+# 0712
+## 暫存區的草稿操作改成以「Import 批次」來處理
+
+進入到資金帳戶暫存區 (draft_stages#show) 時
+列出的草稿資料 (journal_drafts) 改以匯入批次 (import) 來處理：
+- 依作業中的 import 分批處理 journal drafts
+- 一進入畫面預設先用最新的 import 來取出
+- 在 header 下方，增加一列作為 import 批次的區塊：
+	- 批次選單，用下拉選單 (dropdown)，
+		- 每個選項的格式：「 {icon} + {上傳日期} 上傳（{pending count} 筆）」:
+			- icon 用 lucide 的 `layers` 圖示
+			- 文字例如：2026-05-14 上傳（8 筆）
+		- 列出所作業中 import 作為選項，點擊後切換成目標批次
+			- 選項從舊到新排序
+			- 當前的選項有 active 效果
+	- 批次選單未展開的狀態，是顯示當前的選項，
+	- 批次選單後方有一個垃圾桶的圖示，用來將當前的 import 整批刪除
+		- 點擊會跳出 SweetAlert 供確認
+			- sweet alert title：確認刪除 
+			- sweet alert content：確定要刪除整批資料嗎？此操作無法復原。
+		- 確認後送出，
+			- 會將該筆 import 與其相關的 import detail 和 journal drafts 全數刪除
+			- 並導回 (redirect) draft_stages#show 畫面
+- 改為依 import 批次後，原本的篩選 (query)，也要以該批次為條件範圍下做篩選
+- 若當下已經沒有任何作業中的 import 時，
+	- 批次選單改成
+		- 顯示文字：請點擊「上傳明細」上傳資料
+		- 文字前方一樣有 layers icon
+		- 不需要有垃圾桶圖示
+	- list 的內容顯示空狀態 (blank state)：
+		- 顯示文字：資料都已經建立成交易，前往 交易明細 查看 或 上傳明細 處理下一批資料
+			- 「交易明細」可點擊，連到 accountings_journals_path?query[account_id]={該資金帳戶 id}
+			- 「上傳明細」可點擊，連到 accountings_draft_stage_import_path(當下的 draft_stage)
+	- 註：blank_state 還有其他版本，之後會實作，請保留未來修改維護的彈性
+		- 例如當有輸入篩選條件下的空狀態，會顯示成不同的文案
+
+## 修正資金帳戶暫存區畫面
+
+請對金帳戶暫存區(draft_stages#show)畫面加上以下調整：
+
+一、將「其他功能」->「全部刪除」移到 selection bar 裡
+放在 selection bar 的「一次建立」按鈕左方，用一個垃圾桶的圖示按鈕表示，
+- 白底圓型的按鈕，邊線與圖示用淡灰色，hover 時邊線與圖示變成紅色
+- 搬移後，將「其他功能」按鈕移除
+- 同時 import 批次選單右方的「刪除批次」的按鈕也套用同樣的刪除按鈕樣式
+
+可參考以下 html
+
+```
+<div class="tooltip tooltip-bottom" data-tip-key="btn_delete_batch" data-tip="全部刪除">
+    <button id="batch-delete-btn" class="btn btn-neutral btn-icon-only btn-md text-content-3" data-action="delete-batch" data-aria-label-key="btn_delete_batch" aria-label="全部刪除">
+      <i class="lucide icon-trash-2"></i>
+    </button>
+  </div>
+```
+
+二、將「上傳明細」按鈕，移到 header 的 page action
+改成用 page action 來放置「上傳明細」的按鈕
+
+三、調整 import 批次選單(含刪除批次)的位置
+目前是放在 header 下方，但被包進了 rounded-box 區塊內
+我要它在樣式上是顯示成 box 區塊的上方，不需要被 box 背景包住
+
+header component 的 page action
+應該要和 header 標題並排在右側，內容靠右、靠下對齊
+
+## 調整 Selection Bar
+
+將「已選寫 n 筆」左方的 checkbox，改成用 close 的圖示
+點擊後的行為不變(取消已選項的資料列、清除關閉 selection bar)
+樣式請參考以下 html
+
+```
+<button type="button" data-action="unselect-all" class="btn btn-ghost btn-sm text-content-3 hover:text-base-content aspect-square p-0 hover:bg-transparent" data-aria-label-key="btn_unselect_all" aria-label="取消勾選">
+            <i class="lucide icon-x"></i>
+          </button>
+```
+
+# 0701
+## 增加資金帳戶匯入批次上限
+為了要限制在資金帳戶暫存區進行上傳時(ex: /accountings/draft_stages/:id/import)
+當使用者送出上傳表單時，進行檢查，目前已經存在且仍在作業中的的上傳批次(Accountings::Import) 數，不得超過5筆：
+
+- 若作業中的批次已有5筆，會阻止進行上傳，並出現訊息「已達上傳批次上限 5 批，請將先前批次資料建成交易或刪除」的錯誤訊息 (用現有元件整點 toast 訊息效果)
+- 需要對 import (Accountings::Import class) 增加一個 pending_count 欄位來代表它還有多少 journal_drafts 仍未處理
+	- 若 pending_count 大於 0 即代表該批 import 仍在作業中
+- 在資金帳戶暫存區 (/accountings/draft_stages/:id) 對資料列 (journal_draft) 作操作時，包括單筆的建立/刪除、選取多筆的建立/刪除，在執行完動作時都要更新對應 import 的 pending_count
+- 注意.. 
+	- 只有 import 的 state 是 completed 才列入有效的 import，也就是必須是有效的 import 才算入上限5筆的檢查
+	- 目前 import has_many details 但 always 只取用第一筆 detail
+
+請先了解並檢查現有相關的架構和程式，評估規劃作法
+若有任何問題或建議請先提出討論
+
+檢查上限5筆，應該要包含正在上傳中的 import，不僅限於上傳完成
+以免使用者若短時間連續上傳，最終有可能超過5筆
+所以計算是否達上限 5 筆時，應該要僅排除 failed state，這樣合理嗎
+
+# 0627
+
+調整在資金帳戶暫存區頁 (ex: /accountings/draft_stages/:id) 裡的篩選功能
+在「新增篩選條件」裡的收付日期，要改成用 date range 的型式
+點擊輸入欄位要出現 date range picker (datepickr 應該有支援)
+需確認/修改 server 端執行的 query 可以接收 date range 傳來的參數做條件查詢
+但要確保不破壞原本既有的 query 功能
+
+選擇後一樣會在「篩選」旁邊顯示目前的條件內容，例如：「收付日期: 2026-06-03 - 2026-07-07」
+
+在資金帳戶暫存區頁 (ex: /accountings/draft_stages/:id) 裡
+參考 `_row.html` 裡的金額(amount)、手續費(fee)輸入欄位
+將  `_selection_bar.html.erb` 裡的 amount, fee 欄位
+也採用同樣的 Ui::Forms 的 Component，且：
+- 套用一樣的 maxlength 設定 
+- 維持 selection bar 原本的外觀樣式
+- 不需要 prefix
+- 不要影響原本的功能
+
 # 0625 修正
 請優化修正 ContactSelectComponent 與 TagSelectComponent
 包括對應的 js：
@@ -15,6 +132,10 @@ tags:
 
 兩者有大部分有著共同的行為，差別僅在於可允許輸入/選擇的資料量(max_tags) ：
 ContactSelect 通常為 1，而 TagSelect 上限為 5
+
+現有的 tom_select 有限制 item(tag) 文字長度上限(30)
+當使用者想要建立超過上限的tag時，會無法完成tag建立
+但我想改成允許建立，但會把超過文字長度上限的部分自動捨去
 
 主要修正針對「從剪貼簿貼上的方式輸入」，
 當剪貼簿複製時：
