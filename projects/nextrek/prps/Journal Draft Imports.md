@@ -12,6 +12,9 @@ tags:
 - 將 table 同半透明遮罩蓋住，中間有一個 loading 的動畫圖示
 - 這個 ui component 要可以在其他相同情景下也可以使用
 
+在資金帳戶暫存區 (draft_stages#show) 
+選取多筆資料列一次刪除，若刪除後
+
 ## 實作 form unload blocking 的功能
 
 我要實作一個可以共用的 form unload blocking 機制
