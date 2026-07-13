@@ -3,6 +3,14 @@ tags:
   - nextrek
   - project
 ---
+# 0713
+
+## 實作 form unload blocking 的功能
+
+我要實作一個可以共用的 form unload blocking 機制
+- 
+
+
 # 0712
 ## 暫存區的草稿操作改成以「Import 批次」來處理
 
