@@ -5,6 +5,9 @@ tags:
 ---
 # 0713
 
+在資金帳戶暫存區 (draft_stages#show) 切換 filter 條件時
+我希望在載入時 table
+
 ## 實作 form unload blocking 的功能
 
 我要實作一個可以共用的 form unload blocking 機制
