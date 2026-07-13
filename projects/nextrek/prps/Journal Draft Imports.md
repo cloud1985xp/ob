@@ -6,7 +6,11 @@ tags:
 # 0713
 
 在資金帳戶暫存區 (draft_stages#show) 切換 filter 條件時
-我希望在載入時 table
+我希望在載入時能有個載入中(loading) 的提示
+請從現有的 component 中找適合的 ui 來實現
+如果沒有現成的元件，請實作一個新的 ui component：
+- 將 table 同半透明遮罩蓋住，中間有一個 loading 的動畫圖示
+- 這個 ui component 要可以在其他相同情景下也可以使用
 
 ## 實作 form unload blocking 的功能
 
