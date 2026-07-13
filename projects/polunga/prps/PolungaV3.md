@@ -1,3 +1,55 @@
+```
+   Job-state (V3): create app/views/shared/_job_state_v3.html.erb (daisyUI card + data-controller="poll" data-poll-mode-value="job-state" + [data-attr=state] + [data-role=logs] — the existing poll controller job-state mode drives it
+   unchanged, see app/javascript/controllers/poll_controller.js). Render it in the image _forms via the existing JobStatePresenter data: render "shared/job_state_v3", presenter: JobStatePresenter.new(form.job_state, text: "…"). Do NOT
+   touch shared/_job_state.html.erb — still used by v1 announcement_translation_reviews, operation_patches, customer/account_cases.
+   
+   
+   - Legacy coffee (drive_image, remote-image-input, signed-url-preview) stays in the v1 bundle (still used by v1 pages via shared/forms/_remote_image_input + others); we only stop relying on it here — don't edit the v1 JS manifest.
+   - Do NOT delete shared/forms/_remote_image_input.html.erb (still consumed by v1 announcement_mission_campaign_translations).
+```
+
+樣式
+- Delete Button in Danger Zone 因為全紅所以看不清楚
+	- http://v1.polunga.test:3000/master/gogeta/announcements/107050
+- 切換顯示語言(複選)的 ui 需優化，跟 edit 按鈕太相似
+	- http://v1.polunga.test:3000/master/gogeta/announcements/107045
+
+Topnav 切換主語言的選單
+
+
+
+
+
+修正 Announcement Translation 編輯畫面
+(ex: /master/:stage/announcements/:id/translations/edit?locale=en)
+
+調整 breadcrumb，應該要 with server stage 下拉選單的樣式
+- 參考 announcements#show 的畫面
+
+調整 preview 的 panel
+- preview panel 的 fix top 位置要再下方一點
+- preview panel 要可以被 collapse 收合/展開，預設是收合
+- preview 的內容中，.validation_message 的樣式未被套用，應該要是紅底白字而且有閃爍的效果
+
+
+將 announcements 和 banners 的基本管理功能，migrate 成 v3
+包括
+- banners_controller
+- banner_translations_controller
+- announcements_controller
+- anouncement_banners_controller
+
+兩者的表單(form) 裡會有一些類似的行為，尤其是圖片檔案的處理，即：
+- announcement#banner
+- announcement_body#image
+- banner#image
+這部分會有共用的 js 行為，若有需要可以抽成 Form Component 並整合對應的 stimulus controller
+
+請現符合 v3 的現代 js 與 rails 並考慮重構讓程式碼讓程式更加簡潔穩固
+
+
+
+
 
 Operation Issue Difference Show 頁面(ex: /operations/355/issues/7510/difference) 
 中所 render 的 presenter:
