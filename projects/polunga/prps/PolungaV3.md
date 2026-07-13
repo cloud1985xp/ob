@@ -14,11 +14,67 @@
 - 切換顯示語言(複選)的 ui 需優化，跟 edit 按鈕太相似
 	- http://v1.polunga.test:3000/master/gogeta/announcements/107045
 
-Topnav 切換主語言的選單
+- Topnav 切換主語言的選單
+
+## Table Component
+美化 table list，包括：
+- announcements#index
+- banners#index
+- apologies#index
+- campaigns#index
+- operation_issue_categories#index
+- operations#released
+- budokai_cheaters#index
+
+修改重點：
+- 將 table 格式參照 claude design 的設計，且支援 dark mode
+- 若有 Filter ，將 filter 移出 box(card) 外，並參照 claude design 的設計
+- 若有自訂欄位的選項，參照 claude design 的設計
+- 務必確保原本的功能正常不被破壞
+
+並將上述對應的調整列為設計原則，未來實作新功能時要按照這個設計
+
+### Bulk Action in Table
+優化 bulk action
+請參照 claude design 來實作 bulk action 的行為，在
+- announcements#index 
+- banners#index
+頁面中，當勾選多筆資料，會出現 bulk action 的選項 「sync」與「duplicate」
 
 
+# 0713
 
+我想要重新優化整個網站的 ui 設計，尤其是視覺設計
+請幫我匯整整個網站的 ui 介面與功能，建立成一份能交給 claude design 做為設計需求的說明文件
+包括整個系統的功能定位、頁面架構、版型種類
+以及需要設計的元件清單和各元件行為描述、可能的變體
+不僅是參考 ui component，還要檢視目前各功能，因為有一部分尚未被建立成 ui component
 
+結果請放在 ai_docs/design.md 裡
+目標是可以用這個文件讓 claude design 來完成整個 ui 系統的規劃與設計
+並且也可作為未來開發新功能的參考
+
+若有任何疑問或建議請提出跟我討論
+
+我已請 claude design 重新設計網站，產出的 spec 位置 /Users/aaron.kuo/Downloads/design_handoff_ishin_ui_system
+，請依照這份設計套用到現有的專案，
+
+我發現這份 spec 有一些網站架構與專案現狀不符，所以請以視覺設計為主要優先，包括
+- 主要的配色系統、token
+- 整體 layout 的配色、ui
+- 基本 component 的樣式
+確保不要影響到現有的任何功能
+其他無法套用的部分，請先紀錄下來我們後續再討論要如何調整
+若有任何疑問或建議請提出跟我討論
+
+- Topbar 的樣試調整成跟 claude design 的版本，包括
+	- sidemenu toggler 的樣式
+	- 搜尋 bar
+	- brand name 的 logo「維」的字樣，但改成用 lucide 的 「paw」icon
+	- 不需要 stage 切換的選單
+	- 不需要切換 theme (faithful / refined) 的選項
+- Breadcrumb 裡的 item 高度要依 center 對齊，包括 item 是 dropdown 選單的情況也要維持對齊
+- side menu 主選單的 submenu 選項美化，在次選項前也加上 icon  或用統一的圖示來美化
 
 修正 Announcement Translation 編輯畫面
 (ex: /master/:stage/announcements/:id/translations/edit?locale=en)
