@@ -5,16 +5,19 @@ tags:
 ---
 # 0714
 
-實作資金帳戶暫存區 draft_stages#show 的篩選條件：「顯示無法建立的資料」
-當「顯示無法建立的資料」被勾選套用時，query 查詢會篩選出「無法被建立的資料」
+實作資金帳戶暫存區 (draft_stages#show) 的篩選功能：「顯示無法建立的資料」
+當「顯示無法建立的資料」條件被勾選套用時，送出的 query 查詢會篩選出「無法被建立的資料」
 
 定義為：該筆 journal draft 的交易日期符合
-- 已小於或等於 group 的結轉日期 或
+- 已小於或等於 group 的結轉日期 (如果已有結轉的話)或
 - 已小於或等於 group 的鎖帳日期 (如果已鎖帳的話) 或
 - 小於 group 的開帳日期
 
-結轉日期：group.accounting_configuration.transfer_on = @end_date
-        @group.accounting_configuration.journal_lock_until = nil
+結轉日期: group.accounting_configuration.transfer_on 
+鎖帳日期: group.accounting_configuration.journal_lock_until
+開帳日期: group.accounting_configuration.booted_on
+
+請修改 JournalDraftQuery 來實現這個篩選條件
 
 # 0713
 
