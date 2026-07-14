@@ -126,8 +126,7 @@
               "title": "建立 e2e"
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -405,8 +404,10 @@
       }
     ]
   },
-  "active": "e911ab90ba0ccf4d",
+  "active": "035c9fd5bfbf6395",
   "lastOpenFiles": [
+    "projects/nextrek/prps/nextrek-developer-workflow.md",
+    "projects/nextrek/prps/NK.md",
     "projects/nextrek/prps/Journal Draft Imports.md",
     "projects/aktsk.com.tw.md",
     "personal/xaifu/prps/Xaifu.md",
@@ -418,7 +419,6 @@
     "projects/ishin/SP73.md",
     "projects/nextrek/prps/V3 UI Kits.md",
     "tech/tools/environment-setup.md",
-    "projects/nextrek/prps/NK.md",
     "projects/hdwcp/prps/00_UIKit.md",
     "projects/hdwcp/prps/03_Shppings.md",
     "projects/hdwcp/prps/04_General.md",
@@ -427,7 +427,6 @@
     "projects/hdwcp/prps/00_Todos.md",
     "projects/nextrek/prps/建立 e2e.md",
     "projects/venux/prps/Venus.md",
-    "projects/nextrek/prps/nextrek-developer-workflow.md",
     "projects/polunga/prps/PolungaV3.md",
     "projects/blacklist-reporter.md",
     "projects/hdwcp/2025-26.md",

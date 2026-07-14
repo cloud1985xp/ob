@@ -19,6 +19,15 @@ tags:
 
 請修改 JournalDraftQuery 來實現這個篩選條件
 
+修正 Contact/Tags Select
+兩者共用自 TomSelectBase，應該直接修在 TomSelect 即可，包括以下需求
+
+如果有啟用 api search 的模式下
+請在下拉展開的選單最下方顯示以下文案：
+「僅顯示前 N 筆，如未列出請輸入完整名稱」
+
+
+
 # 0713
 
 在資金帳戶暫存區 (draft_stages#show) 切換 filter 條件時
