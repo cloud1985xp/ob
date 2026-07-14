@@ -33,6 +33,9 @@ N 為當前提供的選項數量
 改成超過 maxValueLengthValue 要視為 invalid 拒絕建立成 tag
 而不是自動截斷文字內容
 
+當 maxTags 設定是 1 時(= 只能單選)
+調整成：
+當使用者已選擇了一個選項，
 
 
 # 0713
