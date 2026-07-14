@@ -25,6 +25,11 @@ tags:
 如果有啟用 api search 的模式下
 請在下拉展開的選單最下方顯示以下文案：
 「僅顯示前 N 筆，如未列出請輸入完整名稱」
+N 為當前提供的選項數量
+
+修正 `handleCreate`
+改成超過 maxValueLengthValue 要視為 invalid 拒絕建立成 tag
+而不是自動截斷文字內容
 
 
 
