@@ -1,6 +1,9 @@
-- Report migrate to v3 + refactor, path, statement group
 - Rubocop fix, by parts of domains
+- Report migrate to v3 + refactor, path, statement group
 - Refactor Journal Related
+	- Query
+	- Form
+	- Bulk
 - Refactor View by subject
 - Refactor Entry Related
 - Seed data with group builder using mini data sample
