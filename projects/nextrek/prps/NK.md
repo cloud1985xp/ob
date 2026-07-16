@@ -39,7 +39,17 @@ NK Engineer Workflow
 請參考 .github/workflows/create_sub_staging.yml
 以及刪除 sub-staging: .github/workflows/cleanup_dynamic_branch.yml
 
-我要另建立一個 workflow，可以定期執行偵
+我要另建立一個 workflow，可以定期執行偵測正在運行的 sub-staging
+並如果該 sub-staging 已經建立超過 7 天，就自動呼叫 cleanup_dynamic_branch 將它關閉
+
+每個 sub-stagng 即為一個 ecs service，判斷是否超過七天
+我覺得可以用最後一次 deployment 的時間
+若無法，則用 service 建立的時間
+如果以上都無法用來判斷，那就用運行中的 task 的啟動時間
+
+Workflow 的具體行為
+執行後，檢查 staging cluster 上有哪些那在運行的 sub staging (ecs service)
+但排除掉常駐的 staging (service name = nk-staging-app)，或只取 name 開頭為 nextrek- 的就是 sub-staging (dynamic_bra)
 
 # Refactor View By Subject
 
