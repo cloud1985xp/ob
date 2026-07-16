@@ -1,4 +1,8 @@
 
+我要重新設計整個專案的視覺與 ui 系統
+請完整
+
+
 建立 Dealer Name 元件
 DealerComponent .name
 會 render dealer 的 地區+城市+編號+名稱
