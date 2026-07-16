@@ -49,7 +49,16 @@ NK Engineer Workflow
 
 Workflow 的具體行為
 執行後，檢查 staging cluster 上有哪些那在運行的 sub staging (ecs service)
-但排除掉常駐的 staging (service name = nk-staging-app)，或只取 name 開頭為 nextrek- 的就是 sub-staging (dynamic_bra)
+但排除掉常駐的 staging (service name = nk-staging-app)，或只取 name 開頭為 nextrek- 的就是 sub-staging (dynamic_branch)
+
+如果有運行中的 sub-staging service，就發送 slack 訊息並 task channel 所有人，告知有哪些正在運行中的 sub-staging，並附上運行的時間
+
+檢查這些 sub-staging 若有運行時間超過七天的
+就再發 slack 訊息通知即將刪除這些 sub-staging
+
+然後就執行刪除的 workflow
+
+請評估規劃作法，若有問題建議請提出討論
 
 # Refactor View By Subject
 
