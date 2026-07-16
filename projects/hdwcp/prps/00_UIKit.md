@@ -15,20 +15,21 @@
 請先解決各功能的內容，判斷有哪些頁面、元件需要被設計
 若有任何疑問或建議請提出討論
 
-已請 claude code 完成新的設計，成果位置路徑：
-接下來請規劃將新的設計套用到專案，包括
+已請 claude code 完成新的設計，成果位置路徑：/Users/aaron.kuo/Downloads/ui
+接下來請規劃將新的設計套用到專案：
 
 一、先將新的設計規劃轉成 ai_docs/design 下的文件
 並確保 claude.md 有正確參照，可依設計系統、概念、元件分成多個不同的檔案
 現有的 ai_docs 有關的 design guidelines 也一併做整合
-目的是要讓之後的 agent 都能從頭依這份設計文件開發新的功能
+目的套用新設計並重整相關文件，要讓之後的 agent 都能從頭依這份設計文件開發新的功能
 
 二、實作各元件的 ViewComponent
-目前已有部分 UI ViewComponent 已實作，請依照設計文件
-修改這些元件，若尚未實作的元件，則建立新的元件
+目前已有部分 UI ViewComponent 已實作，請依照設計文件套用樣式
+若有不在設計文件中的的元件，也依照視覺系統修改樣式，並更新至文件中
+若是文件中尚未實作的元件，則建立新的元件
 
 三、開始將新的設計/視覺/介面/元件套用到現有功能
-拆分多個階段來套用，可以讓每個階段獨立處理
+再拆分多個小階段來套用，可以讓每個階段獨立處理
 推薦拆分為：
 - app 主頁面 layout、sidebar、topnav、footer 等共用的介面
 - app 端功能
@@ -37,9 +38,14 @@
 	- pricings
 	- contacts
 	- shippings
-	- 
-app
+	- marketings
+	- statistics
+	- accountings
+- admin 端各功能
+- login 頁面
 
+注意，此次所有修改都是視覺介面的調整，不該影響任何既有的功能
+若有任何疑問或建議請提出討論
 
 建立 Dealer Name 元件
 DealerComponent .name
