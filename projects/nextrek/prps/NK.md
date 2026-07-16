@@ -33,6 +33,14 @@ NK Engineer Workflow
 務必拆分成多個可分開提交的計畫來進行
 請用 /brainstorming 規劃並與我進行討論確認
 
+# Auto Close SubStaging
+新增 Github Action Workflow 來自動偵測、關閉 sub-staging 環境
+目前已有 workflow 可以建立 sub-staging
+請參考 .github/workflows/create_sub_staging.yml
+以及刪除 sub-staging: .github/workflows/cleanup_dynamic_branch.yml
+
+我要另建立一個 workflow，可以定期執行偵
+
 # Refactor View By Subject
 
 ## Phase 3: Report
