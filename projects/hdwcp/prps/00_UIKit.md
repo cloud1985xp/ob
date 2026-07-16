@@ -1,6 +1,17 @@
 
 我要重新設計整個專案的視覺與 ui 系統
-請完整
+請完整理解整個專案的內容、功能，歸納出所以要的視覺元件
+整理成一份需求文件，讓我可以將文件提交給 claude design 完成：
+- 視覺色彩設計系統的建立
+	- 基於 tailwindcss + daisyui
+- 各種 ui 元件的設計，
+	- 包括一般常見的元件，如 sidebar、topnav、footer、header、breadcrumb、card、badge、tag、各種表單元件
+	- 以及這個專案特別需要的元件
+- 組裝各種主要的頁面
+	- 基本版型 layout
+	- 資料列表頁：含分類選單、篩選器與各種變體
+	- 資料內容頁：顯示內容 properties / attributes
+	- 各
 
 
 建立 Dealer Name 元件
