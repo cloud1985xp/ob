@@ -58,15 +58,21 @@
 2: 定義規範至文件
 3: 更新至對應的頁面
 
-包括:
+包括新設計中的：
 
-### 新設計中的「分類篩選版型
+###  資料列頁面 · 篩選器
+
+各種篩選器的樣式，要套入到各種資產的 index 頁篩選項樣式中
+
+### 分類篩選版型
 
 水平分類標籤 選單
 應該要套用到像是  /products/models, /products/colors, /products/fabrics 或其他類似頁面
 
 垂直側欄分類選單
-應該要套用到像是 /marketings/coupons
+應該要套用到像是 /marketings/coupons, /shippings/batches 或其他類似頁面
+
+
 
 
 建立 Dealer Name 元件
