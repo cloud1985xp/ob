@@ -72,6 +72,8 @@
 垂直側欄分類選單
 應該要套用到像是 /marketings/coupons, /shippings/batches 或其他類似頁面
 
+還有其他頁面與各種元件，請確實檢查新的 claude design 的設計有正確被到用到專案中
+
 
 
 
