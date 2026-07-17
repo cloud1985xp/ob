@@ -52,7 +52,21 @@
 
 ## 套用設計
 
-有幾個在新設計中的L
+有幾個在新設計中的新樣式，沒有被套用到
+請確認 
+1: 有確實更新至 ui 元件/css 樣式
+2: 定義規範至文件
+3: 更新至對應的頁面
+
+包括:
+
+### 新設計中的「分類篩選版型
+
+水平分類標籤 選單
+應該要套用到像是  /products/models, /products/colors, /products/fabrics 或其他類似頁面
+
+垂直側欄分類選單
+應該要套用到像是 /marketings/coupons
 
 
 建立 Dealer Name 元件
