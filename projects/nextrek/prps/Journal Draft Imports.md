@@ -3,6 +3,11 @@ tags:
   - nextrek
   - project
 ---
+# 0720
+
+在資金帳戶暫存區 (draft_stages#show) 處理資料列
+若將交易方式選為「移轉」，設定「自 xxxxx 帳戶轉入」
+
 # 0715
 
 當 ContactSelect / TagSelect 只允許一個選項時 (maxTags = 1)

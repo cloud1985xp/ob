@@ -98,8 +98,7 @@
               "title": "建立 e2e"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -368,8 +367,8 @@
           }
         ],
         "direction": "vertical",
-        "x": 541,
-        "y": 135,
+        "x": 238,
+        "y": 166,
         "width": 1024,
         "height": 800,
         "maximize": false,
@@ -377,7 +376,7 @@
       }
     ]
   },
-  "active": "930cc4c4f2794f2c",
+  "active": "035c9fd5bfbf6395",
   "lastOpenFiles": [
     "projects/nextrek/prps/NK.md",
     "projects/hdwcp/prps/00_UIKit.md",
