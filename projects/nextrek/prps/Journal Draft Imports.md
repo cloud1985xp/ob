@@ -5,7 +5,12 @@ tags:
 ---
 # 0721
 
-DraftStages  的相
+資金帳戶暫存區 (DraftStages) 的相關功能
+當下用戶 (current_staff)，可以操作/互動的資金帳戶
+應受到限制，只能操作允許的資金帳戶(參考 Staff#accounting_accounts)
+包括資金帳戶暫存區列表(draft_stages#index, drafts_stages#show)、上傳、操作 journal drafts 等行為，
+在 controller / presenter 應判斷只能存取允許的資金帳戶
+並加上權限檢查，參考 Accountings::AccountsController.authorize_resource
 
 # 0720
 
