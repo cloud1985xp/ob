@@ -3,6 +3,10 @@ tags:
   - nextrek
   - project
 ---
+# 0721
+
+DraftStages  的相
+
 # 0720
 
 在資金帳戶暫存區 (draft_stages#show) 處理資料列
