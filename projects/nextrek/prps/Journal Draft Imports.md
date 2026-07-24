@@ -3,6 +3,9 @@ tags:
   - nextrek
   - project
 ---
+進到資金暫戶列表 (draft_stages#index)
+初始就在隱藏暫存區(## 已隱藏的暫存區)的資金帳戶，
+
 在資金帳戶暫存區 (draft_stages#show)
 經過切換篩選類型(從不限改成「付款」或「收款」)後
 以下的操作會發生問題：
