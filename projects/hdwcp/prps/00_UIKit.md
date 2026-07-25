@@ -4,6 +4,7 @@
 header 是帶有 card 外框的樣式
 內有標題 + breadcrumb + page actions
 
+
 請將 filter_bar 的樣式參照 claude design 範例的「資料列頁面 · 篩選器」做調整
 先以 sales/orders index 頁為基準
 
@@ -46,7 +47,10 @@ header 是帶有 card 外框的樣式
 			- 訂單日期(date)
 			- 預計到貨日(date_ship)
 			- 出貨日(date_arrive)
-			- 若在使用時只有傳入一個欄位名稱，就不用出現
+			- 若在使用時只有傳入一個欄位名稱，就不用出現目標欄位的選項
+
+請確保樣式和 claude design 範例一致
+並且維持 component 的設計架構，方便其他頁面需的時候可以取用
 
 我要重新設計整個專案的視覺與 ui 系統
 請完整理解整個專案的內容、功能，歸納出所以要的視覺元件
