@@ -2,7 +2,7 @@
 頁面版型定義
 
 header 是帶有 card 外框的樣式
-內有標題 + bread
+內有標題 + breadcrumb + page actions
 
 
 我要重新設計整個專案的視覺與 ui 系統
