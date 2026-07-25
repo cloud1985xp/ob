@@ -36,9 +36,20 @@ header 是帶有 card 外框的樣式
 與 orders index 類似，但取得的資料限於「重做與退回」的範圍
 參考舊專案 Sales::OrderRebuildListPresenter 來取得資料範圍定義
 
-列表功能之 orders index 一致：
+列表功能與 orders index 一致：
 - 需要 infinite scroll
 - 需要 filter
+
+三、異常訂單列表
+參考舊專案 Order.abnormal scope 取得資料範圍定義
+其他功能與 orders index 一致：
+
+四、報備訂單列表
+參考舊專案 Sales::OrderFilingListPresenter 取得資料範圍定義
+其他功能與 orders index 一致：
+
+二、三、四 頁面基本行為與 index 一樣，只有取得的 orders 資料範圍不同
+可以視情況重構優化現有的程式，方便重複使用及未來維護
 
 
 
