@@ -367,10 +367,10 @@
           }
         ],
         "direction": "vertical",
-        "x": 238,
-        "y": 166,
-        "width": 1024,
-        "height": 800,
+        "x": 56,
+        "y": 30,
+        "width": 932,
+        "height": 1050,
         "maximize": false,
         "zoom": 0
       }
@@ -378,10 +378,10 @@
   },
   "active": "930cc4c4f2794f2c",
   "lastOpenFiles": [
-    "projects/nextrek/prps/Journal Draft Imports.md",
-    "projects/hdwcp/prps/00_UIKit.md",
-    "projects/nextrek/prps/NK.md",
     "tech/tools/environment-setup.md",
+    "projects/hdwcp/prps/00_UIKit.md",
+    "projects/nextrek/prps/Journal Draft Imports.md",
+    "projects/nextrek/prps/NK.md",
     "projects/nextrek/prps/nextrek-developer-workflow.md",
     "personal/xaifu/prps/Prompt Improvement.md",
     "projects/hdwcp/prps/04_General.md",
