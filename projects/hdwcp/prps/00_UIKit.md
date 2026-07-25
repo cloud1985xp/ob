@@ -22,16 +22,24 @@ header 是帶有 card 外框的樣式
 實作時部分需要參考舊專案的一些定義或邏輯
 舊專案是 rails 的版本，位置：`/hdwcp`
 
-一、新進訂單 (pending) 工作區
-
-實作 /sales/orders/pending 頁面，做為「新進訂單」的列表
-與 orders index 類似，但會將所有 pending 的 orders 一次全部列出
+一、訂單工作區
+實作 /sales/orders/workspace 頁面，做為「訂單工作區」的列表
+與 orders index 類似，但會將所有待處理的新進訂單 orders 一次全部列出
 - 不需要 infinite scroll
 - 不需要 filter
 
-pending 的定義：請參考 
+新進訂單的定義：狀態在 formal 或 pending 的訂單，
+請參考 app/presenters/sales/order_workshop_presenter.rb 裡的 `Order.common.with_states([:formal, :pending])`
 
-二、
+二、重作及退回訂單列表
+實作 /sales/orders/rebuild 頁面，做為「重做與退回的訂單」列表
+與 orders index 類似，但取得的資料限於「重做與退回」的範圍
+參考舊專案 Sales::OrderRebuildListPresenter 來取得資料範圍定義
+
+列表功能之 orders index 一致：
+- 需要 infinite scroll
+- 需要 filter
+
 
 
 
