@@ -16,6 +16,23 @@ header 是帶有 card 外框的樣式
 	- 可選要不要顯示「地區」
 	- 可選要不要顯示「城市」
 
+# 實作 orders 其他列表頁
+
+
+實作時部分需要參考舊專案的一些定義或邏輯
+舊專案是 rails 的版本，位置：`/hdwcp`
+
+一、新進訂單 (pending) 工作區
+
+實作 /sales/orders/pending 頁面，做為「新進訂單」的列表
+與 orders index 類似，但會將所有 pending 的 orders 一次全部列出
+- 不需要 infinite scroll
+- 不需要 filter
+
+pending 的定義：請參考 
+
+二、
+
 
 
 請將 filter_bar 的樣式參照 claude design 範例的「資料列頁面 · 篩選器」做調整
