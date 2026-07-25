@@ -5,6 +5,10 @@ header 是帶有 card 外框的樣式
 內有標題 + breadcrumb + page actions
 
 
+對 orders index 的資料列增加「P
+
+
+
 請將 filter_bar 的樣式參照 claude design 範例的「資料列頁面 · 篩選器」做調整
 先以 sales/orders index 頁為基準
 
