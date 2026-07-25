@@ -52,6 +52,20 @@ header 是帶有 card 外框的樣式
 請確保樣式和 claude design 範例一致
 並且維持 component 的設計架構，方便其他頁面需的時候可以取用
 
+
+orders index 的資料列表 
+欄位請調整成：
+- 編號、
+- 類型、
+- 經銷商(dealer, = 客戶)
+- 牌價 (chage)
+- 經銷價 (chage_sale)
+- 案名(label)
+- 訂單日期(date)
+- 預定到貨日(date_arrive)
+- 實際出貨日(date_ship)
+- 狀態
+
 我要重新設計整個專案的視覺與 ui 系統
 請完整理解整個專案的內容、功能，歸納出所以要的視覺元件
 整理成一份需求文件，讓我可以將文件提交給 claude design 完成：
