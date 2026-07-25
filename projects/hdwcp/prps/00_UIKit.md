@@ -1,8 +1,7 @@
 
-頁面版型定義
 
-header 是帶有 card 外框的樣式
-內有標題 + breadcrumb + page actions
+# 待修正
+- 變更/回收繞過狀態機不寫歷程
 
 所有 filter card 裡的 分類篩選，統一用  pills 樣式 (而非 tab 樣式)
 
