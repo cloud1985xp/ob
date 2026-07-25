@@ -4,6 +4,7 @@
 header 是帶有 card 外框的樣式
 內有標題 + breadcrumb + page actions
 
+所有 filter card 裡的 分類篩選，統一用  pills 樣式 (而非 tab 樣式)
 
 對 orders index 的資料列增加「自訂欄位顯示」的功能
 - 這個功能做成 component，未來可以套用在其他資源的列表
