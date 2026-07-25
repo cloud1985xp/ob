@@ -16,6 +16,15 @@ header 是帶有 card 外框的樣式
 - 還可以自訂「經銷名稱」要不要顯示完整的名稱
 	- 可選要不要顯示「地區」
 	- 可選要不要顯示「城市」
+	- 可選要不要顯示「負責業務」
+
+調整 dealer_name component
+加上顯示 dealer 的負責業務的名稱
+負責業務：saler_id foreign key 指向的 user
+若沒有 saler 則顯示 `無業務`
+
+
+
 
 # 實作 orders 其他列表頁
 
