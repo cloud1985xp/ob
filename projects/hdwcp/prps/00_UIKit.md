@@ -6,6 +6,10 @@ header 是帶有 card 外框的樣式
 
 所有 filter card 裡的 分類篩選，統一用  pills 樣式 (而非 tab 樣式)
 
+實作訂單詳細功能
+請參考舊版 rails 的專案，目錄位置：`/hdwcp` 裡對訂單操作的功能，即 /sales/orders/:id 下的功能
+完整 migrate 所有功能至現在專案下，可重新設計頁面的排版以符合新版本的架構、設計原則與 ui 樣式。可參考瀏覽 http://hdwcp.test/sales/orders/248079 
+
 調整訂單工作區 (sales/orders/workspace)
 - 訂單排序依照狀態，先列出 formal，再列出 pending
 - 加上側欄分類篩選，用當下訂單的經銷商經銷商作為分類，附上每個經銷商的訂單數，並用訂單數從多到少來排列側欄分類
