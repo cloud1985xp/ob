@@ -7,7 +7,10 @@ header 是帶有 card 外框的樣式
 所有 filter card 裡的 分類篩選，統一用  pills 樣式 (而非 tab 樣式)
 
 對 orders index 的資料列增加「自訂欄位顯示」的功能
-- 這個功能做成 component，未來可以套用在其他資源的列表
+- 在 orders list 的 card 的標題右側，加上「齒輪」圖示，點擊後 dropdown 展開設定面版
+	- 這個功能的 ui 做成 component，未來可以其他資源的列表，像是：
+		- card 的標題支援右側 aside 區塊 或是 toolbar
+		- 這個 toolbar / dropdown 的 component
 - 可以自訂列表要顯示的欄位有哪些，包括
 	- 顯示訂單列表時，依自訂的欄位將不需顯示的欄位隱藏
 		- 可以用 css 來控制顯示/隱藏即可，參考 dealer_name 的 upref- 作法
@@ -15,14 +18,14 @@ header 是帶有 card 外框的樣式
 		- 可選要不要顯示「地區」
 		- 可選要不要顯示「城市」
 		- 可選要不要顯示「負責業務」
-- 可將 user preference 資訊存在 cookies 即可，然後放到 user 的 virtual fields
+- 目前可將 user preference 資訊存在 cookies 即可，然後放到 user 的 virtual fields
 	- 送出更新可用 post request 然後重整整個頁面
-	- 分別存放
+	- 資料結構分別存放
 		- dealer_name 的顯示偏好
 		- orders list 的顯示偏好
 		- 未來可以存其他資料的顯示偏好
 
-請評估作法
+請評估作法，若有問題或其他建議請提出討論
 
 調整 dealer_name component
 加上顯示 dealer 的負責業務的名稱
