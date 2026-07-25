@@ -6,6 +6,10 @@ header 是帶有 card 外框的樣式
 
 所有 filter card 裡的 分類篩選，統一用  pills 樣式 (而非 tab 樣式)
 
+調整訂單工作區 (sales/orders/workspace)
+- 訂單排序依照狀態，先列出 formal，再列出 pending
+- 加上側欄分類篩選，用當下訂單的經銷商經銷商作為分類，附上每個經銷商的訂單數，並用訂單數從多到少來排列側欄分類
+
 對 orders index 的資料列增加「自訂欄位顯示」的功能
 - 在 orders list 的 card 的標題右側，加上「齒輪」圖示，點擊後 dropdown 展開設定面版
 	- 這個功能的 ui 做成 component，未來可以其他資源的列表，像是：
