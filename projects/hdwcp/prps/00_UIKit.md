@@ -34,7 +34,10 @@
 	- 葉片/布料的顏色代碼: color_code 也允許直接輸入顏色代碼
 	- 現貨 or 期貨: model_is_future = true = 期貨
 		- 期貨時，會直接輸入顏色代碼
-	- 每個葉片/布料會有設定是否可選擇期貨(僅現貨、)
+	- 每個葉片/布料(model) 會有設定是: 可現貨或期貨、僅現貨 or 僅期貨 )
+		- 若有現貨 / 期貨 可選，那就會讓用戶選擇
+		- 若現貨 -> 用選項選擇顏色
+		- 若期貨 -> 用輸入顏色代碼
 - 特殊的布料/分類處理選項: category_option
 	- 有些產品(operation / system) 會需要搭配選擇 category_option，也有可能影響價格計算
 - 第二組布料/葉片 (model2)
@@ -48,12 +51,19 @@
 - 附加選項: additions
 
 整體流程：
-- 一定要先決定 category，category 基本決定了各種「可選用的 system」、「可選用的 operation」有哪些，以及 system + operation 分別可搭配的組合
+
+一、
+- 一定要先決定 category，category 基本決定了各種「可選用的 system」、「可選用的 operation」有哪些，以及 system + operation 分別可搭配的組合，可以用 category 直接決定一個 scheme 描述整個產品群的可選組合
 - 隨著使用者選擇 system 會影響可搭配的 operation 或
-- 使用者先選擇 operation，也會影響可搭配的 system
-- 然後 system + operation 的組合也會影響可搭配的布料/葉片 (model)，透過 model_limit 的設定，或甚至會需要設定第二組布料/葉片 (model2)
+	- 使用者先選擇 operation，也會影響可搭配的 system
+- 然後 system + operation 的組合也會影響可搭配的布料/葉片 (model)
+	- 透過 model_limit 的設定來決定，
+	- 或甚至會需要設定第二組布料/葉片 (model2)
 - 某些組合就會需要設定 category_option
-- 某些組合就會需要設定 power 選項
+	- 用 category_options 符合的 system + operation 組合來決定會不會提供選擇供選擇
+- 某些組合(選擇的 operation 是 motor) 就會需要設定 power 選項、電動配件
+
+
 
 
 
