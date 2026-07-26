@@ -96,7 +96,16 @@ model limit
 
 四、計算價格
 基本價格：基本用訂單的 operation+system+model + date 去查找 model 的 price table
-- 要依 date 查找對應DO
+- 要依 date 查找對應有效日期的 price table
+- 若商品設定的 model 是期貨，則
+	- 看該 model 有沒有設定可用的期貨價目表，有的話用期貨價目表查價格
+	- 若沒有，則用現貨價目表查價 * 該表設定的期貨價格倍率
+	- 有些 operation / system 的產品組合會有另外的產品升級價目表，有可能是
+		- 用升級價目表的價格計算後，取代基本價目
+		- 用升級價目表的價格計算，做為 system (系統)升級的額外追加費用
+		- 也可能是用第二組 model 做查價後，將 model1 和 model2 做計算
+- 操作系統有些也是會有額外追加費用
+- 電動選項(power)有些也會額
 
 
 
