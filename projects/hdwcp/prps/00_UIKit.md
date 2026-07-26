@@ -30,14 +30,25 @@
 - 操控/操作系統: operation
 - 葉片/布料(主要、第一組)的:
 	- 型號: model
-	- 葉片/布料的顏色: color，可用關聯
+	- 葉片/布料的顏色: color_id，可用關聯，或
 	- 葉片/布料的顏色代碼: color_code 也允許直接輸入顏色代碼
 	- 現貨 or 期貨: model_is_future = true = 期貨
 		- 期貨時，會直接輸入顏色代碼
 - 特殊的布料/分類處理選項: category_option
 	- 有些產品(operation / system) 會需要搭配選擇 category_option，也有可能影響價格計算
-- 第二組布料/葉片
-	- 有些產品系統 (system) 會需要搭配選擇第二組的布料/葉片，也有可能影響價格計ZMR
+- 第二組布料/葉片 (model2)
+	- 有些產品系統 (system) 會需要搭配選擇第二組的布料/葉片，也有可能影響價格計算
+	- 一樣要設定 型號 (model2_id)、顏色(color2_id)關聯/顏色(color2_code)代碼，現貨 or 期貨
+- 電動選項: power_id，若操控系統是電動(motor)的，會需要選擇電動選項
+- 其他選項: other_id
+- 配件: additions
+
+整體流程：
+一定要先決定 category，category 基本決定了各種「可選用的 system」、「可選用的 operation」有哪些，以及 system + operation 分別可搭配的組合
+隨著使用者選擇 system 會影響可搭配的 operation 或
+使用者先選擇 operation，也會影響可搭配的 system
+然後 system + operation 的組合也會影響可搭配的布料/葉片 (model)
+
 
 技術實作上，我覺得可以建立一個產品的 struct
 再設計模組來對這個資料結構做規格檢查，以及價格查詢
