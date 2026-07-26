@@ -34,20 +34,28 @@
 	- 葉片/布料的顏色代碼: color_code 也允許直接輸入顏色代碼
 	- 現貨 or 期貨: model_is_future = true = 期貨
 		- 期貨時，會直接輸入顏色代碼
+	- 每個葉片/布料會有設定是否可選擇期貨(僅現貨、)
 - 特殊的布料/分類處理選項: category_option
 	- 有些產品(operation / system) 會需要搭配選擇 category_option，也有可能影響價格計算
 - 第二組布料/葉片 (model2)
 	- 有些產品系統 (system) 會需要搭配選擇第二組的布料/葉片，也有可能影響價格計算
 	- 一樣要設定 型號 (model2_id)、顏色(color2_id)關聯/顏色(color2_code)代碼，現貨 or 期貨
-- 電動選項: power_id，若操控系統是電動(motor)的，會需要選擇電動選項
+- 電動選項: power_id，若操控系統是電動(motor)類型，會需要選擇電動選項(=供電方式)
+- 拉繩位置: position_rope, 無 or 左 or 右
+	- 若操控是電動，那這個欄位代表馬達的電源線位置
 - 其他選項: other_id
-- 配件: additions
+- 電動配件: accessories, 若操控是電動類型
+- 附加選項: additions
 
 整體流程：
-一定要先決定 category，category 基本決定了各種「可選用的 system」、「可選用的 operation」有哪些，以及 system + operation 分別可搭配的組合
-隨著使用者選擇 system 會影響可搭配的 operation 或
-使用者先選擇 operation，也會影響可搭配的 system
-然後 system + operation 的組合也會影響可搭配的布料/葉片 (model)
+- 一定要先決定 category，category 基本決定了各種「可選用的 system」、「可選用的 operation」有哪些，以及 system + operation 分別可搭配的組合
+- 隨著使用者選擇 system 會影響可搭配的 operation 或
+- 使用者先選擇 operation，也會影響可搭配的 system
+- 然後 system + operation 的組合也會影響可搭配的布料/葉片 (model)，透過 model_limit 的設定，或甚至會需要設定第二組布料/葉片 (model2)
+- 某些組合就會需要設定 category_option
+- 某些組合就會需要設定 power 選項
+
+
 
 
 技術實作上，我覺得可以建立一個產品的 struct
