@@ -28,6 +28,7 @@
 - 主分類: category
 - 產品系統: system
 - 操控/操作系統: operation
+- 尺寸: model_size，這個只是操作介面上協助篩選「葉片/布料」的選項，非必要資訊，也不會存入商品明細，若使用者有選擇，會用選定 model_size 過濾 model (or model2) 的選項
 - 葉片/布料(主要、第一組)的:
 	- 型號: model
 	- 葉片/布料的顏色: color_id，可用關聯，或
@@ -43,6 +44,8 @@
 - 第二組布料/葉片 (model2)
 	- 有些產品系統 (system) 會需要搭配選擇第二組的布料/葉片，也有可能影響價格計算
 	- 一樣要設定 型號 (model2_id)、顏色(color2_id)關聯/顏色(color2_code)代碼，現貨 or 期貨
+- 產品的寬度(width)
+- 產品的高度(height)
 - 電動選項: power_id，若操控系統是電動(motor)類型，會需要選擇電動選項(=供電方式)
 - 拉繩位置: position_rope, 無 or 左 or 右
 	- 若操控是電動，那這個欄位代表馬達的電源線位置
@@ -52,18 +55,20 @@
 
 整體流程：
 
-一、
+一、動態輸入介面
+隨著當下入輸的產品基本選項，會動態更新每個項目的可選選項
 - 一定要先決定 category，category 基本決定了各種「可選用的 system」、「可選用的 operation」有哪些，以及 system + operation 分別可搭配的組合，可以用 category 直接決定一個 scheme 描述整個產品群的可選組合
 - 隨著使用者選擇 system 會影響可搭配的 operation 或
 	- 使用者先選擇 operation，也會影響可搭配的 system
 - 然後 system + operation 的組合也會影響可搭配的布料/葉片 (model)
 	- 透過 model_limit 的設定來決定，
 	- 或甚至會需要設定第二組布料/葉片 (model2)
-- 某些組合就會需要設定 category_option
+- 某些組合就會要求需要設定 category_option
 	- 用 category_options 符合的 system + operation 組合來決定會不會提供選擇供選擇
-- 某些組合(選擇的 operation 是 motor) 就會需要設定 power 選項、電動配件
+- 某些組合(選擇的 operation 是 motor) 就會要求需要設定 power 選項、電動配件
 
-
+二、指定
+當必選
 
 
 
