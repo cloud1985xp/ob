@@ -5,6 +5,7 @@
 - 部分出貨要可以選擇部分出貨的項目並設定出貨單
 - 金額套用貨幣顯示方式
 - 所有 filter card 裡的 分類篩選，統一用  pills 樣式 (而非 tab 樣式)
+- 在 SpecInput 的 操作系統的選項清單中，在選擇 category 是 DU 情境下，code =  standard 的 operation 要顯示成「其他」
 
 # 實作訂單商品明細功能
 這個功能包括了既有的：
