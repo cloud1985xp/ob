@@ -8,8 +8,15 @@
 - 在 SpecInput 的 操作系統的選項清單中，在選擇 category 是 DU 情境下，code =  standard 的 operation 要顯示成「其他」
 
 
-修正 DealerScope
-在判斷 dealer 可翻
+## 修正 DealerScope
+判斷 dealer 可使用的各項產品資源的邏輯有問題
+請重新參考舊專案的實作方式，包括
+- Category#product_schema_of_dealer
+- Dealer class
+- HasAvailableAssets module
+
+現在的作法結果導致 dealer scope 
+
 請詳
 
 # 實作訂單商品明細功能
