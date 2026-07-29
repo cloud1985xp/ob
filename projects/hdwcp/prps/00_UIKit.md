@@ -15,7 +15,10 @@
 - Dealer class
 - HasAvailableAssets module
 
-現在的作法結果導致 dealer scope 
+我目前發現有幾個問題
+- dealer 在取得 dealer type 時，要看 dealer 的 contract_id 取得當下合約，看合約上的 dealer_type
+- 
+
 
 請詳
 
