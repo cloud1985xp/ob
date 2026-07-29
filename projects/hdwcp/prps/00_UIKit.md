@@ -12,12 +12,12 @@
 判斷 dealer 可使用的各項產品資源的邏輯有問題
 請重新參考舊專案的實作方式，包括
 - Category#product_schema_of_dealer
-- Dealer class
+- Dealer & DealerType classes
 - HasAvailableAssets module
 
-我目前發現有幾個問題
+我目前發現可能的問題
 - dealer 在取得 dealer type 時，要看 dealer 的 contract_id 取得當下合約，看合約上的 dealer_type
-- 
+請詳細檢查，先找出問題原因，再規E
 
 
 請詳
