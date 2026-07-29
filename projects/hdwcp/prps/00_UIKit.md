@@ -18,7 +18,10 @@
 我目前發現可能的問題
 - dealer 在取得 dealer type 時，要看 dealer 的 contract_id 取得當下合約，看合約上的 dealer_type
 - 在判斷 dealer_type 的可用資源時，也要先檢查它(dealer_type) 的 setting_category, setting_system, setting_operation 等
-- 在 build schema 時，models 的部分也要參考 dealer 被設定可使用範圍 (要看 dealer type 與 available series)
+- 在 build schema 時，models 的部分也要參考 dealer scope 被設定可使用範圍
+	- 一樣要 settings 決定是否參照 dealer type，
+	- 另外要考慮有沒有用 serials 來定義 models 清單
+	- 
 請詳細檢查，先找出問題原因，再規劃
 
 
