@@ -22,31 +22,17 @@
             }
           },
           {
-            "id": "6871642cf8b9702f",
+            "id": "e911ab90ba0ccf4d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "personal/xaifu/prps/Xaifu.md",
+                "file": "projects/nextrek/prps/NK.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Xaifu"
-            }
-          },
-          {
-            "id": "2d154bf950b263fe",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "personal/xaifu/prps/Prompt Improvement.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Prompt Improvement"
+              "title": "NK"
             }
           }
         ],
@@ -82,20 +68,6 @@
               },
               "icon": "lucide-file",
               "title": "nextrek-developer-workflow"
-            }
-          },
-          {
-            "id": "e911ab90ba0ccf4d",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "projects/nextrek/prps/NK.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "NK"
             }
           },
           {
@@ -395,38 +367,38 @@
           }
         ],
         "direction": "vertical",
-        "x": 541,
-        "y": 135,
-        "width": 1024,
-        "height": 800,
+        "x": 56,
+        "y": 30,
+        "width": 932,
+        "height": 1050,
         "maximize": false,
         "zoom": 0
       }
     ]
   },
-  "active": "035c9fd5bfbf6395",
+  "active": "930cc4c4f2794f2c",
   "lastOpenFiles": [
+    "tech/tools/environment-setup.md",
+    "projects/hdwcp/prps/00_UIKit.md",
+    "projects/nextrek/prps/Journal Draft Imports.md",
+    "projects/nextrek/prps/NK.md",
+    "projects/nextrek/prps/nextrek-developer-workflow.md",
+    "personal/xaifu/prps/Prompt Improvement.md",
+    "projects/hdwcp/prps/04_General.md",
+    "projects/hdwcp/prps/00_Todos.md",
     "projects/aktsk.com.tw.md",
     "personal/xaifu/prps/Xaifu.md",
     "projects/ishin/ISHIN Engineer Agent.md",
     "projects/ishin/000_ISHIN_TODOs.md",
-    "projects/nextrek/prps/Journal Draft Imports.md",
     "projects/rosetta/prps/202606.md",
     "projects/rosetta/prps/SP73.md",
     "projects/ishin/SP75.md",
     "projects/ishin/SP73.md",
     "projects/nextrek/prps/V3 UI Kits.md",
-    "tech/tools/environment-setup.md",
-    "projects/nextrek/prps/NK.md",
-    "projects/hdwcp/prps/00_UIKit.md",
     "projects/hdwcp/prps/03_Shppings.md",
-    "projects/hdwcp/prps/04_General.md",
-    "personal/xaifu/prps/Prompt Improvement.md",
     "projects/hdwcp/hdwcp.md",
-    "projects/hdwcp/prps/00_Todos.md",
     "projects/nextrek/prps/建立 e2e.md",
     "projects/venux/prps/Venus.md",
-    "projects/nextrek/prps/nextrek-developer-workflow.md",
     "projects/polunga/prps/PolungaV3.md",
     "projects/blacklist-reporter.md",
     "projects/hdwcp/2025-26.md",

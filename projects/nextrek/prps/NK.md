@@ -1,6 +1,9 @@
-- Report migrate to v3 + refactor, path, statement group
 - Rubocop fix, by parts of domains
+- Report migrate to v3 + refactor, path, statement group
 - Refactor Journal Related
+	- Query
+	- Form
+	- Bulk
 - Refactor View by subject
 - Refactor Entry Related
 - Seed data with group builder using mini data sample
@@ -29,6 +32,33 @@ NK Engineer Workflow
 
 務必拆分成多個可分開提交的計畫來進行
 請用 /brainstorming 規劃並與我進行討論確認
+
+# Auto Close SubStaging
+新增 Github Action Workflow 來自動偵測、關閉 sub-staging 環境
+目前已有 workflow 可以建立 sub-staging
+請參考 .github/workflows/create_sub_staging.yml
+以及刪除 sub-staging: .github/workflows/cleanup_dynamic_branch.yml
+
+我要另建立一個 workflow，可以定期執行偵測正在運行的 sub-staging
+並如果該 sub-staging 已經建立超過 7 天，就自動呼叫 cleanup_dynamic_branch 將它關閉
+
+每個 sub-stagng 即為一個 ecs service，判斷是否超過七天
+我覺得可以用最後一次 deployment 的時間
+若無法，則用 service 建立的時間
+如果以上都無法用來判斷，那就用運行中的 task 的啟動時間
+
+Workflow 的具體行為
+執行後，檢查 staging cluster 上有哪些那在運行的 sub staging (ecs service)
+但排除掉常駐的 staging (service name = nk-staging-app)，或只取 name 開頭為 nextrek- 的就是 sub-staging (dynamic_branch)
+
+如果有運行中的 sub-staging service，就發送 slack 訊息並 task channel 所有人，告知有哪些正在運行中的 sub-staging，並附上運行的時間
+
+檢查這些 sub-staging 若有運行時間超過七天的
+就再發 slack 訊息通知即將刪除這些 sub-staging
+
+然後就執行刪除的 workflow
+
+請評估規劃作法，若有問題建議請提出討論
 
 # Refactor View By Subject
 

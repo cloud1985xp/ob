@@ -1,4 +1,435 @@
 
+
+# 待修正
+- 變更/回收繞過狀態機不寫歷程
+- 部分出貨要可以選擇部分出貨的項目並設定出貨單
+- 金額套用貨幣顯示方式
+- 所有 filter card 裡的 分類篩選，統一用  pills 樣式 (而非 tab 樣式)
+- 在 SpecInput 的 操作系統的選項清單中，在選擇 category 是 DU 情境下，code =  standard 的 operation 要顯示成「其他」
+
+
+## 修正 Quoting.DealerScope 與 Quoting.SchemeBuilder
+判斷 dealer 可使用的各項產品資源的邏輯有問題
+請重新參考舊專案的實作方式，包括
+- Category#product_schema_of_dealer
+- Dealer & DealerType classes
+- HasAvailableAssets module
+
+我目前發現可能的問題
+- dealer 在取得 dealer type 時，要看 dealer 的 contract_id 取得當下合約，看合約上的 dealer_type
+- 在判斷 dealer_type 的可用資源時，也要先檢查它(dealer_type) 的 setting_category, setting_system, setting_operation 等
+- 在 build schema 時，models 的部分也要參考 dealer scope 被設定可使用範圍
+	- 一樣要 settings 決定是否參照 dealer type，
+	- 另外要考慮有沒有用 serials 來定義 models 清單
+	- 
+請詳細檢查，先找出問題原因，再規劃
+
+
+請詳
+
+# 實作訂單商品明細功能
+這個功能包括了既有的：
+- 編輯訂單 -> 增加新的商品明細
+- 編輯訂單 -> 編輯已建立的商品明細
+以及與舊版不同，要增加一個：
+- 不用建立訂單，直接可以預然商品建立明細，做為估價查詢的功能
+
+預期這三者都會有共通的行為：
+- 先選擇商品明細的產品主分類
+- 開始編輯商品內容的各屬性選項來進行建立、更改或詢價
+- 過程中使用者會填入商品所需的規格，系統會進行規格檢查，然後查詢價格資訊，產生查價結果預覽
+
+首先釐清訂單因為有分種類(type)，會影響明細項目的種類
+這裡所要實作的是「一般商品」的訂單 (type  = 1)
+其他種類的訂單目前先不討論
+(基實樣品商品其實跟一般商品是一樣的，唯一不同在於最後結算的銷售價會另用統一的折扣)
+
+## 商品明細屬性
+商品的基本屬性包括：
+- 主分類: category
+- 操控/操作系統: operation
+- 產品系統: system
+- 尺寸: model_size，這個只是操作介面上協助篩選「葉片/布料」的選項，非必要資訊，也不會存入商品明細，若使用者有選擇，會用選定 model_size 過濾 model (or model2) 的選項
+- 葉片/布料(主要、第一組)的:
+	- 型號: model
+	- 葉片/布料的顏色: color_id，可用關聯，或
+	- 葉片/布料的顏色代碼: color_code 也允許直接輸入顏色代碼
+	- 現貨 or 期貨: model_is_future = true = 期貨
+		- 期貨時，會直接輸入顏色代碼
+	- 每個葉片/布料(model) 會有設定是: 可現貨或期貨、僅現貨 or 僅期貨 )
+		- 若有現貨 / 期貨 可選，那就會讓用戶選擇
+		- 若現貨 -> 用選項選擇顏色
+		- 若期貨 -> 用輸入顏色代碼
+- 特殊的布料/分類處理選項: category_option
+	- 有些產品(operation / system) 會需要搭配選擇 category_option，也有可能影響價格計算
+- 第二組布料/葉片 (model2)
+	- 有些產品系統 (system) 會需要搭配選擇第二組的布料/葉片，也有可能影響價格計算
+	- 一樣要設定 型號 (model2_id)、顏色(color2_id)關聯/顏色(color2_code)代碼，現貨 or 期貨
+- 產品的寬度(width)
+- 產品的高度(height)
+- 電動選項: power_id，若操控系統是電動(motor)類型，會需要選擇電動選項(=供電方式)
+- 拉繩位置: position_rope, 無 or 左 or 右
+	- 若操控是電動，那這個欄位代表馬達的電源線位置
+- 其他選項: other_id，也是當下商品主 model 查價的價目表，可搭配的 price_table_others 項目來決定可選的選項
+- 電動配件: accessories、依當選擇的 operation 電動(motor)，會出現 accessories 選項供選擇
+- 附加選項: additions
+
+另有一些不是商品明細的屬性，但是下單查價時的必要資訊
+- 下單/查價的日期: date，若空白則預設為當下日期
+- 下單/查價的經銷商: dealer，會影響各產品系統/操作系統/布料葉片的可選範圍
+	- 系統可透過設定來限制不同 dealer 可選的品項範圍
+
+## 需求
+
+### 一、動態輸入介面
+隨著當下入輸的產品基本選項，會動態更新每個項目的可選選項
+整體流程：
+- 一定要先決定 category，category + dealer 基本決定了各種「可選用的 system」、「可選用的 operation」有哪些，以及 system + operation 分別可搭配的組合，可以用 category + dealer 直接決定一個 scheme 描述整個產品群的可選項目有哪些
+- 隨著使用者選擇 system 會影響可搭配的 operation 或
+	- 使用者先選擇 operation，也會影響可搭配的 system
+- 然後 system + operation 的組合也會影響可搭配的布料/葉片 (model)
+	- 透過 model_limit 的設定來決定，
+	- 或甚至會需要設定第二組布料/葉片 (model2)
+- 某些組合就會要求需要設定 category_option
+	- 用 category_options 符合的 system + operation 組合來決定會不會提供選擇供選擇
+- 當選擇的 operation 是 motor) 就會
+	- 要求需要設定 power 選項
+	- 出現電動配件 accessories 選項供選擇
+		- 會從當下的 category 和 operation 決定可選的 accessories 選項
+
+詳細檢查規則請仔細研究舊版專案中的程式碼
+### 二、輸入指引與檢查
+按上述的基本流程，提示使用者需要完成的動作，基本包括
+1. 選擇操控系統
+2. 選擇產品系統
+3. 選擇布料/葉片型號及顏色
+4. 設定幅寬
+5. 設定幅高
+以及最後一步是系統動作：自動檢查規格
+
+1-5 之外，會因選擇的產品組合而動態多出像是
+- 選擇布料處理選項
+- 選擇電源線位置
+- 選擇供電方式
+等其他步驟
+
+指引的介面會在畫面上列出有所有步驟，以及哪些步驟已完成，目前建議要輸入哪個步驟
+進到最後一步系統自動執行規格檢查 + 價格計算
+若規格檢查不通過，會將顯示原因提示
+若檢查通過，即進行價格試算，
+
+詳細檢查規則請仔細研究舊版專案中的程式碼
+
+### 三、規格檢查
+除了檢查輸入的資料的完整性(基本必填項目，和因產品組合衍生的必填項目)
+另會用輸入的 寬+高 去檢查對應的極限規格 (model limit)
+model limit 
+詳細輸入規則請仔細研究舊版專案中的程式碼
+
+### 四、計算價格
+費用組成包括：
+- 基本(布料葉片)費用
+- 產品系統升級費用
+- 操作系統費用
+- 電動配件費用
+- 其他選項費用
+- 附加選項費用
+
+加總後為整個商品的原價(牌價)，再依訂單/商品類型去剩以折扣才是售價，但這個模組只要到原價即可
+
+基本布料葉片價格：
+- 基本用訂單的 operation+system+model + date 去查找 model 的 price table
+- 要依 date 查找對應有效日期的 price table
+- 若商品設定的 model 是期貨，則
+	- 看該 model 有沒有設定可用的期貨價目表，有的話用期貨價目表查價格
+	- 若沒有，則用現貨價目表查價 * 該表設定的期貨價格倍率
+	- 有些 operation / system 的產品組合會有另外的產品升級價目表，有可能是
+		- 用升級價目表的價格計算後，取代基本費用
+		- 用升級價目表的價格計算，做為產品系統升級的額外追加費用
+		- 用第二組 model 做查價後，將 model1 和 model2 的費用再做計算，作為基本費用
+
+產品系統升級費用：
+- 有些可能是直接加價
+- 有些是如前述會看搭配的產品組合來計價
+- 甚至有可能另外還要再參照幅寬來查價計算
+
+操作系統費用
+- 有些可能是直接加價
+- 供電選項(power)有些也會有額外追加費用
+
+電動配件費用
+- 相對單純，將選擇的項目各金額加總
+
+其他選項費用
+- 相對單純，直接計算選擇的項目的金額
+
+附加選項配件的追加費用
+- 相對單純，將選擇的項目各金額加總
+
+詳細規則請仔細研究舊版專案中的程式碼
+
+## 實作與討論
+技術實作上，我覺得可以建立一個產品輸入的 struct 定義
+然後再設計多個的模組來對這個資料結構做規格檢查，以及價格查詢等處理
+會有一些情況當遇到特定產品類別、操作系統、產品系統(可用 category / operation code 做 pattern matching)，而有特定的規則
+
+使用者介面上，這是個高度互動的輸入行為，用 LiveView 是必定的
+且要支援行動裝置(手機、平板)的操作情境
+
+樣式設計上，我想盡量脫離傳統的下拉選單，尤其是 system 與 operation 的選項
+會希望能在每個選項都顯示對應的描述，方便使用者理解選項的內容物
+
+尤於是窗簾商品，在輸入的同時(幅寬、幅高資訊後)，畫面上可以有簡單的圖形預覽和標示
+讓使用者能快速辨識尺寸，例如可避免寬、高輸錯的情況
+
+請用 ui-ux-pro-max Skill 好好重新設計這整個商品明細的輸入體驗
+或產生可以給 claude design 使用的規格文件，我可用 claude design 設計好後再讓你接手實作
+
+請務必詳細了解舊版 rails 的專案，目錄位置：`../hdwcp` 裡對產品訂單裡的 order_detail 的操作
+先將內容整理成完整的規格，再規劃實作
+實作時請用符合當下 elixir / phoenix 專案的架構來實現，不要受限於舊專案的寫法
+
+若有問題或其他建議請提出討論
+
+
+
+
+# 實作訂單詳細功能
+請參考舊版 rails 的專案，目錄位置：`../hdwcp` 裡對訂單操作的功能，即 /sales/orders/:id 下的功能
+完整 migrate 所有功能至現在專案下，可重新設計頁面的排版以符合新版本的架構、設計原則與 ui 樣式。可用用 playwright-cli 等工具參考瀏覽 http://hdwcp.test/sales/orders/248079 畫面來理解原版本的功能
+
+包括例如：
+- 訂單資訊的呈現、排序
+	- 狀態變更紀錄
+	- 備忘錄筆記的瀏覽與建立
+	- 出貨單紀錄等
+- 訂單的狀態管理(拆單、轉待處理、手動出貨、取消、設為待料、複製、變更)
+- 訂單的列印輸出
+
+其中訂單的編輯、增加訂單商品明細(order detail) 的功能，可以先理解但先不實作，
+這部分的功能我想要重新設計成不同於舊版的流程，所以這段需要與我再詳細討論
+
+請先詳細了解舊版對指定訂單下的各種操作與功能
+擬定完整的實作計畫，且可以分步驟來實現
+
+
+
+
+調整訂單工作區 (sales/orders/workspace)
+- 訂單排序依照狀態，先列出 formal，再列出 pending
+- 加上側欄分類篩選，用當下訂單的經銷商經銷商作為分類，附上每個經銷商的訂單數，並用訂單數從多到少來排列側欄分類
+
+對 orders index 的資料列增加「自訂欄位顯示」的功能
+- 在 orders list 的 card 的標題右側，加上「齒輪」圖示，點擊後 dropdown 展開設定面版
+	- 這個功能的 ui 做成 component，未來可以其他資源的列表，像是：
+		- card 的標題支援右側 aside 區塊 或是 toolbar
+		- 這個 toolbar / dropdown 的 component
+- 可以自訂列表要顯示的欄位有哪些，包括
+	- 顯示訂單列表時，依自訂的欄位將不需顯示的欄位隱藏
+		- 可以用 css 來控制顯示/隱藏即可，參考 dealer_name 的 upref- 作法
+	- 還可以自訂「經銷名稱」要不要顯示完整的名稱
+		- 可選要不要顯示「地區」
+		- 可選要不要顯示「城市」
+		- 可選要不要顯示「負責業務」
+- 目前可將 user preference 資訊存在 cookies 即可，然後放到 user 的 virtual fields
+	- 送出更新可用 post request 然後重整整個頁面
+	- 資料結構分別存放
+		- dealer_name 的顯示偏好
+		- orders list 的顯示偏好
+		- 未來可以存其他資料的顯示偏好
+
+請評估作法，若有問題或其他建議請提出討論
+
+調整 dealer_name component
+加上顯示 dealer 的負責業務的名稱
+負責業務：saler_id foreign key 指向的 user
+若沒有 saler 則顯示 `無業務`
+
+
+
+
+# 實作 orders 其他列表頁
+
+
+實作時部分需要參考舊專案的一些定義或邏輯
+舊專案是 rails 的版本，位置：`/hdwcp`
+
+一、訂單工作區
+實作 /sales/orders/workspace 頁面，做為「訂單工作區」的列表
+與 orders index 類似，但會將所有待處理的新進訂單 orders 一次全部列出
+- 不需要 infinite scroll
+- 不需要 filter
+
+新進訂單的定義：狀態在 formal 或 pending 的訂單，
+請參考 app/presenters/sales/order_workshop_presenter.rb 裡的 `Order.common.with_states([:formal, :pending])`
+
+二、重作及退回訂單列表
+實作 /sales/orders/rebuild 頁面，做為「重做與退回的訂單」列表
+與 orders index 類似，但取得的資料限於「重做與退回」的範圍
+參考舊專案 Sales::OrderRebuildListPresenter 來取得資料範圍定義
+
+列表功能與 orders index 一致：
+- 需要 infinite scroll
+- 需要 filter
+
+三、異常訂單列表
+參考舊專案 Order.abnormal scope 取得資料範圍定義
+其他功能與 orders index 一致：
+
+四、報備訂單列表
+參考舊專案 Sales::OrderFilingListPresenter 取得資料範圍定義
+其他功能與 orders index 一致：
+
+二、三、四 頁面基本行為與 index 一樣，只有取得的 orders 資料範圍不同
+可以視情況重構優化現有的程式，方便重複使用及未來維護
+
+
+
+
+請將 filter_bar 的樣式參照 claude design 範例的「資料列頁面 · 篩選器」做調整
+先以 sales/orders index 頁為基準
+
+- 現在叫 filter_bar，也許改叫 filter_card？
+- 分成上下區塊
+- 上區塊(header)
+	- 標題「篩選訂單」
+	- 副標題：目前篩選的符合數，若尚無篩選條件則顯示資料總數就好
+	- 若有啟用水平排列分類，用 pills 選單呈現在這裡
+		- 若是啟用側欄分類選單，就不顯示，改成下方的 card with sidebar 來顯示分類
+- 下區塊(body)有底色，排列各篩選欄位
+	- 加上 dealer(經銷商)篩選欄位
+		- 請調整(覆寫) tom select 的樣式改成像 claude design 的樣式
+	- 加上 order suffix code(用途碼) 的篩選欄位，下拉選單，
+		- 選項有：
+			- A: 樣本
+			- S: 維修
+			- C: 重做
+			- R: 退回
+			- D: 樣品
+			- FD: 期貨樣品
+			- P: 零件
+			- F: 期貨
+		- 允許空白(不限)
+		- 選項顯示成例如: 「重做(C)」
+	- 訂單日期篩選欄位
+		- 套用 i18n 翻譯：
+			- 1d -> 1天內
+			- 3d -> 近3天
+			- 7d -> 近7天
+			- 15d -> 近15天
+			- 1m -> 近1個月
+			- 3mo -> 近3個月
+		- 參考 claude design 的作法，
+			- 點選「指定月」後，出現 年份 & 月份 的選單
+			- 點選「指定年」後，出現 年份 的選單
+			- 點選「自訂範圍」後，出現 開始日 -> 結束日 的欄位 
+		- 可以指定日期條件的目標欄位：
+			- 不限(預設=空白)
+			- 訂單日期(date)
+			- 預計到貨日(date_ship)
+			- 出貨日(date_arrive)
+			- 若在使用時只有傳入一個欄位名稱，就不用出現目標欄位的選項
+
+請確保樣式和 claude design 範例一致
+並且維持 component 的設計架構，方便其他頁面需的時候可以取用
+
+
+orders index 的資料列表 
+欄位順序請調整/修改成：
+- 編號
+- 類型
+- 經銷商(= 原本的客戶)
+- 牌價 (chage)
+- 經銷價 (chage_sale)
+- 案名(label)
+- 訂單日期(date)
+- 預定到貨日(date_arrive)
+- 實際出貨日(date_ship)
+- 狀態
+不需要：
+- 數量
+- 刪除按鈕
+
+
+
+我要重新設計整個專案的視覺與 ui 系統
+請完整理解整個專案的內容、功能，歸納出所以要的視覺元件
+整理成一份需求文件，讓我可以將文件提交給 claude design 完成：
+- 視覺色彩設計系統的建立
+	- 基於 tailwindcss + daisyui
+- 各種 ui 元件的設計，
+	- 包括一般常見的元件，如 sidebar、topnav、footer、header、breadcrumb、card、badge、tag、各種表單元件
+	- 以及這個專案特別需要的元件
+- 組裝各種主要的頁面
+	- 基本版型 layout
+	- 資料列表頁：含分類選單、篩選器與各種變體
+	- 資料內容頁：顯示內容 properties / attributes
+
+請先解決各功能的內容，判斷有哪些頁面、元件需要被設計
+若有任何疑問或建議請提出討論
+
+已請 claude code 完成新的設計，成果位置路徑：/Users/aaron.kuo/Downloads/ui
+接下來請規劃將新的設計套用到專案：
+
+一、先將新的設計規劃轉成 ai_docs/design 下的文件
+並確保 claude.md 有正確參照，可依設計系統、概念、元件分成多個不同的檔案
+現有的 ai_docs 有關的 design guidelines 也一併做整合
+目的套用新設計並重整相關文件，要讓之後的 agent 都能從頭依這份設計文件來工作、開發功能
+
+二、實作各元件的 ViewComponent
+目前已有部分 UI ViewComponent 已實作，請依照設計文件套用樣式
+若有不在設計文件中的的元件，也依照視覺系統修改樣式，並更新至文件中
+若是文件中尚未實作的元件，則建立新的元件
+目的是完整化 UI 元件庫，並且更新 storybook 成最新/完整版本的
+
+三、開始將新的設計/視覺/介面/元件套用到現有功能
+再拆分多個小階段來套用，可以讓每個階段獨立處理
+推薦拆分為：
+- app 主頁面 layout、sidebar、topnav、footer 等共用的介面
+- app 端功能
+	- sales
+	- products
+	- pricings
+	- contacts
+	- shippings
+	- marketings
+	- statistics
+	- accountings
+- admin 端各功能
+- login 頁面
+目的是讓整個專案都改套用新版本的設計
+
+注意，此次所有修改都是視覺介面的調整，不該影響任何既有的功能
+若有任何疑問或建議請提出討論
+
+
+## 套用設計
+
+有幾個在新設計中的新樣式，沒有被套用到
+請確認 
+1: 有確實更新至 ui 元件/css 樣式
+2: 定義規範至文件
+3: 更新至對應的頁面
+
+包括新設計中的：
+
+###  資料列頁面 · 篩選器
+
+各種篩選器的樣式，要套入到各種資產的 index 頁篩選項樣式中
+
+### 分類篩選版型
+
+水平分類標籤 選單
+應該要套用到像是  /products/models, /products/colors, /products/fabrics 或其他類似頁面
+
+垂直側欄分類選單
+應該要套用到像是 /marketings/coupons, /shippings/batches 或其他類似頁面
+
+還有其他頁面與各種元件，請確實檢查新的 claude design 的設計有正確被到用到專案中
+
+
+
+
 建立 Dealer Name 元件
 DealerComponent .name
 會 render dealer 的 地區+城市+編號+名稱

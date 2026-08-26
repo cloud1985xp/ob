@@ -3,7 +3,152 @@ tags:
   - nextrek
   - project
 ---
+進到資金暫戶列表 (draft_stages#index)
+初始就在隱藏暫存區(已隱藏的暫存區)的資金帳戶，
+點擊一次「加入暫存區列表」不會正確將該資金帳戶移位上方的「所有暫存區」
+依然會被列在「已隱藏的暫存區」
+要點擊第二次才會正確被移到上方
+
+應該要只點擊一次就會被移到所有暫存區
+
+推測有可能是因為還未建立 account_draft_stage 的緣故
+請檢查原因並修正
+
+
+
+在資金帳戶暫存區 (draft_stages#show)
+經過切換篩選類型(從不限改成「付款」或「收款」)後
+以下的操作會發生問題：
+- 對資料列進行上傳附件，送出後 server 會回傳 404 error
+- 從批次點擊「刪除批次」，跳出 sweet alert，按下確認，會再次跳出 sweet alert
+
+請找出原因並修正
+
+選擇成「移轉」時
+當下的資金帳戶與選擇的目標帳戶
+需要依該筆 journal_draft 原本是「收款」或「付款」來判定何者為轉出帳戶、何者為轉入帳戶
+
+若將「付款」的草稿設成「移轉」
+當下帳戶為轉出，選擇的目標帳戶是轉入(目前這個情境結果是錯的)
+
+若將「收款」的草稿設成「移轉」
+當下帳戶為轉入，選擇的目標帳戶是轉出(目前這情情境結果是正確的)
+
+# 0721
+
+資金帳戶暫存區 (DraftStages) 的相關功能
+當下用戶 (current_staff)，可以操作/互動的資金帳戶
+應受到限制，只能操作允許的資金帳戶(參考 Staff#accounting_accounts)
+包括資金帳戶暫存區列表(draft_stages#index, drafts_stages#show)、上傳、操作 journal drafts 等行為，
+在 controller / presenter 應判斷只能存取允許的資金帳戶
+並加上權限檢查，參考 Accountings::AccountsController.authorize_resource
+
+# 0720
+
+在資金帳戶暫存區 (draft_stages#show) 處理資料列
+若將交易方式選為「移轉」，設定「自 xxxxx 帳戶轉入」後按下建立
+會有以下問題：
+- 移轉的資金帳戶方向錯誤，當下的資金帳戶 (draft_stages/:id) 為轉入的帳戶，選擇的 xxxxx 帳戶應該為轉出的帳戶
+- 建立後， batch-selector-dropdown 裡的計數不會更新
+請檢查並修正
+
+# 0715
+
+當 ContactSelect / TagSelect 只允許一個選項時 (maxTags = 1)
+會出現以下的奇怪情況：
+例如選項中有
+- 地區
+- 地區001
+- 地區002
+- 地區003
+- 其他選項…
+
+若輸入 "地區" 做篩選後，會篩選出含有「地區」二字的選項
+但若選「地區001」，卻會自動被選成「地區」這個選項
+
+但若 maxTags > 1 的時候，卻不會出現這個狀況
+
+請檢查問題找出原因，並規劃修正辦法
+
+又有其他奇怪的情況
+例如選項中有
+- 地下室
+- 地區
+- 地區001
+- 地區002
+- 地區003
+- 其他選項…
+
+若輸入 "地" 做篩選後，會篩選出含有「地」字的選項
+但若選「地區001」，卻會自動被選成(新增)「地」這個選項
+一樣是在 maxTags = 1 的時候會發生，若 maxTags > 1 的時候，卻不會出現這個狀況
+
+請檢查問題找出原因，並規劃修正辦法
+
+# 0714
+
+實作資金帳戶暫存區 (draft_stages#show) 的篩選功能：「顯示無法建立的資料」
+當「顯示無法建立的資料」條件被勾選套用時，送出的 query 查詢會篩選出「無法被建立的資料」
+
+定義為：該筆 journal draft 的交易日期符合
+- 已小於或等於 group 的結轉日期 (如果已有結轉的話)或
+- 已小於或等於 group 的鎖帳日期 (如果已鎖帳的話) 或
+- 小於 group 的開帳日期
+
+結轉日期: group.accounting_configuration.transfer_on 
+鎖帳日期: group.accounting_configuration.journal_lock_until
+開帳日期: group.accounting_configuration.booted_on
+
+請修改 JournalDraftQuery 來實現這個篩選條件
+
+## 修正 Contact/Tags Select
+兩者共用自 TomSelectBase，應該直接修在 TomSelect 即可，包括以下需求
+
+一、
+如果有啟用 api search 的模式下
+請在下拉展開的選單最下方顯示以下文案：
+「僅顯示前 N 筆，如未列出請輸入完整名稱」
+N 為當前提供的選項數量
+
+二、
+修正 `handleCreate`
+改成超過 maxValueLengthValue 要視為 invalid 拒絕建立成 tag
+而不是自動截斷文字內容
+
+當 maxTags 設定是 1 時(= 只能單選)
+調整成以下行為：
+當使用者已選擇了一個選項，便無法再輸入或選擇其他選項，也不再展開下來選單
+必須先把已選項的項目刪除掉，才能恢復可選擇(輸入的狀態)
+
+若可以的話，將這個行為模式設成一個用 option 參數的選項
+並把 contact select 預設啟用這個模式
+
+在資金帳戶暫存區(draft_stages#show) 頁面
+如果已在多列資料列設定了 contact 或 tags
+這時若將其中一筆資料列按下單獨儲存
+會把其他筆資料列已選擇的項目清空
+
+如果是勾選多筆資料列按下一次建立
+也會把其他未勾選的資料列的選擇項目清空
+
+請先找出原因、評估修正的方法
+
+
+
 # 0713
+
+在資金帳戶暫存區 (draft_stages#show) 切換 filter 條件時
+我希望在載入時能有個載入中(loading) 的提示
+請從現有的 component 中找適合的 ui 來實現
+如果沒有現成的元件，請實作一個新的 ui component：
+- 將 table 同半透明遮罩蓋住，中間有一個 loading 的動畫圖示
+- 這個 ui component 要可以在其他相同情景下也可以使用
+
+在資金帳戶暫存區 (draft_stages#show) 
+選取多筆資料列一次刪除或對單筆資料進行刪除時，
+- 刪除後必須也更新 batch_selector 裡的選項的資料計數
+若刪除後該批次已經完全沒有資料列
+- 列表要顯示成空狀態，顯示訊息 `目前沒有其他資料`
 
 ## 實作 form unload blocking 的功能
 
