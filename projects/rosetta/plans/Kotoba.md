@@ -1,3 +1,292 @@
+- Demo current usage of building
+- Table/Column Scope
+- How glossary be managed
+	- transformations 有對應到哪張 masterdata table?
+- Jenkins Job Config
+- Start to verify model built by Rosetta
+
+Meeting Summary 
+一、jenkins model training 的訊息共有
+- 直接在 slack 上通知，LQA 優先使用為主
+- Engineer 要用的時候/結束會通報，期間 LQA 需要使用可以中斷沒關係
+
+二、開始使用 Rosetta 的 mt5 training 來 traing model
+有兩條使用路徑 (指向一樣的功能)
+1. 從左側選單 Settings -> TranslationSouces 進入，
+	- 找到要 build 的欄位 (可用 Namespace. 篩選)，按 View 進入後，右上方的「Training」進入操作畫面，填寫表單
+2. 從左側選單 Settings -> Trainings ->右上「New Training」進入後，再選擇要執行的 TranslationSource，填寫表單
+
+- 填寫表單時可以勾選是否要「真的執行 jenkins job」與「將 build data 傳送到 googlesheet」
+	- 若選擇傳送資料到 googlesheet，需要填入 googlesheet url 位置
+	- 記得要將該 googlesheet 開放編輯權限給 tool 帳號:
+		- ishin-global-tool-dev@aktsk.com
+		- ishin-global-tool-prod@aktsk.com
+		- 若將 sheet 放置於 ISHIN Drive 的共用目錄下
+- 填寫表單時可以自訂產生出來的 model 名稱，需設是 {namespace}.{property}，可以自訂成其他命名，例如 passive_skill_sets + description
+
+建立 traing 後，按下右上方的「 Start」後會開始執行
+要到 ishin-jenkins 上查看 training job 的進度與結果
+- https://jenkins.dev.ishin.global/view/Kotoba/job/kotoba-request-training-ishin/
+
+三、回到 prophet Jenkins 執行 request translation
+和原本的作法大致相同，只需要在執行 job 時，修改 base_model_dir 的參數為 rosetta 產生的 model 位置，
+
+```
+`/rosetta-mt5-workspace/training/{namespace}.{property}@latest`
+```
+
+例如：
+
+```
+/rosetta-mt5-workspace/training/passive_skill_sets.itemized_description@latest
+```
+
+可參考
+https://aktsk-pjt-ishin.slack.com/archives/C0AJHEKQ3V5/p1781245820275699?thread_ts=1781165179.385459&cid=C0AJHEKQ3V5
+
+四、要測試的欄位
+
+T0:
+- passive_skill_sets.itemized_description
+- missions.name
+- missions.description
+
+T1:
+- special_sets.causality_description
+- special_sets.description
+- leader_skill_sets.name
+- leader_skill_sets.description
+- active_skill_sets.effect
+- active_skill_sets.condition
+- common.name 合併練含
+	- card_categories.name
+	- card_unique_infos.name
+	- cards.name
+	- active_skill_sets.name
+	- passive_skill_sets.name
+	- link_skills.name
+	- leader_skill_sets.name
+	- special_sets.name
+	- achievements.name
+
+工程師下週一會先確認 T0+T1 的欄位
+在 rosetta 上的 glossaries 設定都正確後，請  LQA 開始執行(二) 的測試
+
+其他 table (T2) 包括
+- enemy_skills.name
+- enemy_skills.description
+- passive_skills.description
+- achievements.description
+- quests.name
+- transformation_descriptions.description
+- areas.name
+- standby_skill_sets.name
+- standby_skill_sets.description
+- finish_skill_sets.name
+- finish_skill_sets.description
+- dokkan_fields.name
+- dokkan_fields.description
+- dot_characters.name
+- z_battle_stage_views.name
+- z_battle_stages.name
+
+五、Glossaries 的管理
+目標是希望以 Rosetta 為 single source of truth
+- 和 masterdata 相關的文字，都直接從 rosetta 取得，不用再另外在 googlesheet 上管理
+- 不屬於 masterdata 的部分，例如 glossary、designer_need 等，才另外管理
+	- 目前仍是從 googlesheet 每日 sync 進 rosetta
+	- 未來可以反向，在 rosetta 上管理，自動 dump 所有最新資料到 googlesheet 上 (readonly)
+
+六、未來目標
+- P1: 完成 training 功能測試、開始試用 (traing by rosetta、generate by prophet)
+	- 設定完 T0, T1 後即可開始測試
+- P2: Translation 的流程直接在產生翻譯包時由 Edward 一鍵完成
+	- 已實作功能，rebase 後上 staging 測試
+- P3: 支援 general model (gemma)
+	- Blake 可以把現在會用的腳本開始 migrate 到 Rosetta 上做 prototype
+
+
+已完成KOTOBA對應
+https://aktsk-pjt-ishin.slack.com/archives/C0AJHEKQ3V5/p1780292323974639?thread_ts=1780044328.541879&cid=C0AJHEKQ3V5
+```
+T0 passive_skill_sets.itemized_description
+
+T0 missions.name/description
+
+
+T1 special_sets.causality_description/description
+cards.name
+T1 leader_skill_sets.name/description
+
+T1 active_skill_sets.effect/condition
+
+T1 common.name
+
+quests.name
+transformation_descriptions.description
+card_unique_infos.name
+z_battle_stage_views.name
+areas.name
+
+standby_skill_sets.name/description
+finish_skill_sets.name/description
+dokkan_fields.name/description
+
+dot_characters.name
+card_categories.name
+z_battle_stages.name
+```
+
+
+2026Q3
+```
+special_items（完成）
+support_memories（完成）
+treasure_items
+jukebox_tracks
+wallpaper_items
+enemy_round_skills
+enemy_round_skill_sets
+support_items
+score_benefits
+eventkagi_items
+jukebox_albums
+secret_treasure_box_items
+```
+
+P1 -> training
+P2 -> generate
+P3 -> general model
+
+name combined columns
+
+```
+card_categories.name
+card_unique_infos.name
+cards.name
+active_skill_sets.name
+passive_skill_sets.name
+link_skills.name
+leader_skill_sets.name
+special_sets.name
+achievements.name
+```
+
+
+
+common.name ?
+
+*leader_skill_sets.description*
+*passive_skill_sets.itemized_description*
+
+*special_sets.description*
+special_sets.causality_description
+*transformation_description.description*
+
+*active_skill_sets.effect_description*
+active_skill_sets.condition_description
+
+missions.name
+*missions.description*
+
+achievements.name
+achievements.description
+
+*enemy_skills.name*
+*enemy_skills.description*
+
+enemy_round_skills.name
+enemy_round_skills.description
+enemy_round_skill_sets.description
+eventkagi_items.description
+
+*special_items.name* ?
+*special_items.description* ?
+
+support_items.description
+support_memories.description
+
+treasure_items.name
+treasure_items.description
+jukebox_tracks.description
+wallpaper_items.description
+score_benefits.description
+
+可能會需要的操作/討論
+- 釐清 TranslationSource[type=glossary] 的用法
+	- 是否定期更新
+	- type=masterdata 的 source string 如何/是否排除 glossary
+	- 取聯集、以 Rosetta 為資料中心
+- 
+
+
+# 優化 Training 功能
+
+請評估並優化以下項目
+
+一、Trainings.maybe_send_to_sheet
+目前在送出 Training 執行  send_to_sheet 時
+會遇到 :send_batch_failed 的錯誤
+如果這是 google sheet api 的內部錯誤，是否考慮增加重試機制
+
+二、實作 TrainingLive.Show 畫面
+實作 Training.Show 的頁面，來顯示 TrainingRun 的內容
+並調整送出 training 後 (New Training)，先不馬上執行 (狀態設為 pending)
+建立 TrainingRun 後改導向 Training.Show 的畫面，並提供「Start」來開始執行(TrainingWorker)
+
+在 Training.Show 的畫面中，依當下 training 除了顯示 TrainingRun 的基本內容
+若當下 TrainingRun 的狀態是正在運行中
+需顯示運行中的 JobLog 的訊息
+請參考 Export 的 ExportLive.Show 的類似作法，包括
+- 在 TrainingRun 執行中埋入 JobLog，讓使用者可以知道目前的進度
+- 在 TrainingLive.Show 中列出 job log 的 message
+
+請詳細理解需求與參考現有的作法後，規劃實作
+若有任何問題或建議，請提出討論
+
+## 重構 TrainigWorker 並套用 FLAME
+
+請調整滿足以下需求
+
+一、重構 TrainingWorker 
+可參考像是 TranslationReviewWorker, ExportWorker 等的作法
+讓 Worker module 只負責接受 oban job 的非同步處理
+完整的業務邏輯，應放到對應的 domain module (ex: Trainings.process) 裡
+目的是讓該動作也可以不用依賴 Worker 獨自呼叫運行 (例如用 runner eval 或從 iex 中去執行)
+
+實際的業務我偏好放在  Trainings 裡，但目前這個 module 的內容有點多
+請檢查是否可以重構若再拆成 Trainings 下的子 module
+
+二、套用 FLAME
+參考  Rosetta.Reviews 裡的 FLAME.call 用法，
+將前面(一) 調整後的 TrainingWorker 在執行 process 時，改成用 FLAME 來獨立啟動
+
+若有任何問題或建議，請提出討論
+
+
+# 支援多個 TranslationSource 合併 training
+
+調整 TrainingLive.Show 及 training 的功能
+改成可以跨多個 translation source 的資料合併起來一起 training 
+
+- 將 TrainingLive.Show 改成不再屬於任何 TranslationSource 下，而是進入之後，表單裡可以選擇多個 TranslationSource 來當作參數 (多選用 select2 + multiple 欄位)
+	- 將功能移到 /admin/trainings 路徑下，可直接進入 Training 的表單畫面
+	- 原本從 translation source 進入 -> 執行 training 的操作路徑仍保留，可以改成進到 TrainingLive.Show 時直接將該 translation source 選擇
+- TrainingLive.Show 的表單要加上「產生的 training model 自訂 namespace + property」的欄位：
+	- 若只有選擇一個 translation source
+		- 允許留空白，預設就用該 translation source 的 namespace + property
+	- 若有選擇多個 translation source
+		- 必填，要求輸入 namespace + property
+	- 這組 namespace + property 就會用來
+		- send data to google sheet 時，用來組成 sheet name
+		- trigger jenkins job 時，當作 jenkins job 的 namespace + property 參數，即會是產生的 model 檔案名稱
+- TrainingWorker 接受的參數變成要可以是多組 namespace + property
+- Training module 在 generate 資料時，也改成處理多組 namespace + property，然後將資料合併，再進行生成 google sheet 或上傳到 google storage、執行 jenkins training job (後面的動作應該就無須改變)
+
+請先詳細理解現況細節，評估後再擬定實作計畫，
+若有任何問題與建議，請提出討論
+
+
 # 整合 Miles Package 與 Rosetta TranslationBatch
 
 原本的 Miles Packages module 中 #process 與 #process_ai_translation
@@ -19,8 +308,6 @@ Worker 自身應該只要負責讓包裝 async process (retryable) 的角色，
 
 而 Miles.Packages.process_full 就直接呼叫 module 並等候完成
 Miles 端的 async 管理則由它自己的 worker 來啟動
-
-
 
 
 ## 調整 TranslatorV2

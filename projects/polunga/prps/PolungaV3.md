@@ -1,3 +1,4 @@
+# Fixlist
 ```
    Job-state (V3): create app/views/shared/_job_state_v3.html.erb (daisyUI card + data-controller="poll" data-poll-mode-value="job-state" + [data-attr=state] + [data-role=logs] — the existing poll controller job-state mode drives it
    unchanged, see app/javascript/controllers/poll_controller.js). Render it in the image _forms via the existing JobStatePresenter data: render "shared/job_state_v3", presenter: JobStatePresenter.new(form.job_state, text: "…"). Do NOT
@@ -8,13 +9,123 @@
    - Do NOT delete shared/forms/_remote_image_input.html.erb (still consumed by v1 announcement_mission_campaign_translations).
 ```
 
+
+```
+ApplicationResource.find_by(name: 'Settings::DownloadPresenter')&.destroy
+
+  - Infra: the location /cable {…} block in config/deploy/nginx.conf:69-79 and the commented config.action_cable.* lines in three env files now proxy/configure nothing.
+  - app/controllers/settings/authentications_controller.rb — a second unrouted settings controller found while mapping; same dead-code family, not in scope.
+
+```
+
+
+# 整合 CS Tool
+
+請將 cstool 專案下 (/Users/aaron.kuo/aktsk/ishin-tw/ishin-tool-cs
+) 的功能
+migrate 進現下這個專案中，並套用 v3 的元件與樣式
+註：cstool 專案是從本專案之前拆出的分支
+
+需要整合的 cs tool 功能包括：
+- /tool/users
+- /tool/users/search
+- /tool/payments/googleplay
+- /tool/payments/webstore
+- /tool/user_items/
+等路徑的頁面和頁面
+
+另注意 cstool 整合過來的功能
+- 不需要有切換 ServerStage 的機制，永遠使用固定的 Globalization.default_stage
+- 功能內容都以 cstool 的版本為主
+- 原本放在舊 cstool 專案是在 Tool:: Namespace 下，migrate 到現下專案的 Customer:: Namespace 下
+
+請先詳細理解 cstool 的功能、評估完整的整合計畫再執行
+若有任何建議或問題提出與我討論
+
+# 優化 Dockerfile
+
+請嚐試優化 Dockerfile 的內容，尤其是考慮在使用 buildx 來同時 build linux/arm64 與 linux/amd64 的情況，並且：
+
+- 設法減少最終產出 image 的大小
+- 適當的 cache layer
+- 優化執行 bundle 的指令，提高重試次數與超時時間、降低平行下載數
+
+
+
+
+
+Announcement/Banner Images Sync 各語言欄位要固定 min 寬，超出畫面啟用水平捲軸
+- 加 sticky header & 凍結側欄
+- 加上點圖放大瀏覽
+
+## 修正 operation issue 編輯的 document mode 
+
+在 OperationIssue#edit 使用 document mode 時
+在觸發 issue_document_form_controller 的 renderFields 時
+取得的 html 內容，是來自 app/views/operation_issues/document.html.erb 的內容
+這個 html 在 server 端 render 的結果會有一層 form 包覆
+但 renderFields 應該只取用 form 裡面的 `<div data-role="document-fields">` 裡的內容就好
+不然會變成 form 裡面再包一層 form 造成表單欄位無法正確送出
+
+
+# 導入 datetimepicker
+請在專案目前的前端 stack (v3) 裡導入 datetimepicker 套件
+和其他元件類似的作法，用一個 stimulus controller 來包裝、啟用 datetimepicker，支援到:
+- format: 'YYYY-MM-DD HH:mm'
+- stepping: 60
+
+需求
+- 完成 js 前端的配置
+- 套用 datetimepicker 在以下功能：
+	- apologies 的 form 表單裡的 start_at, end_at 欄位 `app/views/master/apologies/_form.html.erb`
+	- operation issue 的 form 表單裡的 begins_at, ends_at 欄位 `app/views/operation_issues/_form.html.erb`
+
+
+
+
 樣式
-- Delete Button in Danger Zone 因為全紅所以看不清楚
+- [x] Delete Button in Danger Zone 因為全紅所以看不清楚
 	- http://v1.polunga.test:3000/master/gogeta/announcements/107050
-- 切換顯示語言(複選)的 ui 需優化，跟 edit 按鈕太相似
+- [x] 切換顯示語言(複選)的 ui 需優化，跟 edit 按鈕太相似
 	- http://v1.polunga.test:3000/master/gogeta/announcements/107045
 
-- Topnav 切換主語言的選單
+- [x] Topnav 切換主語言的選單
+
+# 重新製作 dashboard
+在 root (/) 畫面裡重新製作 dashboard
+目前的 utility link 請刪除
+改成排列各項功能的 widget 區塊，
+功能 widget 包括
+- operation 功能，有三個 widgets:
+	- 顯示目前正 release 的 operation，顯示摘要內容
+	- 顯示即將釋出的 operation，顯示摘要內容
+	- 顯示接下來近期 release 的 operation，僅標題+日期
+- statistics
+	- 顯示前一日( +8 Timezone) 的 kpi 總覽，用數字 card 顯示
+		- Total Revenue, 和前一日變化百分比
+		- DAU, 和前一日變化百分比
+		- PDAU, 和前一日變化百分比
+	- 前一日過去七天的圖表
+- announcement
+	- 顯示接下來釋出的 5 篇 announcement，用 default stage 撈取資料
+- campaign
+	- 顯示接下來釋出的 3 則 campaign，日期、名稱與包含的 deployment (operation) days
+- tournament
+	- 顯示目前正在進行  tournament 和當前的 mission 內容，
+- GDPR case
+	- 顯示接下來 pending 的 case，包括 expired 日期與 user_ids
+	- 
+
+並符合以下需求
+- 每個 widget 我希望是用 async load 的方式，以降低載入頁面所需的時間
+- widget 內容若為內則顯示 empty state
+
+
+每個 widget 還要是視權限 ability#can?(:read, Resource) 來判斷畫面上能不能顯示該 widget
+(可參考 sidebar 裡對各項目的權限判斷規則)
+
+若有任何問題與建議，請提出討論
+
 
 ## Table Component
 美化 table list，包括：
@@ -25,6 +136,8 @@
 - operation_issue_categories#index
 - operations#released
 - budokai_cheaters#index
+
+可以逐項分批完成，先完整一個讓我確認後，再繼續其他項
 
 修改重點：
 - 將 table 格式參照 claude design 的設計，且支援 dark mode
@@ -42,6 +155,219 @@
 頁面中，當勾選多筆資料，會出現 bulk action 的選項 「sync」與「duplicate」
 
 
+所有有 WithReadonlyContext 的頁面
+包括引用 ActsAsAnnounceableController 的 controllers, 與 apologies_controller, apology_users_controller, announcement_users_controller 等
+都應該在判斷在 readonly_context? 的情況下，在 inner page layout 出現 readonly_banner 提示
+
+## 優化 announcements 列表
+在 announcements#index 的 table 列表中，優化資料列的顯示，請參考 claude design 的 operation issues 列表：
+
+- 將 is_individual_limit, is_sticky ... 等  is_xxx 等欄位，合併成一個欄位叫 features，每筆資料用 tag(badge) 的方式來呈現，只顯示 true 的項目，像是 `is_display_title` `is_display_home`
+- Platform 欄位的內容現在是陣列 (enum)，也調整顯示成 tag(badge)
+- Conditions, New Appear At, Link To 等欄位，用和參考頁面中額外展開的方式來呈現
+- category 欄位也用 tag(badge) 包裝，類似參考頁面的樣式
+- 將 start_at、end_at 欄位移到 title 後面
+- en, fr ... 等六語言的連結，合併一個欄位裡排列，每個連結用 secondary button 的樣式
+
+## 優化 announcement 瀏覽頁樣式
+
+請對 announcements#show 頁面版式和樣式設計做調整：
+### Header
+- 調整 page actions: 
+	- 只有 edit 是用 primary 樣式，其他用 secondary
+	- 按鈕調整排序：「Edit」「Sync Images」「Sync」「Translation Review」然後才是「History」「Copy」
+	- 按鈕名稱調整：
+		- 「Sync」改成「Sync to Stage」
+		- 「Copy」改成「Copy to Stage」
+- 切換語言 locales 的介面，跟 primary 按鈕太過相似，請重新設計
+	- 可改成「齒輪」圖示，點擊展開後，出現像 columns 的開關，每個語言用 toggler 切換開關
+	- 可以是都選取開/關後，再一次送出更新切換要顯示的語言
+	- 這個介面其他頁面也會共用，可以一起修改套用
+	- 可以的話放在 page action 最後面的位置
+
+#### 增加 sub header (或用更好的命名)
+在 header 下方另增加一個區塊，做為 sub header，分成左右兩欄：
+- 左方放 announcement 的重要屬性資訊：
+	- id
+	- title
+	- start_at - end_at
+	- banner filename
+- 右方：
+	- 將原本在 announcement 裡的各語言翻譯連結 (announcement_translation_path) 改放到這裡
+	- 另加一個回到頂端的 icon 連結，點擊後會將畫面捲動回到最上方
+- 對這個 sub header 加上 fixed top 效果
+- 請設計 sub header 的樣式，建立規範，未來其他頁面若有 sub header 也依順這個設計
+
+### 內容的部分
+
+內容分成以下數個 section
+- Announcement
+- Announcement Bodies
+- Preview
+- Danger Zone
+
+每個 section 有自已的 section heading
+- 左側是 heading 名稱
+- 右則可允許放 tool buttons (optional)
+#### Announcement Section
+分成左右兩欄，整體內容高度依照右側欄，左側欄的內容若超過右側欄，內容會出現捲軸
+- 右側欄
+	- 填滿剩餘寬度
+	- 一樣是放六語言的內容瀏覽：title、banner、summary
+		- 每個顯示語言的內容欄寬要相等，不論該語言實際是否有內容
+		- 六語言內容超出整欄容器寬度時，出現水平捲軸
+		- 內容靠上對齊
+- 左欄
+	- 固定寬度
+	- 顯示該筆 announcement 的屬性資訊 (properties)，有多種呈現方式：
+		- 不需顯示(已搬到 sub header)
+			- start at
+			- end at
+		- 不需要 property name:
+			- available locales 直接用 tag/badge 顯示
+			- platforms: 直接用 tag/badge 顯示
+			- category : 直接用 tag/badge 顯示
+			- layout type: 直接用 tag/badge 顯示
+		- boolean 類型的，直接用 property name: icon 來顯示, 例如
+			- O Individual Limit
+			- X Public
+		- 用 property name 、property value 分兩行顯示
+			- new appear at
+			- link to
+			- platform countries
+	- 部分行為會跟 announcements#index 裡 table list 很相似，請適當地重構，可將一些 hardcode 搬到 IshinServer::Announcement model class 中
+
+#### Announcement Bodies Section
+
+一樣分成左右欄
+左欄：
+- 固定寬度
+- 做為 bodies 資料的清單列表 (list)，依序列出每筆 body 的 id (靠左) 、drive image file name (靠右)
+- 每筆 body id 是可以被點擊的 link，連到右側欄對應 body 的 錨點
+- 高度不超過畫面高，內容若超出會出現垂直捲軸
+
+右側：
+- 填滿剩餘寬度
+- 列出每筆 body 的實際內容 (和現狀類似)
+	-  調整樣式，每一篇 body 是一個獨立有 box/card 樣式
+	- 有該 body 的錨點
+		- 讓左側欄的連結點擊時會捲動畫面到對應 body 的錨點
+		- 當畫面捲動到 body 錨點到畫面中上位置時，左側欄對應的
+	- 顯示該 body 的 properties：
+	  id, layout type, start at ~ end_at, mission_campaign_id；用水平並列上(field header)下(value)呈現，ex:
+
+| id  | layout_type | start_at - end_at | mission_id |
+| --- | ----------- | ----------------- | ---------- |
+| val | val         | val               | val        |
+|     |             |                   |            |
+- 每筆 body 顯示各語言的翻譯內容
+	- 每個顯示語言的內容欄寬要相等，不論該語言實際是否有內容
+	- 六語言內容超出整欄容器寬度時，出現水平捲軸
+	- 內容靠上對齊
+
+#### Preview Section
+切換 preview 語言的選項調整成「像 tab」的樣式 (但實際行為不變，仍是傳送 request 再 render 內容)
+
+preview 的內容會有兩個版本「default」與「指定時間」
+將這兩個版本改成左右並列 (各佔 50%)
+
+#### Danger Zone Section
+在 danger zone 裡的刪除按鈕樣式會因為同樣紅底而無法分配，將它改成白底色字的按鈕
+
+## 附註
+上述修改應只調整樣式排版與設計，不影響任何功能
+會需要幾個新的元件設計，例如
+- sub header
+- section heading
+- properties 與各種呈現的變體
+請先評估規劃好這些元件，並實際成可以用的 ui component 且制訂使用規範
+設計的部分請維持現代化、清楚友善的使用者體驗，且支援 dark mode 為原則
+
+若有任何問題與建議，請提出討論
+
+
+請進行以下修改：
+- sub header 右側的 語言翻譯 link 項目，要依照該 announcement 的 available_locales 決定有哪些語言，而非 display locales
+- 第一個 section (announcement) 與上方的 sub-header 太近，增加一點上間距
+- Announcement 的  TranslationTableComponent 需要白色背景，可以用 card 包起來
+- TranslationTableComponent 裡的各語言內容要等寬，可設固定 width = 480px
+- Announcement Bodies 的左側 list，
+	- 加上流水號
+	- drive image file 改成: 若有值的話顯示 icon (代表有圖)，不用顯示 file name
+- Announcement Bodies 的右側資料內容的 properties 的部分:
+	- 刪除 schedule，不用顯示
+	- 加上 drive image file 
+	- 其他都改成用 badge 的方式 (不需要 property name)，例如：
+	  `2000001433` `Large banner` `Mission Campaign Id: 12345` `someImage.png`
+		- 若沒有 mission campaign id 就不顯示
+		- 若沒有 drive image file 就不顯示
+
+請進行以下修改：
+- Sub Header 裡
+	- schedule 改成用 icon (日曆或時鐘)
+	- banner 改成跟 announcement bodeis 裡的 drive image file 一樣的樣式 (icon + badge)
+		- 並且對這個樣式加上「點擊複製」的行為：請用現有的 clipboard controller js 來實現
+	- 將 title 用標題  heading (h2 or h3) 包起來獨立成第一行，較大的字體，不需要 TITLE 標籤
+	- 其他 property 放在第二行
+	- 確保右側欄(各語言翻譯選項、回到頂端) 有足夠的空間並排在右側
+
+請進行以下修改：
+- Header 裡的「History」「Copy to Stage」改成用「…」dropdown menu 展開選項
+- Header 裡的其他按鈕 (Edit)之外，改用 secondary
+- Announcement properties 中，pair 呈現的 value，若 value 是空值，用一個 EMPTY badge 表示
+- Announcement Bodies 裡的左側欄，調整成跟 Announcement 的左側欄一樣寬
+- Sub-header 裡的 drive banner file 和 Announcement bodies 裡的 drive image file，它們的 click copy 行為都沒有效，請修正
+
+
+## 優化 Banner 瀏覽頁樣式
+請參考 Announcement 瀏覽頁做類似的調整
+- Header 的 page actions、breadcrumb
+- 增加 sub-header，fixed top 效果，
+- 對主要內容(banner)拆分左欄 properties 與右欄 translation table
+- 調整 danger zone
+
+## 優化 Banner 列表頁樣式
+也參考 Announcement 列表頁做類似的調整
+欄位有一些不同，請按照：
+- 用 banner 的 description 代替原本 title 的位置
+- 用 banner 的 place 代替 category 的位置
+- conditions、link_to、priority 放到展開的區塊內
+
+請將目前工作至今的頁面修改內容，歸納成頁面設計、版型、樣式的原則
+更新至 ai_docs 下的文件中，做為未來製作新功能或修改時的參考準則
+同時也包括確認目前 ui components 的使用方法，更新至 ai_docs 中 
+
+## 優化 Resource 列表頁樣式
+請參考 Announcement#index 列表頁做以下調整：
+- 調整 filter 的版型和樣式
+	- filter 區塊獨立在 box/card 上方
+	- 調整樣式，包括 add filter (add extra condition) 
+- 將「translation check」調整跟 announcements 的 bulk action 一樣的處理方式
+	- 勾選後才出現 bulk action 按鈕
+- Table 內的資料列內容不需調整
+
+將 resources#index 頁裡的 table:
+- 對標頭(thead) 加上 fixed top 的效果
+- 對第二欄加上 fixed 的效果 = 水平滑動時前兩欄固定
+	- 參考 TranslationTableComponent 裡的效果
+
+類似的情況，在 resources#show 、 resources#check 畫面裡的 table
+- 對標頭(thead) 加上 fixed top 的效果
+- 對第一欄開始加上 fixed 的效果
+
+在 Resources#show 的 table view 模式下加以下功能：
+在 columns 旁多一個 jump to 的按鈕
+按下後，會從右側展開一個 aside 區塊
+區塊裡列出當下 resource presenter 的所有顯示欄位清單 (不需多 locales)
+當點擊對應的欄位
+會將 table 裡的內容水平捲動至對應的欄位 (第一個語言的位置)
+
+
+在 Resources#show 與 Resources#check 都加以下功能
+
+對每一個欄位，檢查是不是各筆資料的各語言都是空值
+如果是空值，將該欄位的 table column 加上標記
+在頁面的 card 標是右方 toolbar 加上一個按鈕，可以切換 顯示/隱藏 這些「被標記全是空值」的欄位
 # 0713
 
 我想要重新優化整個網站的 ui 設計，尤其是視覺設計

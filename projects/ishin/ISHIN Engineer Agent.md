@@ -9,9 +9,15 @@ TODO:
 - 增強 debug knowledge 能力
 	- 可能要參考最近的 程式 變動
 
-<<<<<<< HEAD
+## 增加新的 skill: worklog-backfill
 
-增加新的 skill: sprint-meeting
+有些情況我沒有透過 orchestrator 執行工作流程 (morning-routine + evening-retro)，是自行將當日的工作項目紀錄在 google sheet 中
+
+我希望建立另一個 skill，幫我把指定日期 (或日期範圍)  裡 google sheet 紀錄的工作項目，整理、寫回 本地的 journal 目錄下對應日期的 report
+方便未來做匯整、統計時，仍有這段期間的資料可以參考
+
+
+## 增加新的 skill: sprint-meeting
 我要用這個 skill 來進行 task planning
 來安排團隊的 next sprint 的工作方向與項目
 讓 agent 可以協助我與團隊擬定計畫
