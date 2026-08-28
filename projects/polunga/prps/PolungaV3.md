@@ -42,6 +42,15 @@ migrate 進現下這個專案中，並套用 v3 的元件與樣式
 請先詳細理解 cstool 的功能、評估完整的整合計畫再執行
 若有任何建議或問題提出與我討論
 
+Users Search 表單的欄位需進行以下修正
+- - Purchase Condition 的 product_id 欄位，tom select 展開的選單顯示不正確，會被截斷在 input 欄位的範圍內，有點像是 overflow or z-index 的問題
+- Device brand 的欄位也要套用 tom_select，且確保展開的選單也要正常顯示
+- Purchase Conditions 的區塊(card)，要在 Purchase condition 欄位 (radio) 被選擇「不是 None」的時後才出現啟用
+
+purchase condition  仍有以下問題：
+- product_id 欄位，應該也要是 select field(tom_select)，列出 product 清單供使用者選捏
+- Purchased between 的 checkbox 沒有勾選擇，要把 duration_range 的欄位 disable 掉
+
 # 優化 Dockerfile
 
 請嚐試優化 Dockerfile 的內容，尤其是考慮在使用 buildx 來同時 build linux/arm64 與 linux/amd64 的情況，並且：
