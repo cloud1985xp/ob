@@ -1,4 +1,4 @@
-# LoraBuild
+# 實作 LoraBuild 功能
 
 系統可以定義 LoraBuild
 每一個 LoraBuild 會有：
@@ -15,7 +15,13 @@
 - 路徑: /app/loras/
 - index 頁，列出所有 lora builds，列出名稱和描述
 - new 與 edit 頁，共用 lora_form
-- 在 lora_form 中T
+- 在 lora_form 中：
+	- 填寫 name 和 description
+	- 可以增加/編輯 node
+		- 增寫 name、strength
+	- 可以刪除 node
+	- 在送出 form 時 save (create or update) LoraBuild 和 LoraBuildNode
+		- 會依當下的順序設定 node 的 position
 
 
 Generation 可以套用 LoraBuild
