@@ -44,14 +44,13 @@
 
 將所有 nodes 的設定，存在 parameters 欄位(map) 裡，可用 node position 當作 key
 
-實作 Processor 支援 Lora Parameters
+# 實作 Processor 支援 Lora Parameters
 實作 Processor 在處理 Generation 時，將 lora build 的資料製作成參數加到 json_content 中
 當傳入的 generation 帶有 lora build 時
 需進行 lora build 的 parameters 處理，包括
 
 找出原 json中的 加載器節點
 找出 type 為 `CheckpointLoaderSimple` 的節點，紀錄它的 id(key) 來作為第一個 lora node 的 input
-
 
 將參考 generation 的 lora build parameters
 取出對應的 lora build nodes，沒有被 disabled 的 nodes
@@ -69,18 +68,27 @@ id: {
 	},
 	"class_type": "LoraLoaderModelOnly",
 	"inputs": {
-	  "lora_name": name,
+	  "lora_name": parameters[:name],
 	  "model": [
-		"134",
+		input_id,
 		0
 	  ],
-	  "strength_model": 1
-}
+	}
+	"strength_model": parameters[:strength]
 }
 ```
 
 
-找出原 json 中的採樣器節點
-找出 type 為 `KSampler` 的節點
+最後找出原 json 中的採樣器節點
+- 找出 type 為 `KSampler` 的節點
+- 將採樣器節點中的 inputs 裡的 model 設為 lora 最後一的 node 的 id
+即
 
-將採樣器節點中的 inputs 裡的 model 設為 lora 最後一的 node 的 id
+```
+"model": [
+	input_id,
+	0
+],
+```
+
+請更新 Processor ，但不要破壞原本的任何功能，包括預覽、以及依 prompt 設定動態生成多組內容的機制，這些功能在不論有無使用 lora build 的情況下，都要一樣可以支援&運作
