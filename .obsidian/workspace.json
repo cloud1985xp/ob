@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "projects/nextrek/prps/NK.md",
+                "file": "personal/xaifu/prps/Lora.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "NK"
+              "title": "Lora"
             }
           }
         ],
@@ -378,18 +378,23 @@
       }
     ]
   },
-  "active": "930cc4c4f2794f2c",
+  "active": "e911ab90ba0ccf4d",
   "lastOpenFiles": [
+    "personal/xaifu/Xaifu.md",
+    "personal/xaifu/prps/Lora.md",
+    "projects/nextrek/prps/NK.md",
+    "personal/xaifu/prps/Xaifu.md",
+    "projects/venux/prps/Venus.md",
     "tech/tools/environment-setup.md",
     "projects/hdwcp/prps/00_UIKit.md",
+    "projects/hdwcp/prps/04_General.md",
+    "projects/rosetta/prps/202608.md",
+    "projects/rosetta/prps/202607.md",
     "projects/nextrek/prps/Journal Draft Imports.md",
-    "projects/nextrek/prps/NK.md",
     "projects/nextrek/prps/nextrek-developer-workflow.md",
     "personal/xaifu/prps/Prompt Improvement.md",
-    "projects/hdwcp/prps/04_General.md",
     "projects/hdwcp/prps/00_Todos.md",
     "projects/aktsk.com.tw.md",
-    "personal/xaifu/prps/Xaifu.md",
     "projects/ishin/ISHIN Engineer Agent.md",
     "projects/ishin/000_ISHIN_TODOs.md",
     "projects/rosetta/prps/202606.md",
@@ -400,11 +405,6 @@
     "projects/hdwcp/prps/03_Shppings.md",
     "projects/hdwcp/hdwcp.md",
     "projects/nextrek/prps/建立 e2e.md",
-    "projects/venux/prps/Venus.md",
-    "projects/polunga/prps/PolungaV3.md",
-    "projects/blacklist-reporter.md",
-    "projects/hdwcp/2025-26.md",
-    "projects/2024-25.md",
-    "projects/reurb/REURB.md"
+    "projects/polunga/prps/PolungaV3.md"
   ]
 }
