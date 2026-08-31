@@ -43,3 +43,7 @@
 - strength -> 要使用的 strength 參數
 
 將所有 nodes 的設定，存在 parameters 欄位(map) 裡，可用 node position 當作 key
+
+實作 Processor 支援 Lora Parameters
+實作 Processor 在處理 Generation 時，將 lora build 的資料製作成參數加到 json_content 中
+當傳入的 generation 帶有 lora build
