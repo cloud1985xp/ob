@@ -26,3 +26,17 @@
 
 Generation 可以套用 LoraBuild
 當 Generation 套用 LoraBuild 時，會依 LoraBuild 裡的每組 Lora 指定對應的參數
+即 Generation has one LoraBuild，可以是 optional
+需建立關聯的資料 GenerationLoraBuild，裡面有
+- generation_id: foreign key to Generation
+- lora_build_id: foreign key to LoraBuild
+- parameters: map，用來存放設定 lora build 的參數
+
+在 Generation form 裡，可以選擇 lora build
+當 generation 有套用 lora build 時
+會出現對該 lora build 的各 nodes 的參數覆寫設定
+可以覆寫各 node 的:
+- name -> 要使用的 lora model name
+- strength -> 要使用的 strength 參數
+
+將所有 nodes 的設定，存在 parameters 欄
