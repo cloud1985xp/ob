@@ -46,4 +46,17 @@
 
 實作 Processor 支援 Lora Parameters
 實作 Processor 在處理 Generation 時，將 lora build 的資料製作成參數加到 json_content 中
-當傳入的 generation 帶有 lora build
+當傳入的 generation 帶有 lora build 時
+需進行 lora build 的 parameters 處理，包括
+
+找出原 json中的 加載器節點
+找出 type 為 `CheckpointLoaderSimple` 的節點，紀得它的 id(key) 來作為第一個 lora node 的 input
+
+找出原 json 中的取樣節點
+
+
+將參考 generation 的 lora build parameters
+取出對應的 lora build nodes，沒有被 disabled 的 nodes
+依序組出 lora nodes
+用加載器節點的 id 當作第一個 lora node 的 input
+下一個 lora node 用前一個 lora node 的 input
