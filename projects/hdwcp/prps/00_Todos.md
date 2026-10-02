@@ -14,3 +14,9 @@ Settings
 - Users 選擇 dealer -> 整體要先制定 select ui
 - Users 發送password 信件
 - Users Login As 功能
+
+
+這個專案是要將舊版 rails 版本專案(位於 /Users/aaron.kuo/projects/hdwcp) 完全移植成新的 elixir phoenix 版本專案，目前已有部分功能進行移植
+
+請重新完全檢查舊版本的功能，確保移植到新版本的專案中
+

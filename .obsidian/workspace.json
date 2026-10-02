@@ -311,8 +311,7 @@
                   "title": "202609"
                 }
               }
-            ],
-            "currentTab": 4
+            ]
           }
         ],
         "direction": "vertical",
@@ -358,11 +357,11 @@
       }
     ]
   },
-  "active": "ee5d0728e6670d26",
+  "active": "287b1953c956caff",
   "lastOpenFiles": [
+    "projects/hdwcp/prps/202609.md",
     "projects/reurb/202610.md",
     "projects/nextrek/prps/建立 e2e.md",
-    "projects/hdwcp/prps/202609.md",
     "projects/reurb/REURB.md",
     "projects/nextrek/prps/nextrek-developer-workflow.md",
     "未命名 1.md",
