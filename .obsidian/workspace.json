@@ -358,7 +358,8 @@
                   "title": "202610"
                 }
               }
-            ]
+            ],
+            "currentTab": 1
           }
         ],
         "direction": "vertical",
@@ -371,10 +372,10 @@
       }
     ]
   },
-  "active": "11e1b3ba78b901c3",
+  "active": "32243aa632c7fa0c",
   "lastOpenFiles": [
-    "personal/misers/202610.md",
     "projects/reurb/202610.md",
+    "personal/misers/202610.md",
     "projects/nextrek/prps/建立 e2e.md",
     "personal/gaming/sre-simulator-game.md",
     "personal/misers",
