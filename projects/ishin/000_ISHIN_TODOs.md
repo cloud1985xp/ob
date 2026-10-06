@@ -10,6 +10,17 @@ https://github.com/aktsk-pjt-ishin/tw-ishin-devops/blob/feature/ISHINTW-15490-pr
 - 若遇到該語言沒有的資料，要可以輸入？
 
 
+
+目前的 card-promo 是依據以下路徑這個參考專案實作的
+路徑：/Users/aaron.kuo/aktsk/ishin-tw/ishin-devops 
+裡的 `web/promo-chara-info` 目錄裡的程式
+
+但當初實作的版本是參考路徑的 `bcab9fc60bd0f8b9cb2155e342cea6b00290cef1` commit 的這個版本實作的
+而該專案最近又進行了修改與調整
+
+請先詳細了解該專案後來的修改內容 (即 bcab9fc60bd0f8b9cb2155e342cea6b00290cef1..HEAD)
+並分析評估後，將變動整合進當前專案的 card-promo 功能之中
+
 # Potara
 
 ## Skill of Merging Server Bots

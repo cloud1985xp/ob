@@ -19,6 +19,20 @@ ApplicationResource.find_by(name: 'Settings::DownloadPresenter')&.destroy
 ```
 
 
+# 將當前版本也加上 multi platform image
+請參考 /Users/aaron.kuo/aktsk/ishin-tw/ishin-tool-worktree/feature-upgrade-rails
+專案 (它是基於當下專案切出、開發中的版本)
+
+參考它的
+BaseDockerfile 與 Dockerfile
+
+將目前專案下也調整成可以：
+分段 build docker image + 同時支援 arm64/amd64 platforms
+
+我已將 BaseDockerfile 複製到當前專案
+請詳細評估後，視情況進行修改
+
+
 # 整合 CS Tool
 
 請將 cstool 專案下 (/Users/aaron.kuo/aktsk/ishin-tw/ishin-tool-cs
