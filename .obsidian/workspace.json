@@ -63,8 +63,7 @@
               "title": "建立 e2e"
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "vertical"
@@ -372,11 +371,11 @@
       }
     ]
   },
-  "active": "32243aa632c7fa0c",
+  "active": "035c9fd5bfbf6395",
   "lastOpenFiles": [
-    "projects/reurb/202610.md",
-    "personal/misers/202610.md",
     "projects/nextrek/prps/建立 e2e.md",
+    "personal/misers/202610.md",
+    "projects/reurb/202610.md",
     "personal/gaming/sre-simulator-game.md",
     "personal/misers",
     "projects/hdwcp/prps/00_Todos.md",
