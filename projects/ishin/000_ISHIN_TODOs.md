@@ -1,4 +1,27 @@
 
+我已調整了 26-27 下半年的 server cost 預估
+
+- 上半年的 on-demand 費用(美元)已經發生，我將後台看到的帳單數字列入 AWS Real(M欄)以綠色標記
+- 下半年的 RI 是新一期的費用，原先預估是用前一年的 RI 來計算，但今年已採買新的方案，故金額做了調整 (每月¥10,496,040 ->¥8,396,832)，但這是從 RI 採買的清單日方寫的報價金額來推算的，不完全等於會計實際收到的帳單
+- 下半年的 OnDemand 預估依新的 DAU 為 base 做了調整，以藍色字標記
+	- 今年 RI 購買減少，有一部分的費用會移到 ondemand
+		- Budokai 機器 -> 目前仍未關閉，會有額外費用
+		- RDS DataUsage 的成本，過去是用 RI 購買，今年我們調整模式買 OnDemand 方案
+- 10月、11月、12 月，DAU 約 350k: 
+	- 預估ondemand 費用會落在 50k + 55k 
+	- 唯 10 月因為延後導入 RI 所以有一筆較大額外費用(即之前討論的方案C)
+- 旺季 1月、2月、3月，DAU 450k~600k
+	- 需加開 RDS 升級 writer 機器，參考今年 GDCP 做了調整
+
+整體來說 (以下含稅 、匯率150)
+- 上半年: 原預估費用約 154.6m，實際約 128.4m , -16.9%
+- 下半年: 原預估 167.1m，目前下修至約 132.1m, -20.9%
+
+若只看 AWS 的部分
+- 上半年: 原預估 145.8m，實際約 120.1m, -17.6%
+- 下年年: 原預估 157.0m，目前下修至約 121.4m, -22.6%
+
+
 # PromoCard Preview Dev
 https://github.com/aktsk-pjt-ishin/tw-ishin-devops/blob/feature/ISHINTW-15490-promo-chara-info/web/promo-chara-info/BACKEND_API_SPEC.md
 
