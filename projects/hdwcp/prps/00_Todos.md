@@ -25,7 +25,16 @@ Settings
 - 該身份的使用者，在瀏覽訂單時，無法看見實際售價 (Order#charge_sales, OrderDetail#subtotal_sale)，除非是自己經銷商的訂單
 
 可能會需要修改權限項目 (privilege)，增加兩種訂單權限
-- 
+- 跨經銷商瀏覽
+- 跨經銷瀏覽售價
+
+然後修改 Sales 相關功能
+在 dealer 模式下，若用戶擁有上述權限
+就可以瀏覽跨經銷商的訂單、瀏覽時可以看見售價
+
+請先詳細研究程式碼與理解需求，按排修改計畫
+若有問題或建議請提出討論
+
 
 # 再次移值 (進行中)
 這個專案是要將舊版 rails 版本專案(位於 /Users/aaron.kuo/projects/hdwcp) 完全移植成新的 elixir phoenix 版本專案，目前已有部分功能進行移植
