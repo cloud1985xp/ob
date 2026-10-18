@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "projects/nextrek/prps/202609.md",
+                "file": "projects/nextrek/prps/NK 202610.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "202609"
+              "title": "NK 202610"
             }
           },
           {
@@ -371,13 +371,15 @@
       }
     ]
   },
-  "active": "32243aa632c7fa0c",
+  "active": "035c9fd5bfbf6395",
   "lastOpenFiles": [
-    "projects/hdwcp/prps/00_Todos.md",
+    "projects/nextrek/prps/NK.md",
+    "projects/nextrek/prps/NK 202610.md",
+    "projects/nextrek/prps/202609.md",
     "personal/misers/202610.md",
     "projects/reurb/202610.md",
+    "projects/hdwcp/prps/00_Todos.md",
     "projects/polunga/prps/202610.md",
-    "projects/nextrek/prps/202609.md",
     "projects/rosetta/prps/202610.md",
     "projects/rosetta/prps/202609.md",
     "projects/polunga/prps/202609.md",
@@ -397,8 +399,6 @@
     "projects/hdwcp/2025-26.md",
     "projects/nextrek/prps/Journal Draft Imports.md",
     "personal/xaifu/Xaifu.md",
-    "projects/nextrek/prps/NK.md",
-    "personal/xaifu/prps/Xaifu.md",
-    "projects/hdwcp/prps/04_General.md"
+    "personal/xaifu/prps/Xaifu.md"
   ]
 }
