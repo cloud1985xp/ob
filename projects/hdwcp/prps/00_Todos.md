@@ -19,7 +19,13 @@ Settings
 
 調整權限身份(Role, Privilege)功能
 目的是為了增加一種新的身份「協力廠商」(cooperater)
-它的
+它的權限會設定跟 Dealer 基本一模一樣
+不同的地方在於
+- 該身份的使用者，在瀏覽訂單列表時 (sales/orders) 可以看到全部經銷商(dealer) 的訂單
+- 該身份的使用者，在瀏覽訂單時，無法看見實際售價 (Order#charge_sales, OrderDetail#subtotal_sale)，除非是自己經銷商的訂單
+
+可能會需要修改權限項目 (privilege)，增加兩種訂單權限
+- 
 
 # 再次移值 (進行中)
 這個專案是要將舊版 rails 版本專案(位於 /Users/aaron.kuo/projects/hdwcp) 完全移植成新的 elixir phoenix 版本專案，目前已有部分功能進行移植
