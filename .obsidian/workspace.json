@@ -70,8 +70,7 @@
               "title": "202610"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -331,7 +330,7 @@
       }
     ]
   },
-  "active": "367f9d0f09f9b9cc",
+  "active": "32243aa632c7fa0c",
   "lastOpenFiles": [
     "projects/hdwcp.md",
     "projects/reurb/202610.md",
