@@ -35,8 +35,7 @@
               "title": "hdwcp"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       },
       {
         "id": "88b3ff698c15a9b6",
@@ -70,7 +69,8 @@
               "title": "202610"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -330,12 +330,12 @@
       }
     ]
   },
-  "active": "32243aa632c7fa0c",
+  "active": "035c9fd5bfbf6395",
   "lastOpenFiles": [
-    "projects/hdwcp.md",
     "projects/reurb/202610.md",
-    "projects/nextrek/prps/NK 202610.md",
     "personal/misers/MISERS_202610.md",
+    "projects/hdwcp.md",
+    "projects/nextrek/prps/NK 202610.md",
     "projects/nextrek/prps/nextrek-developer-workflow.md",
     "projects/nextrek/prps/V3 UI Kits.md",
     "projects/nextrek/prps/建立 e2e.md",
