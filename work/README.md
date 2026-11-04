@@ -19,4 +19,4 @@ Work-related documentation outside of specific projects.
 
 ## Documents
 
-- [[starfish]] - Retrospective notes
+- [[ob/work/starfish]] - Retrospective notes
