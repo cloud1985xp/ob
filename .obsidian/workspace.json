@@ -69,7 +69,8 @@
               "title": "202610"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -329,11 +330,13 @@
       }
     ]
   },
-  "active": "32243aa632c7fa0c",
+  "active": "11e1b3ba78b901c3",
   "lastOpenFiles": [
+    "personal/misers/MISERS_202610.md",
+    "projects/starfish.md",
+    "projects/rosetta.md",
     "projects/nextrek/prps/NK 202610.md",
     "projects/reurb/202610.md",
-    "personal/misers/MISERS_202610.md",
     "projects/hdwcp.md",
     "projects/nextrek/prps/nextrek-developer-workflow.md",
     "projects/nextrek/prps/V3 UI Kits.md",
@@ -355,8 +358,6 @@
     "projects/hdwcp/prps/00_UIKit.md",
     "personal/xaifu/prps/Lora.md",
     "personal/venux/prps/Venus.md",
-    "tech/tools/environment-setup.md",
-    "projects/hdwcp/2025-26.md",
-    "projects/nextrek/prps/Journal Draft Imports.md"
+    "tech/tools/environment-setup.md"
   ]
 }
