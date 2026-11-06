@@ -62,9 +62,20 @@
 參考「保固標籤批次設定」 (/dealers/warranty_labels)，提供類似的作法
 讓使用者可以用上傳 csv 的方式，大量更改多筆 manufacturers (upsert，不作刪除)
 使用者會在 csv 裡填寫(欄位順序固定)
-- 產品：model 的代LOM
+- 產品：category 的代碼，例如 LUM
+- 布料：model 的代碼，例如 K5
+- 色號：color code，例如 501
+- 產地：manufacturer 的 name，例如 HDCN
 
+七、訂單顯示產地
+在訂單瀏覽畫面，即 /sales/orders/:id 頁面
+在商品明細(即瀏覽頁籤) 列表中，增加顯示產地欄位，但僅限於 head mode
+- 顯示 manufacturer 的 name
+	- 如果該筆 order_detail 沒有 manufacturer，顯示為 default
+- 欄位排在「現貨/期貨」之後
 
+請依上述需求，規劃實作計畫
+若有建議或問題，請提出與我討論
 
 
 在產品的布料/葉片，當期貨顏色時，會區分
