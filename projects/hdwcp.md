@@ -57,7 +57,9 @@
 - 輸入 color_code: 文字欄位
 需檢查 model_id、manufacturer_id、color_code 的組合不可重複
 
-六、批次上傳 mo
+六、批次上傳 model color manufacturers
+
+
 
 
 
