@@ -57,8 +57,12 @@
 - 輸入 color_code: 文字欄位
 需檢查 model_id、manufacturer_id、color_code 的組合不可重複
 
-六、批次上傳 model color manufacturers
-
+六、批次設定 model color manufacturers
+在產品管理、葉片布料型號列表的頁面 (/products/models)，上方 subnavi 的最右方加一個「批次設定期貨顏色產品」的功能
+參考「保固標籤批次設定」 (/dealers/warranty_labels)，提供類似的作法
+讓使用者可以用上傳 csv 的方式，大量更改多筆 manufacturers (upsert，不作刪除)
+使用者會在 csv 裡填寫(欄位順序固定)
+- 產品：model 的代LOM
 
 
 
