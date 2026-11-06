@@ -20,7 +20,12 @@ order_detail 下訂的產品，要增加產地的欄位
 - model_id (fk)
 - color_strings: 字串欄位，用來填寫多組色碼，用「,」間格
 
-
+在訂單接受畫面(Acceptance)表單
+在列出訂單明細項目時，如果該筆商品(order_detail) 是期貨商品
+且任一葉片(model1 或 model2) 
+的顏色 (對應的 color1_code 或 color2_code) 
+有命中 對應的期貨多產地設定 裡的 color_strings 
+若 model 沒有設定 
 
 
 在產品的布料/葉片，當期貨顏色時，會區分
