@@ -46,8 +46,19 @@
 表單送出後，會將 manufacturer_id 資料送出，寫入 order_detail
 並會依該筆 order_detail 的 manufacturer_id 是否為必填來進行驗證
 
-五、設定 Model Color Manufacturers
-在葉片/布料瀏覽頁面
+五、管理 Model Color Manufacturers
+在葉片/布料瀏覽頁面，即 /products/models/:id
+增加一個 panel，列出與這個 model 關聯的 model_color_manufactures 資料，中文標題為「期貨顏色生產地」，並有一個編輯按鈕，連到管理畫面：/products/models/:id/manufacturers
+
+管理畫面列出表單讓使用者管理與該 model 相關的 model_color_manufacturers 資料
+
+可以新增、修改、刪除資料列，每列需要設定
+- 選擇 manufacturer: 下拉選單
+- 輸入 color_code: 文字欄位
+需檢查 model_id、manufacturer_id、color_code 的組合不可重複
+
+六、批次上傳 mo
+
 
 
 在產品的布料/葉片，當期貨顏色時，會區分
