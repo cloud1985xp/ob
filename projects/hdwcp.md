@@ -20,19 +20,25 @@
 - 建立 order_detail (下單)時，若是期貨商品，也會先維持空值，待接單時才處理/設定生產商
 
 三、定義布料/葉片(model) 的布料顏色生產商
+有部分的葉片布料(model)，會要有「期貨產地(生產商)設定」
+代表這個布料有多個生產商 model has many manufactures
 
-有部分的葉片布料(model)，會要設定「期貨產地設定」
-
-開一張資料表，關聯至 model table，包含欄位
+開一張資料表 (model_manufactures)，關聯至 model 及 manufacture，包含欄位
 - model_id (fk)
 - manufacturer_id: (fk)
 - color_code: 字串欄位
 
+四、調整訂單接受功能
 在訂單接受畫面(Acceptance)表單
-在列出訂單明細項目時，如果該筆商品(order_detail) 
+
+在列出訂單明細項目時，多出一欄「產地」的設定，在 `顏色碼` 欄後面、`說明` 欄前面
+
+如果該筆商品(order_detail) 
 - 是期貨商品，且
-- 任一葉片(model1 或 model2) 的顏色 (對應的 color1_code 或 color2_code) ，有命中對應的期貨多產地設定 裡的 color_strings 
-若 model 沒有設定 
+- 任一葉片(model1 或 model2) 的顏色 (對應的 color1_code 或 color2_code) ，有命中對應的期貨多產地設定裡的 color_code
+就會出現產地的選項(select)，可以選擇，預設為空值，且必填
+
+若該筆商口
 
 
 在產品的布料/葉片，當期貨顏色時，會區分
