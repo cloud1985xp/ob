@@ -5,7 +5,7 @@
 一、新增生產商資料
 新增一張表(manufacturers)來存生產商
 - id
-- name
+- name: 字串欄位，不可空白
 
 並建立兩筆資料，
 - HDCN
@@ -43,8 +43,11 @@
 
 註：就算符合的 manufacturer 資料只有一筆，一樣要顯示下拉選單選擇
 
+表單送出後，會將 manufacturer_id 資料送出，寫入 order_detail
+並會依該筆 order_detail 的 manufacturer_id 是否為必填來進行驗證
 
-五、
+五、設定 Model Color Manufacturers
+在葉片/布料瀏覽頁面
 
 
 在產品的布料/葉片，當期貨顏色時，會區分
