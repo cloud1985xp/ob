@@ -4,13 +4,13 @@
 
 order_detail 下訂的產品，要增加產地的欄位
 
-- 新增一張表來存產地的名稱
-- 在 order_detail 加欄位(foreign key) 來代表期貨的產地
+- 新增一張表來存生產地(manufacturers)
+- 在 order_detail 加欄位 manufacturer_id (foreign key) 來代表期貨的產地
 	- 允許空值
 		- 非期貨不需要設定產地
 		- 舊資料不需 migrate，維持空值
 			- 空值及代表預設產地，顯示為預設(中文) 或 default(英文) 就好
-- 建立(下單)時，若是期貨商品，也會先維持空值，待客服接單時才處理
+- 建立(下單)時，若是期貨商品，也會先維持空值，待接單時才處理/設定生產商
 
 定義布料/葉片(model) 的布料顏色(color)產地設定
 
