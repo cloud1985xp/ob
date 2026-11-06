@@ -50,7 +50,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       },
       {
         "id": "88b3ff698c15a9b6",
@@ -345,10 +345,10 @@
       }
     ]
   },
-  "active": "895abb057c433626",
+  "active": "367f9d0f09f9b9cc",
   "lastOpenFiles": [
-    "projects/AifeBot 202611.md",
     "projects/NK_202611.md",
+    "projects/AifeBot 202611.md",
     "projects/hdwcp/prps/00_Todos.md",
     "projects/reurb/202610.md",
     "personal/misers/MISERS_202610.md",
