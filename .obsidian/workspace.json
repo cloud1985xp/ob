@@ -63,7 +63,8 @@
               "title": "hdwcp"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       },
       {
         "id": "88b3ff698c15a9b6",
@@ -358,10 +359,10 @@
       }
     ]
   },
-  "active": "d71dbd4384239cf3",
+  "active": "895abb057c433626",
   "lastOpenFiles": [
-    "projects/AifeBot 202611.md",
     "projects/Idea.md",
+    "projects/AifeBot 202611.md",
     "projects/hdwcp.md",
     "projects/hdwcp/prps/00_Todos.md",
     "projects/nextrek/prps/NK 202610.md",
